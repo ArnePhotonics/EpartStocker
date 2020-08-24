@@ -1,0 +1,132 @@
+{
+  "storage":{
+    "1":{
+      "min":1,
+      "max":31
+    },
+    "2":{
+      "min":1,
+      "max":31
+    }
+  },
+  "categories":[
+    {
+      "name":"aktiv",
+      "children":[
+        {
+          "name":"ic",
+          "children":[
+            {
+              "name":"Analog",
+              "children":[
+                {
+                  "name":"OpAmp",
+                  "fields":[
+
+                  ],
+                  "children":[
+
+                  ]
+                },
+                {
+                  "name":"Others",
+                  "fields":[
+
+                  ],
+                  "children":[
+
+                  ]
+                }
+              ]
+            },
+            {
+              "name":"Digital",
+              "children":[
+
+              ]
+            },
+            {
+              "name":"Sonsitges",
+              "children":[
+
+              ]
+            }
+          ]
+        },
+        {
+          "name":"Diskret",
+          "children":[
+            {
+              "name":"Transistor",
+              "children":[
+
+              ]
+            },
+            {
+              "name":"diode",
+              "children":[
+
+              ]
+            },
+            {
+              "name":"optisch",
+              "children":[
+
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name":"passiv",
+      "children":[
+        {
+          "name":"Widerstand",
+          "fields":[
+            "resitance",
+            "package"
+          ],
+          "children":[
+
+          ]
+        },
+        {
+          "name":"Kondensator",
+          "fields":[
+            "capacitance",
+            "voltage",
+            "package"
+          ],
+          "children":[
+
+          ]
+        },
+        {
+          "name":"Induktur",
+          "fields":[
+            "Inductance",
+            "Min. Current"
+          ],
+          "children":[
+
+          ]
+        }
+      ]
+    }
+  ],
+  "parts":[
+    {
+      "id":18789,
+      "sku":"3050398",
+      "mpn":"INA138NA/250",
+      "manufacturer":"ti",
+      "category":"aktiv/ic/analog",
+      "value":"",
+      "description":"Stromsensor",
+      "datasheet_link":"http:\\example.com",
+      "lot":"3/31",
+      "qty":4
+    }
+  ]
+}
