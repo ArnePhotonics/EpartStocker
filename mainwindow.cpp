@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "database.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
+#include <QTableWidgetItem>
 #include <memory>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -14,4 +16,45 @@ void MainWindow::on_action_ffnen_triggered() {
   m_data_base = std::make_unique<PartDataBase>(
       QString("C:/Users/ak/entwicklung/qt/elektronik_lager/elektronik_lager/"
               "database.json"));
+  ui->treeWidget->clear();
+  auto cats = m_data_base->get_category_node("");
+  add_categories_recursive(nullptr, "", cats);
+  ui->treeWidget->expandAll();
+  ui->treeWidget->sortItems(0, Qt::DescendingOrder);
+}
+
+void MainWindow::add_categories_recursive(QTreeWidgetItem *root_widget,
+                                          QString root,
+                                          PartCategoryTreeNode categorie_node) {
+  for (auto &cat : categorie_node.get_children_names()) {
+    auto child_cats = m_data_base->get_category_node(root + "/" + cat);
+    QTreeWidgetItem *cat_widget = new QTreeWidgetItem(QStringList(cat));
+    cat_widget->setData(0, Qt::UserRole, QString(root + "/" + cat));
+    add_categories_recursive(cat_widget, root + "/" + cat, child_cats);
+    if (root_widget) {
+      root_widget->addChild(cat_widget);
+    } else {
+      ui->treeWidget->addTopLevelItem(cat_widget);
+    }
+  }
+}
+
+void MainWindow::show_parts(const QMap<int, Part> &parts) {
+  ui->treeTable->clear();
+  for (const auto &part : parts) {
+    auto item = new QTreeWidgetItem(
+        QStringList({QString::number(part.id), part.mpn, part.manufacturer,
+                     part.lot, part.description}));
+    ui->treeTable->addTopLevelItem(item);
+  }
+}
+
+void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current,
+                                                  QTreeWidgetItem *previous) {
+  if (current) {
+    auto parts = m_data_base->get_parts_by_categorie(
+        current->data(0, Qt::UserRole).toString());
+    show_parts(parts);
+  }
+  (void)previous;
 }

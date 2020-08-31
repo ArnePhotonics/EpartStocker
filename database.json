@@ -11,10 +11,10 @@
   },
   "categories":[
     {
-      "name":"aktiv",
+      "name":"Aktiv",
       "children":[
         {
-          "name":"ic",
+          "name":"IC",
           "children":[
             {
               "name":"Analog",
@@ -46,7 +46,7 @@
               ]
             },
             {
-              "name":"Sonsitges",
+              "name":"Others",
               "children":[
 
               ]
@@ -63,13 +63,13 @@
               ]
             },
             {
-              "name":"diode",
+              "name":"Diode",
               "children":[
 
               ]
             },
             {
-              "name":"optisch",
+              "name":"Optisch",
               "children":[
 
               ]
@@ -79,35 +79,36 @@
       ]
     },
     {
-      "name":"passiv",
+      "name":"Passiv",
       "children":[
         {
           "name":"Widerstand",
-          "fields":[
-            "resitance",
-            "package"
-          ],
+          "description_must_keywords":[
+			["\\dR\\d","\\dR","\\dkR"],
+			["\\d%"],
+			["0402","0603","0805","1206"]
+		 ],
           "children":[
 
           ]
         },
         {
           "name":"Kondensator",
-          "fields":[
-            "capacitance",
-            "voltage",
-            "package"
-          ],
+          "description_must_keywords":[
+			["\\dpF","\\dnF","\\duF"],
+			["\\dV"],
+			["X7R","X5S","C0G"],
+			["0402","0603","0805","1206"]
+		 ],
           "children":[
 
           ]
         },
         {
           "name":"Induktur",
-          "fields":[
-            "Inductance",
-            "Min. Current"
-          ],
+          "description_must_keywords":[
+			["\\duH"],["\\dmA","\\dA"]
+		 ],
           "children":[
 
           ]
@@ -119,10 +120,10 @@
     {
       "id":18789,
       "sku":"3050398",
+	  "supplier":"farnell",
       "mpn":"INA138NA/250",
       "manufacturer":"ti",
       "category":"aktiv/ic/analog",
-      "value":"",
       "description":"Stromsensor",
       "datasheet_link":"http:\\example.com",
       "lot":"3/31",
