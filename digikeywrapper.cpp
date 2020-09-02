@@ -4,17 +4,18 @@
 #include <QtGui>
 #include <QtNetworkAuth>
 
-const QString digikey_part_url("https://sandbox-api.digikey.com/Search/v3/Products/");
+const QString digikey_part_url("/Search/v3/Products/");
 
-DigikeyWrapper::DigikeyWrapper(QObject *parent)
-    : QObject(parent) {
+DigikeyWrapper::DigikeyWrapper(const Settings &settings, QObject *parent)
+    : QObject(parent)
+    , m_settings(settings) {
     auto replyHandler = new QOAuthHttpServerReplyHandler(1337, this);
     oauth2.setReplyHandler(replyHandler);
-    oauth2.setAuthorizationUrl(QUrl("https://sandbox-api.digikey.com/v1/oauth2/authorize"));
-    oauth2.setAccessTokenUrl(QUrl("https://sandbox-api.digikey.com/v1/oauth2/token"));
+    oauth2.setAuthorizationUrl(QUrl(m_settings.get_digikey_url_string() + "/v1/oauth2/authorize"));
+    oauth2.setAccessTokenUrl(QUrl(m_settings.get_digikey_url_string() + "/v1/oauth2/token"));
     oauth2.setScope("identity read");
-    oauth2.setClientIdentifier("xx");
-    oauth2.setClientIdentifierSharedKey("xx");
+    oauth2.setClientIdentifier(m_settings.get_digikey_clientID());
+    oauth2.setClientIdentifierSharedKey(m_settings.get_digikey_secret());
 
     network_manager = new QNetworkAccessManager(this);
     connect(&oauth2, &QOAuth2AuthorizationCodeFlow::statusChanged, [=](QAbstractOAuth::Status status) {
@@ -26,11 +27,6 @@ DigikeyWrapper::DigikeyWrapper(QObject *parent)
             parameters->insert("duration", "permanent");
     });
     connect(&oauth2, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser, &QDesktopServices::openUrl);
-}
-
-DigikeyWrapper::DigikeyWrapper(const QString &clientIdentifier, QObject *parent)
-    : DigikeyWrapper(parent) {
-    oauth2.setClientIdentifier(clientIdentifier);
 }
 
 bool DigikeyWrapper::isPermanent() const {
@@ -46,10 +42,10 @@ void DigikeyWrapper::grant() {
 }
 
 void DigikeyWrapper::subscribeToLiveUpdates() {
-    QNetworkRequest request(QUrl(digikey_part_url + "296-19884-1-ND"));
+    QNetworkRequest request(QUrl(m_settings.get_digikey_url_string() + digikey_part_url + "296-19884-1-ND"));
     request.setRawHeader("Authorization", "Bearer " + oauth2.token().toUtf8()); //convert authToken to QByteArray when we set header;
     request.setRawHeader("Content-Type", "application/json; charset=UTF-8");
-    request.setRawHeader("X-DIGIKEY-Client-Id", "xx");
+    request.setRawHeader("X-DIGIKEY-Client-Id", m_settings.get_digikey_clientID().toUtf8());
 
     QNetworkReply *reply = network_manager->get(request);
     connect(reply, &QNetworkReply::finished, [=]() {

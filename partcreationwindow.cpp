@@ -1,14 +1,14 @@
 #include "partcreationwindow.h"
 #include "barcodescaninputwindow.h"
-#include "octopartinterface.h"
 #include "ui_partcreationwindow.h"
 #include <QtNetworkAuth>
 
-PartCreationWindow::PartCreationWindow(QWidget *parent)
+PartCreationWindow::PartCreationWindow(const Settings &settings, QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::PartCreationWindow) {
+    , ui(new Ui::PartCreationWindow)
+    , m_digikey_wrapper(settings) {
     ui->setupUi(this);
-    connect(&digikeyWrapper, &DigikeyWrapper::authenticated, this, &PartCreationWindow::update_digikey);
+    connect(&m_digikey_wrapper, &DigikeyWrapper::authenticated, this, &PartCreationWindow::update_digikey);
 }
 
 PartCreationWindow::~PartCreationWindow() {
@@ -35,9 +35,9 @@ void PartCreationWindow::on_pushButton_clicked() {
 }
 
 void PartCreationWindow::on_pushButton_2_clicked() {
-    digikeyWrapper.grant();
+    m_digikey_wrapper.grant();
 }
 
 void PartCreationWindow::update_digikey() {
-    digikeyWrapper.subscribeToLiveUpdates();
+    m_digikey_wrapper.subscribeToLiveUpdates();
 }

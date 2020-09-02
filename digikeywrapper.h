@@ -1,6 +1,7 @@
 #ifndef DIGIKEYWRAPPER_H
 #define DIGIKEYWRAPPER_H
 
+#include "settingswindow.h"
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QObject>
 #include <QtCore>
@@ -9,8 +10,7 @@
 class DigikeyWrapper : public QObject {
     Q_OBJECT
     public:
-    DigikeyWrapper(QObject *parent = nullptr);
-    DigikeyWrapper(const QString &clientIdentifier, QObject *parent = nullptr);
+    DigikeyWrapper(const Settings &settings, QObject *parent = nullptr);
 
     QNetworkReply *requestHotThreads();
 
@@ -28,6 +28,7 @@ class DigikeyWrapper : public QObject {
     private:
     QOAuth2AuthorizationCodeFlow oauth2;
     QNetworkAccessManager *network_manager;
+    const Settings &m_settings;
     bool permanent = false;
 };
 

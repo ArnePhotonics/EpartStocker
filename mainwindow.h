@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "database.h"
+#include "settingswindow.h"
 #include <QMainWindow>
 #include <QStringList>
 #include <QTreeWidgetItem>
@@ -9,30 +10,31 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
-  Q_OBJECT
+    Q_OBJECT
 
-public:
-  MainWindow(QWidget *parent = nullptr);
-  ~MainWindow();
+    public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
 
-private slots:
-  void on_action_ffnen_triggered();
+    private slots:
+    void on_action_ffnen_triggered();
 
-  void on_treeWidget_currentItemChanged(QTreeWidgetItem *current,
-                                        QTreeWidgetItem *previous);
+    void on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
-  void on_actionneu_triggered();
+    void on_actionneu_triggered();
 
-private:
-  Ui::MainWindow *ui;
-  std::unique_ptr<PartDataBase> m_data_base;
-  void add_categories_recursive(QTreeWidgetItem *root_widget, QString root,
-                                PartCategoryTreeNode categories);
-  void show_parts(const QMap<int, Part> &parts);
+    void on_actionEinstellungen_triggered();
+
+    private:
+    Ui::MainWindow *ui;
+    std::unique_ptr<PartDataBase> m_data_base;
+    Settings m_settings;
+    void add_categories_recursive(QTreeWidgetItem *root_widget, QString root, PartCategoryTreeNode categories);
+    void show_parts(const QMap<int, Part> &parts);
 };
 #endif // MAINWINDOW_H

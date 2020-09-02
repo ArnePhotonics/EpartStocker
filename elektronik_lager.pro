@@ -19,28 +19,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     barcodescaninputwindow.cpp \
     database.cpp \
+    farnellwrapper.cpp \
     main.cpp \
     mainwindow.cpp \
     partcreationwindow.cpp \
-    digikeywrapper.cpp
+    digikeywrapper.cpp \
+    settingswindow.cpp
 
 
 HEADERS += \
     barcodescaninputwindow.h \
     database.h \
+    farnellwrapper.h \
     mainwindow.h \
     partcreationwindow.h \
-    digikeywrapper.h
+    digikeywrapper.h \
+    settingswindow.h
 
 FORMS += \
     barcodescaninputwindow.ui \
     mainwindow.ui \
-    partcreationwindow.ui
+    partcreationwindow.ui \
+    settingswindow.ui
 
 TRANSLATIONS += \
     elektronik_lager_de_DE.ts
 
-LIBS += -LC:\Qt\Tools\OpenSSL\Win_x64\bin -llibcrypto-1_1-x64 -llibssl-1_1-x64
+LIBS += -LT:\qt\electronic_parts_storage_helper -llibcrypto-1_1-x64 -llibssl-1_1-x64
+#-LC:\Qt\Tools\OpenSSL\Win_x64\bin
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

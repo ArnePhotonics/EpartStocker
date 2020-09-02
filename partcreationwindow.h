@@ -2,7 +2,6 @@
 #define PARTCREATIONWINDOW_H
 
 #include "digikeywrapper.h"
-#include "octopartinterface.h"
 #include <QDialog>
 
 namespace Ui {
@@ -13,7 +12,7 @@ class PartCreationWindow : public QDialog {
     Q_OBJECT
 
     public:
-    explicit PartCreationWindow(QWidget *parent = nullptr);
+    explicit PartCreationWindow(const Settings &settings, QWidget *parent = nullptr);
     ~PartCreationWindow();
 
     private slots:
@@ -24,7 +23,7 @@ class PartCreationWindow : public QDialog {
 
     private:
     Ui::PartCreationWindow *ui;
-    DigikeyWrapper digikeyWrapper;
+    DigikeyWrapper m_digikey_wrapper;
 };
 
 #endif // PARTCREATIONWINDOW_H
