@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "database.h"
+#include "partcreationwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QTableWidgetItem>
@@ -57,4 +58,9 @@ void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current,
     show_parts(parts);
   }
   (void)previous;
+}
+
+void MainWindow::on_actionneu_triggered() {
+  PartCreationWindow part_creation_window;
+  part_creation_window.exec();
 }

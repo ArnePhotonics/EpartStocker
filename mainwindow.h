@@ -26,6 +26,8 @@ private slots:
   void on_treeWidget_currentItemChanged(QTreeWidgetItem *current,
                                         QTreeWidgetItem *previous);
 
+  void on_actionneu_triggered();
+
 private:
   Ui::MainWindow *ui;
   std::unique_ptr<PartDataBase> m_data_base;

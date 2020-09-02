@@ -1,4 +1,5 @@
 QT       += core gui
+QT          += network networkauth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,20 +17,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    barcodescaninputwindow.cpp \
     database.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    partcreationwindow.cpp \
+    digikeywrapper.cpp
+
 
 HEADERS += \
+    barcodescaninputwindow.h \
     database.h \
-    mainwindow.h
+    mainwindow.h \
+    partcreationwindow.h \
+    digikeywrapper.h
 
 FORMS += \
-    mainwindow.ui
+    barcodescaninputwindow.ui \
+    mainwindow.ui \
+    partcreationwindow.ui
 
 TRANSLATIONS += \
     elektronik_lager_de_DE.ts
 
+LIBS += -LC:\Qt\Tools\OpenSSL\Win_x64\bin -llibcrypto-1_1-x64 -llibssl-1_1-x64
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

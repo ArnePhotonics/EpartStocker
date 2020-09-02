@@ -10,7 +10,7 @@ AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: Never
+AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortLambdasOnASingleLine: All
@@ -25,7 +25,7 @@ BinPackParameters: true
 BraceWrapping:   
   AfterCaseLabel:  false
   AfterClass:      false
-  AfterControlStatement: Always
+  AfterControlStatement: true
   AfterEnum:       false
   AfterFunction:   false
   AfterNamespace:  false

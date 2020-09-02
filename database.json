@@ -126,6 +126,7 @@
       "category":"aktiv/ic/analog",
       "description":"Stromsensor",
       "datasheet_link":"http:\\example.com",
+	  "image":"",
       "lot":"3/31",
       "qty":4
     }
