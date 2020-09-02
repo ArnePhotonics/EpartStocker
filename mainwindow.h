@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "database.h"
+#include "digikeywrapper.h"
 #include "settingswindow.h"
 #include <QMainWindow>
 #include <QStringList>
@@ -36,5 +37,6 @@ class MainWindow : public QMainWindow {
     Settings m_settings;
     void add_categories_recursive(QTreeWidgetItem *root_widget, QString root, PartCategoryTreeNode categories);
     void show_parts(const QMap<int, Part> &parts);
+    DigikeyWrapper m_digikey_wrapper;
 };
 #endif // MAINWINDOW_H

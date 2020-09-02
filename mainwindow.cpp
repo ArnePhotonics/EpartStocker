@@ -9,7 +9,8 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , m_settings(this) {
+    , m_settings(this)
+    , m_digikey_wrapper(m_settings, this) {
     ui->setupUi(this);
 }
 
@@ -59,7 +60,7 @@ void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTre
 }
 
 void MainWindow::on_actionneu_triggered() {
-    PartCreationWindow part_creation_window(m_settings);
+    PartCreationWindow part_creation_window(m_settings, m_digikey_wrapper);
     part_creation_window.exec();
 }
 

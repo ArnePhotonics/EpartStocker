@@ -16,6 +16,7 @@ class Settings {
     void set_digikey_secret(QString val) {
         m_settings.setValue("digikey_secret", val);
     }
+
     QString get_digikey_secret() const {
         return m_settings.value("digikey_secret", "").toString();
     }
@@ -49,6 +50,10 @@ class Settings {
     }
     QString get_farnell_apikey() const {
         return m_settings.value("farnell_apikey", "").toString();
+    }
+
+    QString get_farnell_store() const {
+        return "de.farnell.com";
     }
 
     void set_database_path(QString val) {

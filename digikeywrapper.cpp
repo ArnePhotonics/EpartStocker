@@ -1,5 +1,5 @@
 #include "digikeywrapper.h"
-
+#include "barcodescaninputwindow.h"
 #include <QtCore>
 #include <QtGui>
 #include <QtNetworkAuth>
@@ -27,6 +27,12 @@ DigikeyWrapper::DigikeyWrapper(const Settings &settings, QObject *parent)
             parameters->insert("duration", "permanent");
     });
     connect(&oauth2, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser, &QDesktopServices::openUrl);
+
+    connect(this, &DigikeyWrapper::authenticated, this, &DigikeyWrapper::just_authenticated);
+}
+
+DigikeyWrapper::~DigikeyWrapper() {
+    delete network_manager;
 }
 
 bool DigikeyWrapper::isPermanent() const {
@@ -41,8 +47,20 @@ void DigikeyWrapper::grant() {
     oauth2.grant();
 }
 
-void DigikeyWrapper::subscribeToLiveUpdates() {
-    QNetworkRequest request(QUrl(m_settings.get_digikey_url_string() + digikey_part_url + "296-19884-1-ND"));
+void DigikeyWrapper::just_authenticated() {
+    is_authenticated = true;
+    query(m_sku_to_query_after_auth);
+}
+
+void DigikeyWrapper::query(QString sku) {
+    // "296-19884-1-ND"
+    m_sku_to_query_after_auth = "";
+    if (!is_authenticated) {
+        m_sku_to_query_after_auth = sku;
+        grant();
+        return;
+    }
+    QNetworkRequest request(QUrl(m_settings.get_digikey_url_string() + digikey_part_url + sku));
     request.setRawHeader("Authorization", "Bearer " + oauth2.token().toUtf8()); //convert authToken to QByteArray when we set header;
     request.setRawHeader("Content-Type", "application/json; charset=UTF-8");
     request.setRawHeader("X-DIGIKEY-Client-Id", m_settings.get_digikey_clientID().toUtf8());
@@ -111,8 +129,9 @@ void DigikeyWrapper::subscribeToLiveUpdates() {
             taxo_array = taxo_obj["Children"].toArray();
         }
         data["category"] = path.join("/");
+        data["supplier"] = Supplier(Supplier::Digikey).toStr();
         qDebug() << data;
-        emit got_digikey_data(data);
+        emit got_data(data, QStringList());
 #if 0
         QFile f("digikey.json");
         f.open(QIODevice::WriteOnly | QIODevice::Text);
