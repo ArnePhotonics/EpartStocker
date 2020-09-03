@@ -1,6 +1,7 @@
 #ifndef PARTCREATIONWINDOW_H
 #define PARTCREATIONWINDOW_H
 
+#include "database.h"
 #include "digikeywrapper.h"
 #include "farnellwrapper.h"
 #include <QDialog>
@@ -14,7 +15,7 @@ class PartCreationWindow : public QDialog {
     Q_OBJECT
 
     public:
-    explicit PartCreationWindow(const Settings &settings, DigikeyWrapper &digikey_wrapper, QWidget *parent = nullptr);
+    explicit PartCreationWindow(const Settings &settings, DigikeyWrapper &digikey_wrapper, PartDataBase &part_data_base, QWidget *parent = nullptr);
     ~PartCreationWindow();
 
     private slots:
@@ -26,12 +27,15 @@ class PartCreationWindow : public QDialog {
 
     void image_download_finished(QNetworkReply *reply);
 
+    void on_buttonBox_accepted();
+
     private:
     Ui::PartCreationWindow *ui;
 
     FarnellWrapper m_farnell_wrapper;
     DigikeyWrapper &m_digikey_wrapper;
     QNetworkAccessManager *m_network_access_manager;
+    PartDataBase &m_part_data_base;
 };
 
 #endif // PARTCREATIONWINDOW_H

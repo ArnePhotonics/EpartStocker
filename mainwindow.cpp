@@ -19,9 +19,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_action_ffnen_triggered() {
-    m_data_base =
-        std::make_unique<PartDataBase>(QString("C:/Users/ak/entwicklung/qt/elektronik_lager/elektronik_lager/"
-                                               "database.json"));
+    m_data_base = std::make_unique<PartDataBase>(m_settings.get_database_path());
     ui->treeWidget->clear();
     auto cats = m_data_base->get_category_node("");
     add_categories_recursive(nullptr, "", cats);
@@ -46,7 +44,7 @@ void MainWindow::add_categories_recursive(QTreeWidgetItem *root_widget, QString 
 void MainWindow::show_parts(const QMap<int, Part> &parts) {
     ui->treeTable->clear();
     for (const auto &part : parts) {
-        auto item = new QTreeWidgetItem(QStringList({QString::number(part.id), part.mpn, part.manufacturer, part.lot, part.description}));
+        auto item = new QTreeWidgetItem(QStringList({QString::number(part.id), part.mpn, part.manufacturer, part.location, part.description}));
         ui->treeTable->addTopLevelItem(item);
     }
 }
@@ -60,7 +58,7 @@ void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTre
 }
 
 void MainWindow::on_actionneu_triggered() {
-    PartCreationWindow part_creation_window(m_settings, m_digikey_wrapper);
+    PartCreationWindow part_creation_window(m_settings, m_digikey_wrapper, *m_data_base.get());
     part_creation_window.exec();
 }
 

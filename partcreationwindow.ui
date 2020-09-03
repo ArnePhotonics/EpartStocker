@@ -66,14 +66,14 @@
      <item row="13" column="0">
       <widget class="QLabel" name="lotLabel">
        <property name="text">
-        <string>Lot</string>
+        <string>Location</string>
        </property>
       </widget>
      </item>
      <item row="13" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QLineEdit" name="lotLineEdit"/>
+        <widget class="QLineEdit" name="locationLineEdit"/>
        </item>
       </layout>
      </item>

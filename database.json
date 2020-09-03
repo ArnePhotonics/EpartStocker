@@ -1,5 +1,5 @@
 {
-  "storage":{
+  "storage_locations":{
     "1":{
       "min":1,
       "max":31
@@ -83,7 +83,7 @@
       "children":[
         {
           "name":"Widerstand",
-          "description_must_keywords":[
+          "description_validator":[
 			["\\dR\\d","\\dR","\\dkR"],
 			["\\d%"],
 			["0402","0603","0805","1206"]
@@ -94,7 +94,7 @@
         },
         {
           "name":"Kondensator",
-          "description_must_keywords":[
+          "description_validator":[
 			["\\dpF","\\dnF","\\duF"],
 			["\\dV"],
 			["X7R","X5S","C0G"],
@@ -106,7 +106,7 @@
         },
         {
           "name":"Induktur",
-          "description_must_keywords":[
+          "description_validator":[
 			["\\duH"],["\\dmA","\\dA"]
 		 ],
           "children":[
@@ -127,7 +127,7 @@
       "description":"Stromsensor",
       "datasheet_link":"http:\\example.com",
 	  "image":"",
-      "lot":"3/31",
+      "location":"3/31",
       "qty":4
     }
   ]

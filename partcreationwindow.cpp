@@ -1,13 +1,16 @@
 #include "partcreationwindow.h"
 #include "barcodescaninputwindow.h"
 #include "ui_partcreationwindow.h"
+#include <QPixmap>
+#include <QtGlobal>
 #include <QtNetworkAuth>
 
-PartCreationWindow::PartCreationWindow(const Settings &settings, DigikeyWrapper &digikey_wrapper, QWidget *parent)
+PartCreationWindow::PartCreationWindow(const Settings &settings, DigikeyWrapper &digikey_wrapper, PartDataBase &part_data_base, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::PartCreationWindow)
     , m_farnell_wrapper(settings, parent)
-    , m_digikey_wrapper(digikey_wrapper) {
+    , m_digikey_wrapper(digikey_wrapper)
+    , m_part_data_base(part_data_base) {
     ui->setupUi(this);
     m_network_access_manager = new QNetworkAccessManager(this);
     connect(m_network_access_manager, &QNetworkAccessManager::finished, this, &PartCreationWindow::image_download_finished);
@@ -79,4 +82,31 @@ void PartCreationWindow::lookup_received(QMap<QString, QString> data, QStringLis
         QNetworkRequest request(url);
         m_network_access_manager->get(request);
     }
+}
+
+void PartCreationWindow::on_buttonBox_accepted() {
+    Part new_part;
+    new_part.id = -1;
+    new_part.datasheet_link = ui->datasheetLinkLineEdit->text();
+    new_part.sku = ui->sKULineEdit->text();
+    new_part.supplier = ui->supplierLineEdit->text();
+    new_part.mpn = ui->mPNLineEdit->text();
+    new_part.manufacturer = ui->manufacturerLineEdit->text();
+    // new_part.category = ui->datasheetLinkLineEdit->text();
+    new_part.description = ui->descriptionLineEdit->text();
+    new_part.location = ui->locationLineEdit->text();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+    new_part.image = ui->imageLabel->pixmap(Qt::ReturnByValueConstant::ReturnByValue);
+#else
+    const QPixmap *pixmap = ui->imageLabel->pixmap();
+    if (pixmap) {
+        new_part.image = QPixmap(*pixmap);
+    }
+#endif
+
+    new_part.qty = ui->qtySpinBox->value();
+    if (ui->qtyManyCheckbox->isChecked()) {
+        new_part.qty = -1000;
+    }
+    m_part_data_base.insert_new_part(new_part);
 }
