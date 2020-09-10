@@ -7,6 +7,37 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+
+static QTreeWidgetItem *tree_widget_item_by_categorie_path_recursive(QTreeWidgetItem *root_widget_item, QString categorie_path) {
+    for (int i = 0; i < root_widget_item->childCount(); i++) {
+        auto child = root_widget_item->child(i);
+        auto child_cat = child->data(0, Qt::UserRole).toString();
+        if (child_cat == categorie_path) {
+            return child;
+        }
+        auto result = tree_widget_item_by_categorie_path_recursive(root_widget_item->child(i), categorie_path);
+        if (result) {
+            return result;
+        }
+    }
+    return nullptr;
+}
+
+QTreeWidgetItem *tree_widget_item_by_categorie_path(QTreeWidget *tree_widget, QString categorie_path) {
+    for (int i = 0; i < tree_widget->topLevelItemCount(); i++) {
+        auto child = tree_widget->topLevelItem(i);
+        auto child_cat = child->data(0, Qt::UserRole).toString();
+        if (child_cat == categorie_path) {
+            return child;
+        }
+        auto result = tree_widget_item_by_categorie_path_recursive(child, categorie_path);
+        if (result) {
+            return result;
+        }
+    }
+    return nullptr;
+}
+
 PartDataBase::PartDataBase(QString file_name)
     : m_file_name(file_name)
     , m_category_nodes("", QList<QStringList>()) {
@@ -33,11 +64,13 @@ PartDataBase::PartDataBase(QString file_name)
         part.mpn = part_obj["mpn"].toString();
         part.manufacturer = part_obj["manufacturer"].toString();
         part.category = part_obj["category"].toString();
+        part.ERP_number = part_obj["erp"].toString();
         part.description = part_obj["description"].toString();
         part.datasheet_link = part_obj["datasheet_link"].toString();
         part.location = part_obj["location"].toString();
         part.qty = part_obj["qty"].toInt();
-        part.image.loadFromData(QByteArray::fromBase64(part_obj["image"].toString().toLatin1()));
+        part.url = part_obj["url"].toString();
+        part.image.loadFromData(QByteArray::fromBase64(part_obj["image"].toString().toLatin1()), "JPG");
         insert_part_with_valid_id(part);
     }
 }
@@ -50,12 +83,32 @@ int PartDataBase::insert_new_part(Part new_part) {
     return new_part.id;
 }
 
+int PartDataBase::update_part(Part new_part) {
+    update_part_with_valid_id(new_part);
+    save_to_file();
+    db_unlock();
+    return new_part.id;
+}
+
+void PartDataBase::update_part_with_valid_id(const Part &part) {
+    if (!m_parts.contains(part.id)) {
+        throw DataBaseException("Updating parts database: part which is to be updated does not exist");
+    }
+    auto old_part = get_part(part.id);
+    auto &old_category_node = old_part.category.toLower() == "" ? m_category_nodes : get_category_node_ref(old_part.category.toLower());
+    old_category_node.remove_part_id(part.id);
+
+    m_parts[part.id] = part;
+    auto &category_node = part.category.toLower() == "" ? m_category_nodes : get_category_node_ref(part.category.toLower());
+    category_node.append_part_id(part.id);
+}
+
 void PartDataBase::insert_part_with_valid_id(const Part &new_part) {
     if (m_parts.contains(new_part.id)) {
         throw DataBaseException("Loading parts database: contains multiple ids.");
     }
     auto &category_node = new_part.category.toLower() == "" ? m_category_nodes : get_category_node_ref(new_part.category.toLower());
-    category_node.m_part_ids.append(new_part.id);
+    category_node.append_part_id(new_part.id);
     m_parts.insert(new_part.id, new_part);
 }
 
@@ -73,12 +126,14 @@ void PartDataBase::save_to_file() {
         part_obj["category"] = part.category;
         part_obj["description"] = part.description;
         part_obj["datasheet_link"] = part.datasheet_link;
+        part_obj["erp"] = part.ERP_number;
         part_obj["location"] = part.location;
         part_obj["qty"] = part.qty;
+        part_obj["url"] = part.url;
 
         QBuffer buffer;
         buffer.open(QIODevice::WriteOnly);
-        part.image.save(&buffer);
+        part.image.save(&buffer, "JPG");
         auto const encoded = buffer.data().toBase64();
         part_obj["image"] = QLatin1String(encoded);
         parts_root_array.append(part_obj);
@@ -157,7 +212,7 @@ QList<FlatCategory> PartDataBase::get_categories_by_json(QString categorie_root)
 QMap<int, Part> PartDataBase::get_parts_by_categorie(QString categorie_root) {
     auto cat_node = get_category_node(categorie_root);
     QVector<int> part_ids;
-    cat_node.get_partids_of_subcategories_recursive(part_ids);
+    cat_node.get_partids_of_subcategories(part_ids);
     QMap<int, Part> result;
     for (auto part_id : part_ids) {
         result.insert(part_id, m_parts.value(part_id));
@@ -181,6 +236,17 @@ PartCategoryTreeNode &PartDataBase::get_category_node_ref(QString categorie_path
     qDebug() << "queried:" << categorie_path;
     return m_category_nodes.get_category(categorie_path);
 #endif
+}
+
+Part PartDataBase::get_part(int part_id) {
+    return m_parts[part_id];
+}
+
+void PartDataBase::create_tree_view_items(QTreeWidget *treewidget) const {
+    treewidget->clear();
+    m_category_nodes.create_tree_view_items(treewidget);
+    treewidget->expandAll();
+    treewidget->sortItems(0, Qt::DescendingOrder);
 }
 
 void PartDataBase::db_reload() {}
@@ -223,13 +289,17 @@ void PartCategoryTreeNode::get_partids_of_subcategories_recursive(QVector<int> &
     }
 }
 
-QJsonObject PartCategoryTreeNode::to_json() const {
+void PartCategoryTreeNode::get_partids_of_subcategories(QVector<int> &part_ids) const {
+    get_partids_of_subcategories_recursive(part_ids);
+}
+
+QJsonObject PartCategoryTreeNode::to_json_recursive() const {
     QJsonObject root_obj;
     QJsonArray children_array;
     QJsonArray description_validators_array;
     root_obj["name"] = m_name;
     for (const auto &child : m_children) {
-        children_array.append(child.to_json());
+        children_array.append(child.to_json_recursive());
     }
     root_obj["children"] = children_array;
     for (const auto &validators : m_description_validator) {
@@ -241,4 +311,34 @@ QJsonObject PartCategoryTreeNode::to_json() const {
     }
     root_obj["description_validator"] = description_validators_array;
     return root_obj;
+}
+
+QJsonArray PartCategoryTreeNode::to_json() const {
+    QJsonArray children_array;
+    for (const auto &child : m_children) {
+        children_array.append(child.to_json_recursive());
+    }
+    return children_array;
+}
+
+static QTreeWidgetItem *create_treewiedget_item(QString path, QString name) {
+    QTreeWidgetItem *cat_widget = new QTreeWidgetItem(QStringList(name));
+    cat_widget->setData(0, Qt::UserRole, QString(path));
+    return cat_widget;
+}
+
+void PartCategoryTreeNode::create_tree_view_items(QTreeWidget *treeview) const {
+    for (auto child : m_children) {
+        QTreeWidgetItem *cat_widget = create_treewiedget_item(child.m_name, child.m_name);
+        child.create_tree_view_items_recursive(cat_widget, child.m_name);
+        treeview->addTopLevelItem(cat_widget);
+    }
+}
+
+void PartCategoryTreeNode::create_tree_view_items_recursive(QTreeWidgetItem *treeview_item, QString root_string) {
+    for (auto child : m_children) {
+        auto cat_widget = create_treewiedget_item(root_string + "/" + child.m_name, child.m_name);
+        child.create_tree_view_items_recursive(cat_widget, root_string + "/" + child.m_name);
+        treeview_item->addChild(cat_widget);
+    }
 }

@@ -85,6 +85,7 @@ void FarnellWrapper::query(QString sku) {
             data["datasheet_url"] = data_sheet_url[0].toObject()["url"].toString();
         }
         data["manufacturer"] = product_obj["brandName"].toString();
+        data["url"] = "https://" + m_settings.get_farnell_store() + "/" + sku;
         data["mpn"] = product_obj["translatedManufacturerPartNumber"].toString();
         data["supplier"] = Supplier(Supplier::Farnell).toStr();
         qDebug() << data;

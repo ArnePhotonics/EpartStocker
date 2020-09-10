@@ -1,0 +1,311 @@
+{
+   "MyPricing":[
+      
+   ],
+   "Obsolete":false,
+   "MediaLinks":[
+      {
+         "MediaType":"Datasheets                                                                                                                     ",
+         "Title":"NHG Series, Type A",
+         "SmallPhoto":"",
+         "Thumbnail":"",
+         "Url":"https://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1215.pdf"
+      },
+      {
+         "MediaType":"Product Photos                                                                                                                 ",
+         "Title":"NHG12-SERIES",
+         "SmallPhoto":"http://media.digikey.com/Photos/Panasonic%20Photos/NHG12-SERIES_sml.jpg",
+         "Thumbnail":"http://media.digikey.com/Photos/Panasonic%20Photos/NHG12-SERIES_tmb.jpg",
+         "Url":"http://media.digikey.com/Photos/Panasonic%20Photos/NHG12-SERIES.jpg"
+      },
+      {
+         "MediaType":"Product Training Modules                                                                                                       ",
+         "Title":"LED Lighting Components",
+         "SmallPhoto":"",
+         "Thumbnail":"",
+         "Url":"https://www.digikey.com/en/ptm/p/panasonic-electronic-components/led-lighting-components"
+      },
+      {
+         "MediaType":"Catalog Drawings                                                                                                               ",
+         "Title":"NHG Series_12.5 x 5.0",
+         "SmallPhoto":"",
+         "Thumbnail":"",
+         "Url":"http://media.digikey.com/pdf/Catalog%20Drawings/Capacitors/NHG%20Series_12.5%20x%205.0.jpg"
+      },
+      {
+         "MediaType":"Catalog Drawings                                                                                                               ",
+         "Title":"NHGseries_25.0 x 0.6 (2)",
+         "SmallPhoto":"",
+         "Thumbnail":"",
+         "Url":"http://media.digikey.com/pdf/Catalog%20Drawings/Capacitors/NHGseries_25.0%20x%200.6%20(2).jpg"
+      },
+      {
+         "MediaType":"Manufacturer Product Page",
+         "Title":"ECA-1VHG102 View All Specifications",
+         "SmallPhoto":"",
+         "Thumbnail":"",
+         "Url":"http://industrial.panasonic.com/www-cgi/jvcr13pz.cgi?E+PZ+3+ABA0026+ECA1VHG102+7+WW"
+      }
+   ],
+   "StandardPackage":200,
+   "LimitedTaxonomy":{
+      "Children":[
+         {
+            "Children":[
+               {
+                  "Children":[
+                     
+                  ],
+                  "ProductCount":1,
+                  "NewProductCount":0,
+                  "ParameterId":-8,
+                  "ValueId":"58",
+                  "Parameter":"Categories",
+                  "Value":"Aluminum Electrolytic Capacitors"
+               }
+            ],
+            "ProductCount":1,
+            "NewProductCount":0,
+            "ParameterId":-8,
+            "ValueId":"3",
+            "Parameter":"Categories",
+            "Value":"Capacitors"
+         }
+      ],
+      "ProductCount":1,
+      "NewProductCount":0,
+      "ParameterId":-8,
+      "ValueId":"0",
+      "Parameter":"Categories",
+      "Value":"Out of Bounds"
+   },
+   "Kits":[
+      
+   ],
+   "KitContents":[
+      
+   ],
+   "MatingProducts":[
+      
+   ],
+   "SearchLocaleUsed":{
+      "Site":"US",
+      "Language":"en",
+      "Currency":"USD",
+      "ShipToCountry":"US"
+   },
+   "AssociatedProducts":[
+      
+   ],
+   "ForUseWithProducts":[
+      
+   ],
+   "RohsSubs":[
+      
+   ],
+   "SuggestedSubs":[
+      
+   ],
+   "AdditionalValueFee":0,
+   "ReachEffectiveDate":"",
+   "StandardPricing":[
+      {
+         "BreakQuantity":1,
+         "UnitPrice":0.86,
+         "TotalPrice":0.86
+      },
+      {
+         "BreakQuantity":10,
+         "UnitPrice":0.65,
+         "TotalPrice":6.5
+      },
+      {
+         "BreakQuantity":100,
+         "UnitPrice":0.465,
+         "TotalPrice":46.5
+      },
+      {
+         "BreakQuantity":500,
+         "UnitPrice":0.36,
+         "TotalPrice":180
+      },
+      {
+         "BreakQuantity":1000,
+         "UnitPrice":0.31,
+         "TotalPrice":310
+      },
+      {
+         "BreakQuantity":2500,
+         "UnitPrice":0.29,
+         "TotalPrice":725
+      },
+      {
+         "BreakQuantity":5000,
+         "UnitPrice":0.275,
+         "TotalPrice":1375
+      }
+   ],
+   "RoHSStatus":"RoHS Compliant",
+   "LeadStatus":"Lead Free",
+   "Parameters":[
+      {
+         "ParameterId":7,
+         "ValueId":"3",
+         "Parameter":"Packaging",
+         "Value":"Bulk"
+      },
+      {
+         "ParameterId":1989,
+         "ValueId":"0",
+         "Parameter":"Part Status",
+         "Value":"Active"
+      },
+      {
+         "ParameterId":2049,
+         "ValueId":"u1000µF",
+         "Parameter":"Capacitance",
+         "Value":"1000µF"
+      },
+      {
+         "ParameterId":3,
+         "ValueId":"1900",
+         "Parameter":"Tolerance",
+         "Value":"±20%"
+      },
+      {
+         "ParameterId":2079,
+         "ValueId":"u35V",
+         "Parameter":"Voltage - Rated",
+         "Value":"35V"
+      },
+      {
+         "ParameterId":724,
+         "ValueId":"1",
+         "Parameter":"ESR (Equivalent Series Resistance)",
+         "Value":"-"
+      },
+      {
+         "ParameterId":725,
+         "ValueId":"140003",
+         "Parameter":"Lifetime @ Temp.",
+         "Value":"2000 Hrs @ 105°C"
+      },
+      {
+         "ParameterId":252,
+         "ValueId":"242904",
+         "Parameter":"Operating Temperature",
+         "Value":"-55°C ~ 105°C"
+      },
+      {
+         "ParameterId":52,
+         "ValueId":"388275",
+         "Parameter":"Polarization",
+         "Value":"Polar"
+      },
+      {
+         "ParameterId":707,
+         "ValueId":"1",
+         "Parameter":"Ratings",
+         "Value":"-"
+      },
+      {
+         "ParameterId":405,
+         "ValueId":"350483",
+         "Parameter":"Applications",
+         "Value":"General Purpose"
+      },
+      {
+         "ParameterId":2253,
+         "ValueId":"u810mA @ 120Hz",
+         "Parameter":"Ripple Current @ Low Frequency",
+         "Value":"810mA @ 120Hz"
+      },
+      {
+         "ParameterId":2260,
+         "ValueId":"u931.5mA @ 100kHz",
+         "Parameter":"Ripple Current @ High Frequency",
+         "Value":"931.5mA @ 100kHz"
+      },
+      {
+         "ParameterId":508,
+         "ValueId":"13741",
+         "Parameter":"Lead Spacing",
+         "Value":"0.197\" (5.00mm)"
+      },
+      {
+         "ParameterId":46,
+         "ValueId":"24783",
+         "Parameter":"Size / Dimension",
+         "Value":"0.492\" Dia (12.50mm)"
+      },
+      {
+         "ParameterId":1500,
+         "ValueId":"35710",
+         "Parameter":"Height - Seated (Max)",
+         "Value":"0.866\" (22.00mm)"
+      },
+      {
+         "ParameterId":884,
+         "ValueId":"1",
+         "Parameter":"Surface Mount Land Size",
+         "Value":"-"
+      },
+      {
+         "ParameterId":69,
+         "ValueId":"411897",
+         "Parameter":"Mounting Type",
+         "Value":"Through Hole"
+      },
+      {
+         "ParameterId":16,
+         "ValueId":"392320",
+         "Parameter":"Package / Case",
+         "Value":"Radial, Can"
+      }
+   ],
+   "ProductUrl":"https://www.digikey.com/product-detail/en/panasonic-electronic-components/ECA-1VHG102/P5555-ND/245154",
+   "PrimaryDatasheet":"https://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1215.pdf",
+   "PrimaryPhoto":"http://media.digikey.com/Photos/Panasonic%20Photos/NHG12-SERIES.jpg",
+   "PrimaryVideo":"",
+   "Series":{
+      "ParameterId":-5,
+      "ValueId":"189",
+      "Parameter":"Series",
+      "Value":"NHG"
+   },
+   "ManufacturerLeadWeeks":"14 weeks",
+   "ManufacturerPageUrl":"https://www.digikey.com/en/supplier-centers/p/panasonic",
+   "ProductStatus":"Active",
+   "AlternatePackaging":[
+      
+   ],
+   "DetailedDescription":"1000µF 35V Aluminum Electrolytic Capacitors Radial, Can  2000 Hrs @ 105°C",
+   "ReachStatus":null,
+   "ExportControlClassNumber":null,
+   "HTSUSCode":null,
+   "TariffDescription":"",
+   "MoistureSensitivityLevel":"",
+   "ManufacturerPartNumber":"ECA-1VHG102",
+   "MinimumOrderQuantity":0,
+   "NonStock":false,
+   "Packaging":{
+      "ParameterId":7,
+      "ValueId":"3",
+      "Parameter":"Packaging",
+      "Value":"Bulk"
+   },
+   "QuantityAvailable":15663,
+   "DigiKeyPartNumber":"P5555-ND",
+   "ProductDescription":"CAP ALUM 1000UF 20% 35V RADIAL",
+   "UnitPrice":0,
+   "Manufacturer":{
+      "ParameterId":-1,
+      "ValueId":"10",
+      "Parameter":"Manufacturer",
+      "Value":"Panasonic Electronic Components"
+   },
+   "ManufacturerPublicQuantity":0,
+   "QuantityOnOrder":4200,
+   "DKPlusRestriction":false,
+   "SupplierDirectShip":false
+}

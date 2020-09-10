@@ -31,11 +31,14 @@ class MainWindow : public QMainWindow {
 
     void on_actionEinstellungen_triggered();
 
+    void on_actionSpeichern_triggered();
+
+    void on_treeTable_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
     private:
     Ui::MainWindow *ui;
     std::unique_ptr<PartDataBase> m_data_base;
     Settings m_settings;
-    void add_categories_recursive(QTreeWidgetItem *root_widget, QString root, PartCategoryTreeNode categories);
     void show_parts(const QMap<int, Part> &parts);
     DigikeyWrapper m_digikey_wrapper;
 };

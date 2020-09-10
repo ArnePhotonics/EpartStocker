@@ -1,134 +1,221 @@
 {
-  "storage_locations":{
-    "1":{
-      "min":1,
-      "max":31
-    },
-    "2":{
-      "min":1,
-      "max":31
-    }
-  },
-  "categories":[
-    {
-      "name":"Aktiv",
-      "children":[
+    "categories": [
         {
-          "name":"IC",
-          "children":[
-            {
-              "name":"Analog",
-              "children":[
+            "children": [
                 {
-                  "name":"OpAmp",
-                  "fields":[
-
-                  ],
-                  "children":[
-
-                  ]
+                    "children": [
+                        {
+                            "children": [
+                            ],
+                            "description_validator": [
+                            ],
+                            "name": "diode"
+                        },
+                        {
+                            "children": [
+                            ],
+                            "description_validator": [
+                            ],
+                            "name": "optisch"
+                        },
+                        {
+                            "children": [
+                            ],
+                            "description_validator": [
+                            ],
+                            "name": "transistor"
+                        }
+                    ],
+                    "description_validator": [
+                    ],
+                    "name": "diskret"
                 },
                 {
-                  "name":"Others",
-                  "fields":[
-
-                  ],
-                  "children":[
-
-                  ]
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                    ],
+                                    "description_validator": [
+                                    ],
+                                    "name": "opamp"
+                                },
+                                {
+                                    "children": [
+                                    ],
+                                    "description_validator": [
+                                    ],
+                                    "name": "others"
+                                }
+                            ],
+                            "description_validator": [
+                            ],
+                            "name": "analog"
+                        },
+                        {
+                            "children": [
+                            ],
+                            "description_validator": [
+                            ],
+                            "name": "digital"
+                        },
+                        {
+                            "children": [
+                            ],
+                            "description_validator": [
+                            ],
+                            "name": "others"
+                        }
+                    ],
+                    "description_validator": [
+                    ],
+                    "name": "ic"
                 }
-              ]
-            },
-            {
-              "name":"Digital",
-              "children":[
-
-              ]
-            },
-            {
-              "name":"Others",
-              "children":[
-
-              ]
-            }
-          ]
+            ],
+            "description_validator": [
+            ],
+            "name": "aktiv"
         },
         {
-          "name":"Diskret",
-          "children":[
-            {
-              "name":"Transistor",
-              "children":[
-
-              ]
-            },
-            {
-              "name":"Diode",
-              "children":[
-
-              ]
-            },
-            {
-              "name":"Optisch",
-              "children":[
-
-              ]
-            }
-          ]
+            "children": [
+                {
+                    "children": [
+                    ],
+                    "description_validator": [
+                        [
+                            "\\duH"
+                        ],
+                        [
+                            "\\dmA",
+                            "\\dA"
+                        ]
+                    ],
+                    "name": "induktur"
+                },
+                {
+                    "children": [
+                    ],
+                    "description_validator": [
+                        [
+                            "\\dpF",
+                            "\\dnF",
+                            "\\duF"
+                        ],
+                        [
+                            "\\dV"
+                        ],
+                        [
+                            "X7R",
+                            "X5S",
+                            "C0G"
+                        ],
+                        [
+                            "0402",
+                            "0603",
+                            "0805",
+                            "1206"
+                        ]
+                    ],
+                    "name": "kondensator"
+                },
+                {
+                    "children": [
+                    ],
+                    "description_validator": [
+                        [
+                            "\\dR\\d",
+                            "\\dR",
+                            "\\dkR"
+                        ],
+                        [
+                            "\\d%"
+                        ],
+                        [
+                            "0402",
+                            "0603",
+                            "0805",
+                            "1206"
+                        ]
+                    ],
+                    "name": "widerstand"
+                }
+            ],
+            "description_validator": [
+            ],
+            "name": "passiv"
         }
-      ]
-    },
-    {
-      "name":"Passiv",
-      "children":[
+    ],
+    "parts": [
         {
-          "name":"Widerstand",
-          "description_validator":[
-			["\\dR\\d","\\dR","\\dkR"],
-			["\\d%"],
-			["0402","0603","0805","1206"]
-		 ],
-          "children":[
-
-          ]
+            "category": "aktiv/ic/analog",
+            "datasheet_link": "http:\\example.com",
+            "description": "Stromsensor",
+            "erp": "",
+            "id": 18789,
+            "image": "",
+            "location": "3/31",
+            "manufacturer": "ti",
+            "mpn": "INA138NA/250",
+            "qty": 4,
+            "sku": "3050398",
+            "supplier": "farnell",
+            "url": "\u0000"
         },
         {
-          "name":"Kondensator",
-          "description_validator":[
-			["\\dpF","\\dnF","\\duF"],
-			["\\dV"],
-			["X7R","X5S","C0G"],
-			["0402","0603","0805","1206"]
-		 ],
-          "children":[
-
-          ]
+            "category": "aktiv/ic/analog",
+            "datasheet_link": "http://www.farnell.com/datasheets/2893220.pdf",
+            "description": "ALLEGRO MICROSYSTEMS - ACS70331EESATR-005B3 - Stromsensor, 1 MHz, QFN-EP, 12 Pin(s), 3 V, 4.5 V",
+            "erp": "",
+            "id": 18791,
+            "image": "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",
+            "location": "",
+            "manufacturer": "ALLEGRO MICROSYSTEMS",
+            "mpn": "ACS70331EESATR-005B3",
+            "qty": 0,
+            "sku": "3324652",
+            "supplier": "farnell",
+            "url": "\u0000"
         },
         {
-          "name":"Induktur",
-          "description_validator":[
-			["\\duH"],["\\dmA","\\dA"]
-		 ],
-          "children":[
-
-          ]
+            "category": "aktiv/ic/digital",
+            "datasheet_link": "http://www.farnell.com/datasheets/2250923.pdf",
+            "description": "Crosspoint-Schalter, analog, 16x16-Array, seriell, 5V digital, 9V bis 25.2V analog, LCC-44",
+            "erp": "",
+            "id": 18792,
+            "image": "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",
+            "location": "",
+            "manufacturer": "ANALOG DEVICES",
+            "mpn": "AD75019JPZ test",
+            "qty": 0,
+            "sku": "1079327",
+            "supplier": "farnell",
+            "url": "\u0000"
+        },
+        {
+            "category": "aktiv/ic/analog/others",
+            "datasheet_link": "http://www.farnell.com/datasheets/2250923.pdf",
+            "description": "ANALOG DEVICES - AD75019JPZ - Crosspoint-Schalter, analog, 16x16-Array, seriell, 5V digital, 9V bis 25.2V analog, LCC-44",
+            "erp": "",
+            "id": 18793,
+            "image": "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",
+            "location": "",
+            "manufacturer": "ANALOG DEVICES",
+            "mpn": "AD75019JPZ",
+            "qty": 0,
+            "sku": "1079327",
+            "supplier": "farnell",
+            "url": "https://de.farnell.com/1079327"
         }
-      ]
+    ],
+    "storage_locations": {
+        "1": {
+            "max": 30,
+            "min": 1
+        },
+        "2": {
+            "max": 30,
+            "min": 1
+        }
     }
-  ],
-  "parts":[
-    {
-      "id":18789,
-      "sku":"3050398",
-	  "supplier":"farnell",
-      "mpn":"INA138NA/250",
-      "manufacturer":"ti",
-      "category":"aktiv/ic/analog",
-      "description":"Stromsensor",
-      "datasheet_link":"http:\\example.com",
-	  "image":"",
-      "location":"3/31",
-      "qty":4
-    }
-  ]
 }

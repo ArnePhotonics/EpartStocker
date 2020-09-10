@@ -81,6 +81,7 @@ void DigikeyWrapper::query(QString sku) {
         const auto rootObject = document.object();
         data["description"] = rootObject["ProductDescription"].toString();
         data["image_url"] = rootObject["PrimaryPhoto"].toString();
+        data["url"] = rootObject["ProductUrl"].toString();
         data["datasheet_url"] = rootObject["PrimaryDatasheet"].toString();
         data["manufacturer"] = rootObject["Manufacturer"].toObject()["Value"].toString();
         data["mpn"] = rootObject["ManufacturerPartNumber"].toString();
@@ -132,7 +133,7 @@ void DigikeyWrapper::query(QString sku) {
         data["supplier"] = Supplier(Supplier::Digikey).toStr();
         qDebug() << data;
         emit got_data(data, QStringList());
-#if 0
+#if 1
         QFile f("digikey.json");
         f.open(QIODevice::WriteOnly | QIODevice::Text);
         QTextStream out(&f);
