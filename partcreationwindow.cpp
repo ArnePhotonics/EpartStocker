@@ -2,6 +2,7 @@
 #include "barcodescaninputwindow.h"
 #include "ui_partcreationwindow.h"
 #include <QDesktopServices>
+#include <QMessageBox>
 #include <QPixmap>
 #include <QRegularExpression>
 #include <QUrl>
@@ -133,7 +134,12 @@ void PartDetailWindow::on_buttonBox_accepted() {
             part.image = QPixmap(*pixmap);
         }
 #endif
-        m_part_data_base.insert_new_part(part);
+        try {
+            m_part_data_base.insert_new_part(part);
+        } catch (DataBaseException &e) {
+            QMessageBox::warning(this, tr("Database error"),
+                                 tr("Error while inserting a part into database file: %1, program must be resarted.").arg(e.what()));
+        }
     } else {
         m_part_data_base.update_part(part);
     }

@@ -1,5 +1,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
+#include <QDateTime>
 #include <QJsonObject>
 #include <QLockFile>
 #include <QMap>
@@ -148,7 +149,7 @@ class PartDataBase {
     int update_part(Part new_part);
 
     private:
-    void db_reload();
+    void db_reload_part_ids();
     bool db_is_file_modified();
     void db_lock();
     void db_unlock();
@@ -157,16 +158,18 @@ class PartDataBase {
     void get_partids_of_subcategories_recursive(QList<int> &part_ids, PartCategoryTreeNode category_node);
     int get_new_id_and_lock_db();
     QString m_file_name;
-    QJsonObject m_json_data;
+    // QJsonObject m_json_data;
     QMap<int, Part> m_parts;
     PartCategoryTreeNode m_category_nodes;
-    void load_categories_recursive(PartCategoryTreeNode &categories_recursion, QString root, const QList<FlatCategory> &flat_categories);
+    void load_categories_recursive(PartCategoryTreeNode &categories_recursion, QString root, const QList<FlatCategory> &flat_categories,
+                                   const QJsonObject &json_object);
 
-    QList<FlatCategory> get_categories_by_json(QString categorie_root);
+    QList<FlatCategory> get_categories_by_json(QString categorie_root, const QJsonObject &json_object);
 
     QString m_filename;
     QLockFile m_lockfile;
     int m_next_id = 1000;
+    QDateTime m_file_date;
 };
 
 #endif // DATABASE_H

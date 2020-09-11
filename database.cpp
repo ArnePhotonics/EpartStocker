@@ -3,6 +3,7 @@
 #include <QByteArray>
 #include <QDebug>
 #include <QFile>
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -43,18 +44,23 @@ PartDataBase::PartDataBase(QString file_name)
     , m_category_nodes("", QStringList(), "", "", false)
     , m_lockfile(file_name + ".lock") {
     QFile loadFile(m_file_name);
-    loadFile.open(QIODevice::ReadOnly);
+    if (!loadFile.open(QIODevice::ReadOnly)) {
+        throw DataBaseException(QObject::tr("Cannot open database file %1").arg(file_name));
+    }
     QByteArray raw_data = loadFile.readAll();
     QJsonDocument loadDoc(QJsonDocument::fromJson(raw_data));
-    m_json_data = loadDoc.object();
-    const auto &part_array = m_json_data["parts"].toArray();
+    auto json_data = loadDoc.object();
+    if (json_data.isEmpty()) {
+        throw DataBaseException(QObject::tr("Cannot parse database file %1. you should check its syntax with an json validor.").arg(file_name));
+    }
+    const auto &part_array = json_data["parts"].toArray();
     m_parts.clear();
     m_category_nodes.clear();
 
-    auto cats = get_categories_by_json("");
-    load_categories_recursive(m_category_nodes, "", cats);
+    auto cats = get_categories_by_json("", json_data);
+    load_categories_recursive(m_category_nodes, "", cats, json_data);
 
-    m_next_id = m_json_data["next_part_id"].toInt();
+    m_next_id = json_data["next_part_id"].toInt();
     // qDebug() << "cat_count" << cats_;
     //  qDebug() << m_categories;
     for (const auto &part_json : part_array) {
@@ -82,6 +88,7 @@ PartDataBase::PartDataBase(QString file_name)
     if (m_parts.keys().back() + 1 > m_next_id) {
         m_next_id = m_parts.keys().back() + 1;
     }
+    db_is_file_modified();
 }
 
 int PartDataBase::insert_new_part(Part new_part) {
@@ -184,20 +191,21 @@ int PartDataBase::get_new_id_and_lock_db() {
     return m_next_id;
 }
 
-void PartDataBase::load_categories_recursive(PartCategoryTreeNode &categories_recursion, QString root, const QList<FlatCategory> &flat_categories) {
+void PartDataBase::load_categories_recursive(PartCategoryTreeNode &categories_recursion, QString root, const QList<FlatCategory> &flat_categories,
+                                             const QJsonObject &json_object) {
     for (auto cat : flat_categories) {
         cat.m_name = cat.m_name.toLower();
         qDebug() << root + "/" + cat.m_name;
         PartCategoryTreeNode category_node(cat.m_name, cat.m_description_validator, cat.m_valid_descriptor_example, cat.m_json_comment,
                                            cat.m_allowed_to_contain_parts);
-        auto child_cats = get_categories_by_json(root + "/" + cat.m_name);
-        load_categories_recursive(category_node, root + "/" + cat.m_name, child_cats);
+        auto child_cats = get_categories_by_json(root + "/" + cat.m_name, json_object);
+        load_categories_recursive(category_node, root + "/" + cat.m_name, child_cats, json_object);
         categories_recursion.insert_child(category_node);
     }
 }
 
-QList<FlatCategory> PartDataBase::get_categories_by_json(QString categorie_root) {
-    auto categories_array = m_json_data["categories"].toArray();
+QList<FlatCategory> PartDataBase::get_categories_by_json(QString categorie_root, const QJsonObject &json_object) {
+    auto categories_array = json_object["categories"].toArray();
     // qDebug() << categories_array;
 #if 1
     auto current_cat_array = categories_array;
@@ -205,9 +213,18 @@ QList<FlatCategory> PartDataBase::get_categories_by_json(QString categorie_root)
     auto root_cat_path = PartCategoryTreeNode::split_category_path(categorie_root);
     for (const auto &path_item : root_cat_path) {
         for (auto current_child : current_cat_array) {
+            if (current_child.toObject()["name"].toString().toLower() == "") {
+                qDebug() << "cat name empty";
+            }
             if (current_child.toObject()["name"].toString().toLower() == path_item.toLower()) {
                 found = true;
-                current_cat_array = current_child.toObject()["children"].toArray();
+                const auto &children_val = current_child.toObject()["children"];
+                if (children_val.isArray()) {
+                    current_cat_array = children_val.toArray();
+                } else {
+                    throw DataBaseException(QObject::tr("Error while loading category path %1. Seems the children field is not an array as it should be.")
+                                                .arg(root_cat_path.join("/")));
+                }
                 break;
             }
         }
@@ -215,6 +232,11 @@ QList<FlatCategory> PartDataBase::get_categories_by_json(QString categorie_root)
     QList<FlatCategory> result;
     if (found) {
         for (auto current_child : current_cat_array) {
+            if (current_child.isObject()) {
+            } else {
+                throw DataBaseException(QObject::tr("Error while loading category path %1. Seems the children field is not an array as it should be.")
+                                            .arg(root_cat_path.join("/")));
+            }
             FlatCategory flat_category;
             flat_category.m_name = current_child.toObject()["name"].toString();
             if (current_child.toObject()["parts_allowed"].isBool()) {
@@ -277,19 +299,47 @@ void PartDataBase::create_tree_view_items(QTreeWidget *treewidget) const {
     treewidget->sortItems(0, Qt::AscendingOrder);
 }
 
-void PartDataBase::db_reload() {}
-
-bool PartDataBase::db_is_file_modified() {
-    return false;
+void PartDataBase::db_reload_part_ids() {
+    QFile loadFile(m_file_name);
+    if (!loadFile.open(QIODevice::ReadOnly)) {
+        throw DataBaseException("Cannot reload database file to refresh next part id.");
+    }
+    QByteArray raw_data = loadFile.readAll();
+    QJsonDocument loadDoc(QJsonDocument::fromJson(raw_data));
+    QJsonObject json_data = loadDoc.object();
+    m_next_id = json_data["next_part_id"].toInt();
 }
 
-void PartDataBase::db_lock() {
-    if (db_is_file_modified()) {
-        db_reload();
+bool PartDataBase::db_is_file_modified() {
+    auto current_filedate = QFileInfo(m_file_name).lastModified();
+    if (current_filedate == m_file_date) {
+        return false;
+    } else {
+        m_file_date = current_filedate;
+        return true;
     }
 }
 
-void PartDataBase::db_unlock() {}
+void PartDataBase::db_lock() {
+    bool result = m_lockfile.tryLock(5 * 1000);
+    if (!result) {
+        qint64 pid;
+        QString hostname;
+        QString appname;
+        QString message;
+        if (m_lockfile.getLockInfo(&pid, &hostname, &appname)) {
+            message = QObject::tr("Used by host: %1, app: %2, pid: %3").arg(hostname).arg(appname).arg(pid);
+        }
+        throw DataBaseException(QObject::tr("Can't obtain database write permission. Locked by lockfile. %1").arg(message));
+    }
+    if (db_is_file_modified()) {
+        db_reload_part_ids();
+    }
+}
+
+void PartDataBase::db_unlock() {
+    m_lockfile.unlock();
+}
 
 PartCategoryTreeNode &PartCategoryTreeNode::get_category(QString categorie_path, const QString &additional_info) {
     auto cat_path = split_category_path(categorie_path);
