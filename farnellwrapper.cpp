@@ -89,7 +89,24 @@ void FarnellWrapper::query(QString sku) {
         data["mpn"] = product_obj["translatedManufacturerPartNumber"].toString();
         data["supplier"] = Supplier(Supplier::Farnell).toStr();
         qDebug() << data;
-        emit got_data(data, QStringList());
+
+        QMap<QString, QString> additional_parameters;
+        auto parameters = product_obj["attributes"].toArray();
+        for (const auto &param : parameters) {
+            //"attributeLabel":"Anschlussabstand",
+            //"attributeUnit":"mm",
+            //"attributeValue":"3.5"
+
+            auto param_obj = param.toObject();
+            auto param_name = param_obj["attributeLabel"].toString();
+            auto param_value = param_obj["attributeValue"].toString();
+            auto param_unit = param_obj["attributeUnit"].toString();
+            if ((param_value == "") || (param_value == "-")) {
+                continue;
+            }
+            additional_parameters[param_name] = param_value + param_unit;
+        }
+        emit got_data(data, additional_parameters);
 
 #endif
     });

@@ -31,9 +31,13 @@ class MainWindow : public QMainWindow {
 
     void on_actionEinstellungen_triggered();
 
-    void on_actionSpeichern_triggered();
-
     void on_treeTable_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+    void on_actioninfo_triggered();
+
+    void on_actionNew_part_triggered();
+
+    void on_filterLineEdit_textChanged(const QString &arg1);
 
     private:
     Ui::MainWindow *ui;
@@ -41,5 +45,7 @@ class MainWindow : public QMainWindow {
     Settings m_settings;
     void show_parts(const QMap<int, Part> &parts);
     DigikeyWrapper m_digikey_wrapper;
+    void open_database();
+    void filter_parts(QString filter);
 };
 #endif // MAINWINDOW_H

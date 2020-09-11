@@ -21,7 +21,7 @@ class PartDetailWindow : public QDialog {
     private slots:
     void on_scanbarcodeButton_clicked();
     void on_lookupButton_clicked();
-    void lookup_received(QMap<QString, QString> data, QStringList additional_text);
+    void lookup_received(QMap<QString, QString> data, const QMap<QString, QString> additional_paramters);
     void image_download_finished(QNetworkReply *reply);
     void on_buttonBox_accepted();
 
@@ -33,6 +33,12 @@ class PartDetailWindow : public QDialog {
 
     void on_supplierlinkLinkLabel_linkActivated(const QString &link);
 
+    void on_locationLineEdit_textChanged(const QString &arg1);
+
+    void on_mPNLineEdit_textChanged(const QString &arg1);
+
+    void on_qtyManyCheckbox_stateChanged(int arg1);
+
     private:
     bool is_valid_for_ok_click();
     void load_ui_from_part();
@@ -40,11 +46,13 @@ class PartDetailWindow : public QDialog {
 
     void set_ui_datasheetURL(QString URL);
     void set_ui_supplierURL(QString URL);
+    void set_ui_additional_parts();
     FarnellWrapper m_farnell_wrapper;
     DigikeyWrapper &m_digikey_wrapper;
     QNetworkAccessManager *m_network_access_manager;
     PartDataBase &m_part_data_base;
     int m_part_id;
+    QMap<QString, QString> m_additional_parameters;
 };
 
 #endif // PARTCREATIONWINDOW_H

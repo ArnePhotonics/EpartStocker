@@ -132,7 +132,22 @@ void DigikeyWrapper::query(QString sku) {
         data["category"] = path.join("/");
         data["supplier"] = Supplier(Supplier::Digikey).toStr();
         qDebug() << data;
-        emit got_data(data, QStringList());
+
+        QMap<QString, QString> additional_parameters;
+        auto parameters_array = rootObject["Parameters"].toArray();
+        for (auto param : parameters_array) {
+            auto param_obj = param.toObject();
+            auto param_name = param_obj["Parameter"].toString();
+            auto param_value = param_obj["Value"].toString();
+            if (param_name == "Packaging") {
+                continue;
+            }
+            if ((param_value == "") || (param_value == "-")) {
+                continue;
+            }
+            additional_parameters[param_name] = param_value;
+        }
+        emit got_data(data, additional_parameters);
 #if 1
         QFile f("digikey.json");
         f.open(QIODevice::WriteOnly | QIODevice::Text);

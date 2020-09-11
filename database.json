@@ -1,154 +1,383 @@
 {
     "categories": [
         {
+            "_comment": "",
             "children": [
                 {
+                    "_comment": "",
                     "children": [
                         {
-                            "children": [
-                            ],
-                            "description_validator": [
-                            ],
-                            "name": "diode"
-                        },
-                        {
-                            "children": [
-                            ],
-                            "description_validator": [
-                            ],
-                            "name": "optisch"
-                        },
-                        {
-                            "children": [
-                            ],
-                            "description_validator": [
-                            ],
-                            "name": "transistor"
-                        }
-                    ],
-                    "description_validator": [
-                    ],
-                    "name": "diskret"
-                },
-                {
-                    "children": [
-                        {
+                            "_comment": "",
                             "children": [
                                 {
+                                    "_comment": "",
                                     "children": [
                                     ],
+                                    "description_example": "",
                                     "description_validator": [
                                     ],
-                                    "name": "opamp"
+                                    "name": "led",
+                                    "parts_allowed": true
                                 },
                                 {
+                                    "_comment": "",
                                     "children": [
                                     ],
+                                    "description_example": "",
                                     "description_validator": [
                                     ],
-                                    "name": "others"
+                                    "name": "shottky",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "silicon",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "tansient",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "z-diode",
+                                    "parts_allowed": true
                                 }
                             ],
+                            "description_example": "",
                             "description_validator": [
                             ],
-                            "name": "analog"
+                            "name": "diode",
+                            "parts_allowed": false
                         },
                         {
+                            "_comment": "",
                             "children": [
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                        {
+                                            "_comment": "",
+                                            "children": [
+                                            ],
+                                            "description_example": "",
+                                            "description_validator": [
+                                            ],
+                                            "name": "npn",
+                                            "parts_allowed": true
+                                        },
+                                        {
+                                            "_comment": "",
+                                            "children": [
+                                            ],
+                                            "description_example": "",
+                                            "description_validator": [
+                                            ],
+                                            "name": "pnp",
+                                            "parts_allowed": true
+                                        }
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "bipolar",
+                                    "parts_allowed": false
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                        {
+                                            "_comment": "",
+                                            "children": [
+                                            ],
+                                            "description_example": "",
+                                            "description_validator": [
+                                            ],
+                                            "name": "jfet",
+                                            "parts_allowed": true
+                                        },
+                                        {
+                                            "_comment": "",
+                                            "children": [
+                                            ],
+                                            "description_example": "",
+                                            "description_validator": [
+                                            ],
+                                            "name": "nmos",
+                                            "parts_allowed": true
+                                        },
+                                        {
+                                            "_comment": "",
+                                            "children": [
+                                            ],
+                                            "description_example": "",
+                                            "description_validator": [
+                                            ],
+                                            "name": "pmos",
+                                            "parts_allowed": true
+                                        }
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "fet",
+                                    "parts_allowed": false
+                                }
                             ],
+                            "description_example": "",
                             "description_validator": [
                             ],
-                            "name": "digital"
-                        },
-                        {
-                            "children": [
-                            ],
-                            "description_validator": [
-                            ],
-                            "name": "others"
+                            "name": "transistor",
+                            "parts_allowed": false
                         }
                     ],
+                    "description_example": "",
                     "description_validator": [
                     ],
-                    "name": "ic"
+                    "name": "discrete",
+                    "parts_allowed": false
+                },
+                {
+                    "_comment": "",
+                    "children": [
+                        {
+                            "_comment": "",
+                            "children": [
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "comparator",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "opamp",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "others",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "sensors",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "switch",
+                                    "parts_allowed": true
+                                }
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "analog",
+                            "parts_allowed": false
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "cpld",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "interfaces",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "logic",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "microcontroller",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "others",
+                                    "parts_allowed": true
+                                }
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "digital",
+                            "parts_allowed": false
+                        }
+                    ],
+                    "description_example": "",
+                    "description_validator": [
+                    ],
+                    "name": "ic",
+                    "parts_allowed": true
                 }
             ],
+            "description_example": "",
             "description_validator": [
             ],
-            "name": "aktiv"
+            "name": "active",
+            "parts_allowed": false
         },
         {
+            "_comment": "",
             "children": [
                 {
+                    "_comment": "",
                     "children": [
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "CAP CER 0402 100n 50V X7R 10%",
+                            "description_validator": [
+                                "CAP (CER|Film) (0402|0603|0805|1206) (\\d+[pnu])(\\d+)? \\d+V (X7R|X5S|C0G)\\d+%$"
+                            ],
+                            "name": "bipolar",
+                            "parts_allowed": true
+                        },
+                        {
+                            "_comment": "metrischer gehäusecode",
+                            "children": [
+                            ],
+                            "description_example": "CAP TANTAL 6032 47u 16V 10% 0R5",
+                            "description_validator": [
+                                "CAP (TANTAL) (7343|6032|3528|3216) (\\d+[pnum])(\\d+)? \\d+V \\d+% \\d?[R](\\d+)?$"
+                            ],
+                            "name": "polar",
+                            "parts_allowed": true
+                        }
                     ],
+                    "description_example": "",
                     "description_validator": [
-                        [
-                            "\\duH"
-                        ],
-                        [
-                            "\\dmA",
-                            "\\dA"
-                        ]
                     ],
-                    "name": "induktur"
+                    "name": "capacitor",
+                    "parts_allowed": false
                 },
                 {
+                    "_comment": "",
                     "children": [
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "ferrit",
+                            "parts_allowed": true
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "incductor",
+                            "parts_allowed": true
+                        }
                     ],
+                    "description_example": "",
                     "description_validator": [
-                        [
-                            "\\dpF",
-                            "\\dnF",
-                            "\\duF"
-                        ],
-                        [
-                            "\\dV"
-                        ],
-                        [
-                            "X7R",
-                            "X5S",
-                            "C0G"
-                        ],
-                        [
-                            "0402",
-                            "0603",
-                            "0805",
-                            "1206"
-                        ]
                     ],
-                    "name": "kondensator"
+                    "name": "magnetics",
+                    "parts_allowed": false
                 },
                 {
+                    "_comment": "123test",
                     "children": [
                     ],
+                    "description_example": "RES 0402 1% 63mW 619R / RES 0606 0.25% 100mW 2x100k",
                     "description_validator": [
-                        [
-                            "\\dR\\d",
-                            "\\dR",
-                            "\\dkR"
-                        ],
-                        [
-                            "\\d%"
-                        ],
-                        [
-                            "0402",
-                            "0603",
-                            "0805",
-                            "1206"
-                        ]
+                        "RES (0402|0606|0603|0805|1206) (\\d\\.)?\\d+% \\d+m?W (\\dx)?\\d+[RkM](\\d+)?$"
                     ],
-                    "name": "widerstand"
+                    "name": "resistor",
+                    "parts_allowed": true
                 }
             ],
+            "description_example": "",
             "description_validator": [
             ],
-            "name": "passiv"
+            "name": "passiv",
+            "parts_allowed": false
         }
     ],
+    "next_part_id": 18799,
     "parts": [
         {
-            "category": "aktiv/ic/analog",
+            "category": "active/ic/analog",
             "datasheet_link": "http:\\example.com",
             "description": "Stromsensor",
             "erp": "",
@@ -157,13 +386,15 @@
             "location": "3/31",
             "manufacturer": "ti",
             "mpn": "INA138NA/250",
+            "parameters": {
+            },
             "qty": 4,
             "sku": "3050398",
             "supplier": "farnell",
             "url": "\u0000"
         },
         {
-            "category": "aktiv/ic/analog",
+            "category": "active/ic/analog/others",
             "datasheet_link": "http://www.farnell.com/datasheets/2893220.pdf",
             "description": "ALLEGRO MICROSYSTEMS - ACS70331EESATR-005B3 - Stromsensor, 1 MHz, QFN-EP, 12 Pin(s), 3 V, 4.5 V",
             "erp": "",
@@ -172,40 +403,136 @@
             "location": "",
             "manufacturer": "ALLEGRO MICROSYSTEMS",
             "mpn": "ACS70331EESATR-005B3",
+            "parameters": {
+            },
             "qty": 0,
             "sku": "3324652",
             "supplier": "farnell",
             "url": "\u0000"
         },
         {
-            "category": "aktiv/ic/digital",
+            "category": "active/ic/analog/switch",
             "datasheet_link": "http://www.farnell.com/datasheets/2250923.pdf",
             "description": "Crosspoint-Schalter, analog, 16x16-Array, seriell, 5V digital, 9V bis 25.2V analog, LCC-44",
             "erp": "",
             "id": 18792,
             "image": "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",
-            "location": "",
+            "location": "12/90",
             "manufacturer": "ANALOG DEVICES",
-            "mpn": "AD75019JPZ test",
-            "qty": 0,
+            "mpn": "AD75019JPZ ",
+            "parameters": {
+            },
+            "qty": -1000,
             "sku": "1079327",
             "supplier": "farnell",
             "url": "\u0000"
         },
         {
-            "category": "aktiv/ic/analog/others",
+            "category": "active/ic/analog/switch",
             "datasheet_link": "http://www.farnell.com/datasheets/2250923.pdf",
             "description": "ANALOG DEVICES - AD75019JPZ - Crosspoint-Schalter, analog, 16x16-Array, seriell, 5V digital, 9V bis 25.2V analog, LCC-44",
             "erp": "",
             "id": 18793,
-            "image": "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",
+            "image": "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",
             "location": "",
             "manufacturer": "ANALOG DEVICES",
             "mpn": "AD75019JPZ",
+            "parameters": {
+            },
             "qty": 0,
             "sku": "1079327",
             "supplier": "farnell",
             "url": "https://de.farnell.com/1079327"
+        },
+        {
+            "category": "passiv/resistor",
+            "datasheet_link": "https://4donline.ihs.com/images/VipMasterIC/IC/TYEL/TYEL-S-A0004929575/TYEL-S-A0004929575-1.pdf?hkey=52A5661711E402568146F3353EA87419",
+            "description": "RES 0603 1% 100mW 619R",
+            "erp": "qlew",
+            "id": 18796,
+            "image": "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",
+            "location": "10/10",
+            "manufacturer": "TE CONNECTIVITY",
+            "mpn": "CRGCQ0603F10K",
+            "parameters": {
+                "Bauform - Widerstand": "0603 [Metrisch 1608]",
+                "Nennleistung": "100mW",
+                "Nennspannung": "75V",
+                "Produktpalette": "CRGCQ Series",
+                "Qualifizierungsstandard der Automobilindustrie": "AEC-Q200",
+                "Temperaturkoeffizient": "± 100ppm/°C",
+                "Widerstand": "10kohm",
+                "Widerstandstechnologie": "Dickschichtwiderstand",
+                "Widerstandstoleranz": "± 1%",
+                "Widerstandstyp": "Universell"
+            },
+            "qty": 0,
+            "sku": "2861473",
+            "supplier": "farnell",
+            "url": "https://de.farnell.com/2861473"
+        },
+        {
+            "category": "passiv/capacitor/polar",
+            "datasheet_link": "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1172.pdf",
+            "description": "CAP TANTAL 7343 10u 35V 10% 0R3",
+            "erp": "",
+            "id": 18797,
+            "image": "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",
+            "location": "12/12",
+            "manufacturer": "PANASONIC",
+            "mpn": "EEEFC1V100R",
+            "parameters": {
+                "AC-Rippelstrom": "80mA",
+                "Betriebstemperatur, max.": "105°C",
+                "Betriebstemperatur, min.": "-40°C",
+                "Durchmesser": "5mm",
+                "Gehäuse Aluminium-Elektrolytkondensator": "Becher, radial - SMD",
+                "Höhe": "5.4mm",
+                "Kapazität": "10µF",
+                "Lebensdauer bei Temperatur": "1000 Stunden bei 105°C",
+                "Nennspannung": "35V",
+                "Produktpalette": "Baureihe FC",
+                "Qualifizierungsstandard der Automobilindustrie": "AEC-Q200"
+            },
+            "qty": 15,
+            "sku": "9694471",
+            "supplier": "farnell",
+            "url": "https://de.farnell.com/9694471"
+        },
+        {
+            "category": "active/discrete/diode/led",
+            "datasheet_link": "http://optoelectronics.liteon.com/upload/download/DS22-2000-233/LTST-C171TBKT(0630).pdf",
+            "description": "LED BLUE CLEAR CHIP SMD",
+            "erp": "",
+            "id": 18799,
+            "image": "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",
+            "location": "56/56",
+            "manufacturer": "Lite-On Inc.",
+            "mpn": "LTST-C171TBKT",
+            "parameters": {
+                "Color": "Blue",
+                "Configuration": "Standard",
+                "Current - Test": "20mA",
+                "Height (Max)": "0.90mm",
+                "Lens Color": "Colorless",
+                "Lens Size": "1.40mm x 1.25mm",
+                "Lens Style": "Rectangle with Flat Top",
+                "Lens Transparency": "Clear",
+                "Millicandela Rating": "104mcd",
+                "Mounting Type": "Surface Mount",
+                "Package / Case": "0805 (2012 Metric)",
+                "Part Status": "Active",
+                "Size / Dimension": "2.00mm L x 1.25mm W",
+                "Supplier Device Package": "Chip LED",
+                "Viewing Angle": "130°",
+                "Voltage - Forward (Vf) (Typ)": "3.3V",
+                "Wavelength - Dominant": "470nm",
+                "Wavelength - Peak": "468nm"
+            },
+            "qty": -1000,
+            "sku": "160-1645-1-ND",
+            "supplier": "digikey",
+            "url": "https://www.digikey.com/product-detail/en/lite-on-inc/LTST-C171TBKT/160-1645-1-ND/573585"
         }
     ],
     "storage_locations": {

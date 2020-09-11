@@ -12,7 +12,7 @@ class FarnellWrapper : public QObject {
     ~FarnellWrapper();
     void query(QString sku);
     signals:
-    void got_data(const QMap<QString, QString> data, const QStringList additional_text);
+    void got_data(const QMap<QString, QString> data, const QMap<QString, QString> additional_paramters);
 
     private:
     const Settings &m_settings;

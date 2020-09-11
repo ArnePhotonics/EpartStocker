@@ -17,13 +17,28 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QSplitter" name="splitter">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QWidget" name="verticalLayoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Kategorien</string>
           </property>
@@ -31,6 +46,12 @@
         </item>
         <item>
          <widget class="QTreeWidget" name="treeWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <column>
            <property name="text">
             <string notr="true">Kategorie</string>
@@ -50,15 +71,22 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit"/>
+         <widget class="QLineEdit" name="filterLineEdit"/>
         </item>
         <item>
          <widget class="QTreeWidget" name="treeTable">
-          <column>
-           <property name="text">
-            <string>ID</string>
-           </property>
-          </column>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>MPN</string>
@@ -79,6 +107,11 @@
             <string>Beschreibung</string>
            </property>
           </column>
+          <column>
+           <property name="text">
+            <string>Datasheet</string>
+           </property>
+          </column>
          </widget>
         </item>
        </layout>
@@ -96,19 +129,12 @@
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuBauteil">
-    <property name="title">
-     <string>Bauteil</string>
-    </property>
-    <addaction name="actionneu"/>
-   </widget>
    <widget class="QMenu" name="menuDatenbank">
     <property name="title">
-     <string>Datenbank</string>
+     <string>Parts</string>
     </property>
     <addaction name="action_ffnen"/>
-    <addaction name="actionSpeichern"/>
-    <addaction name="actionSpeichern_unter"/>
+    <addaction name="actionNew_part"/>
    </widget>
    <widget class="QMenu" name="menuExtras">
     <property name="title">
@@ -118,7 +144,6 @@
     <addaction name="actioninfo"/>
    </widget>
    <addaction name="menuDatenbank"/>
-   <addaction name="menuBauteil"/>
    <addaction name="menuExtras"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -129,23 +154,15 @@
   </action>
   <action name="action_ffnen">
    <property name="text">
-    <string>Öffnen</string>
+    <string>Open database</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionSpeichern">
-   <property name="text">
-    <string>Speichern</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
   <action name="actionEinstellungen">
    <property name="text">
-    <string>Einstellungen</string>
+    <string>Settings</string>
    </property>
   </action>
   <action name="actioninfo">
@@ -153,9 +170,9 @@
     <string>info</string>
    </property>
   </action>
-  <action name="actionSpeichern_unter">
+  <action name="actionNew_part">
    <property name="text">
-    <string>Speichern unter</string>
+    <string>New part</string>
    </property>
   </action>
  </widget>

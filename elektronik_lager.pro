@@ -20,6 +20,7 @@ SOURCES += \
     barcodescaninputwindow.cpp \
     database.cpp \
     farnellwrapper.cpp \
+    infowindow.cpp \
     main.cpp \
     mainwindow.cpp \
     partcreationwindow.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     barcodescaninputwindow.h \
     database.h \
     farnellwrapper.h \
+    infowindow.h \
     mainwindow.h \
     partcreationwindow.h \
     digikeywrapper.h \
@@ -38,6 +40,7 @@ HEADERS += \
 
 FORMS += \
     barcodescaninputwindow.ui \
+    infowindow.ui \
     mainwindow.ui \
     partcreationwindow.ui \
     settingswindow.ui
@@ -45,8 +48,15 @@ FORMS += \
 TRANSLATIONS += \
     elektronik_lager_de_DE.ts
 
-LIBS += -LT:\qt\electronic_parts_storage_helper -llibcrypto-1_1-x64 -llibssl-1_1-x64
-#-LC:\Qt\Tools\OpenSSL\Win_x64\bin
+win32 {
+    SH = C:/Program Files/Git/bin/sh.exe
+    system($$system_quote($$SH) $$PWD/git_win.sh)
+}else{
+    SH = sh
+    system($$system_quote($$SH) $$PWD/git_linux.sh)
+}
+
+LIBS += -L$$PWD -llibcrypto-1_1-x64 -llibssl-1_1-x64
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
