@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Electronic part storage helper</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -99,12 +99,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Fach</string>
+            <string>Location</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Beschreibung</string>
+            <string>Description</string>
            </property>
           </column>
           <column>

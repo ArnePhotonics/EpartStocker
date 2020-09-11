@@ -149,7 +149,7 @@ class PartDataBase {
     int update_part(Part new_part);
 
     private:
-    void db_reload_part_ids();
+    void db_reload_part_database();
     bool db_is_file_modified();
     void db_lock();
     void db_unlock();
@@ -158,7 +158,6 @@ class PartDataBase {
     void get_partids_of_subcategories_recursive(QList<int> &part_ids, PartCategoryTreeNode category_node);
     int get_new_id_and_lock_db();
     QString m_file_name;
-    // QJsonObject m_json_data;
     QMap<int, Part> m_parts;
     PartCategoryTreeNode m_category_nodes;
     void load_categories_recursive(PartCategoryTreeNode &categories_recursion, QString root, const QList<FlatCategory> &flat_categories,

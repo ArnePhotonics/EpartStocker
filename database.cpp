@@ -43,15 +43,21 @@ PartDataBase::PartDataBase(QString file_name)
     : m_file_name(file_name)
     , m_category_nodes("", QStringList(), "", "", false)
     , m_lockfile(file_name + ".lock") {
+    db_reload_part_database();
+}
+
+void PartDataBase::db_reload_part_database() {
     QFile loadFile(m_file_name);
     if (!loadFile.open(QIODevice::ReadOnly)) {
-        throw DataBaseException(QObject::tr("Cannot open database file %1").arg(file_name));
+        throw DataBaseException(QObject::tr("Cannot open database file %1").arg(m_file_name));
     }
+    m_parts.clear();
+    m_category_nodes.clear();
     QByteArray raw_data = loadFile.readAll();
     QJsonDocument loadDoc(QJsonDocument::fromJson(raw_data));
     auto json_data = loadDoc.object();
     if (json_data.isEmpty()) {
-        throw DataBaseException(QObject::tr("Cannot parse database file %1. you should check its syntax with an json validor.").arg(file_name));
+        throw DataBaseException(QObject::tr("Cannot parse database file %1. you should check its syntax with an json validor.").arg(m_file_name));
     }
     const auto &part_array = json_data["parts"].toArray();
     m_parts.clear();
@@ -61,8 +67,6 @@ PartDataBase::PartDataBase(QString file_name)
     load_categories_recursive(m_category_nodes, "", cats, json_data);
 
     m_next_id = json_data["next_part_id"].toInt();
-    // qDebug() << "cat_count" << cats_;
-    //  qDebug() << m_categories;
     for (const auto &part_json : part_array) {
         const auto &part_obj = part_json.toObject();
         Part part;
@@ -183,6 +187,7 @@ void PartDataBase::save_to_file() {
     }
     QJsonDocument saveDoc(root_object);
     saveFile.write(saveDoc.toJson());
+    db_is_file_modified();
 }
 
 int PartDataBase::get_new_id_and_lock_db() {
@@ -299,17 +304,6 @@ void PartDataBase::create_tree_view_items(QTreeWidget *treewidget) const {
     treewidget->sortItems(0, Qt::AscendingOrder);
 }
 
-void PartDataBase::db_reload_part_ids() {
-    QFile loadFile(m_file_name);
-    if (!loadFile.open(QIODevice::ReadOnly)) {
-        throw DataBaseException("Cannot reload database file to refresh next part id.");
-    }
-    QByteArray raw_data = loadFile.readAll();
-    QJsonDocument loadDoc(QJsonDocument::fromJson(raw_data));
-    QJsonObject json_data = loadDoc.object();
-    m_next_id = json_data["next_part_id"].toInt();
-}
-
 bool PartDataBase::db_is_file_modified() {
     auto current_filedate = QFileInfo(m_file_name).lastModified();
     if (current_filedate == m_file_date) {
@@ -333,7 +327,7 @@ void PartDataBase::db_lock() {
         throw DataBaseException(QObject::tr("Can't obtain database write permission. Locked by lockfile. %1").arg(message));
     }
     if (db_is_file_modified()) {
-        db_reload_part_ids();
+        db_reload_part_database();
     }
 }
 
