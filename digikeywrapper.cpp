@@ -60,7 +60,9 @@ void DigikeyWrapper::query(QString sku) {
         grant();
         return;
     }
-    QNetworkRequest request(QUrl(m_settings.get_digikey_url_string() + digikey_part_url + sku));
+    auto url_percent_encoded = QString::fromUtf8(QUrl::toPercentEncoding(sku));
+    qDebug() << url_percent_encoded;
+    QNetworkRequest request(QUrl{m_settings.get_digikey_url_string() + digikey_part_url + url_percent_encoded});
     request.setRawHeader("Authorization", "Bearer " + oauth2.token().toUtf8()); //convert authToken to QByteArray when we set header;
     request.setRawHeader("Content-Type", "application/json; charset=UTF-8");
     request.setRawHeader("X-DIGIKEY-Client-Id", m_settings.get_digikey_clientID().toUtf8());
