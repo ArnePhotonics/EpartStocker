@@ -38,7 +38,8 @@ void FarnellWrapper::query(QString sku) {
     connect(reply, &QNetworkReply::finished, [=]() {
         reply->deleteLater();
         if (reply->error() != QNetworkReply::NoError) {
-            qCritical() << "Farnell error:" << reply->errorString();
+            emit supplier_error("Digikey error: " + reply->errorString());
+            qCritical() << "Farnell error: " << reply->errorString();
             return;
         }
 

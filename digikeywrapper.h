@@ -25,6 +25,7 @@ class DigikeyWrapper : public QObject {
     signals:
     void authenticated();
     void got_data(const QMap<QString, QString> data, const QMap<QString, QString> additional_paramters);
+    void supplier_error(const QString error_message);
 
     private:
     QOAuth2AuthorizationCodeFlow oauth2;

@@ -21,6 +21,12 @@ PartDetailWindow::PartDetailWindow(const Settings &settings, DigikeyWrapper &dig
     connect(m_network_access_manager, &QNetworkAccessManager::finished, this, &PartDetailWindow::image_download_finished);
     connect(&m_digikey_wrapper, &DigikeyWrapper::got_data, this, &PartDetailWindow::lookup_received);
     connect(&m_farnell_wrapper, &FarnellWrapper::got_data, this, &PartDetailWindow::lookup_received);
+
+    connect(&m_digikey_wrapper, &DigikeyWrapper::supplier_error, this,
+            [this](const QString error_message) { QMessageBox::warning(this, QObject::tr("Lookup Error"), error_message); });
+    connect(&m_farnell_wrapper, &FarnellWrapper::supplier_error, this,
+            [this](const QString error_message) { QMessageBox::warning(this, QObject::tr("Lookup Error"), error_message); });
+
     m_part_data_base.create_tree_view_items(ui->treeWidget);
 
     load_ui_from_part();
@@ -52,15 +58,17 @@ void PartDetailWindow::on_scanbarcodeButton_clicked() {
 
 void PartDetailWindow::on_lookupButton_clicked() {
     //    m_digikey_wrapper.grant();
-    auto supplier = Supplier(ui->sKULineEdit->text());
+    QString sku = ui->sKULineEdit->text().trimmed();
+    auto supplier = Supplier(sku);
     switch (supplier.type()) {
         case Supplier::Digikey:
-            m_digikey_wrapper.query(ui->sKULineEdit->text());
+            m_digikey_wrapper.query(sku);
             break;
         case Supplier::Farnell:
-            m_farnell_wrapper.query(ui->sKULineEdit->text());
+            m_farnell_wrapper.query(sku);
             break;
         case Supplier::None:
+            QMessageBox::warning(this, QObject::tr("Unknown sku"), tr("The sku %1 is not recognized as a sku from Farnell or Digikey").arg(sku));
             break;
     }
 }
@@ -160,7 +168,7 @@ bool PartDetailWindow::is_valid_for_ok_click() {
     auto current_cat_tree_widget_item = ui->treeWidget->currentItem();
     if (current_cat_tree_widget_item == nullptr) {
         result = false;
-        ui->exampleLable->setText(tr("No categorie selected."));
+        ui->exampleLable->setText(tr("No categorie selected.\n "));
         ui->exampleLable->setPalette(palette_red_text);
     } else {
         bool description_ok = false;
@@ -169,7 +177,7 @@ bool PartDetailWindow::is_valid_for_ok_click() {
             m_part_data_base.get_category_node_ref(current_cat_path, QObject::tr("Loading decription validator for category path %1").arg(current_cat_path));
         if (cat_node.is_allowed_to_contain_parts() == false) {
             result = false;
-            ui->exampleLable->setText(tr("Can not put a part into the selected categorie."));
+            ui->exampleLable->setText(tr("Can not put a part into the selected categorie.\n "));
             ui->exampleLable->setPalette(palette_red_text);
         } else {
             ui->exampleLable->setText(cat_node.get_valid_description_example() + "\n" + cat_node.get_json_comment());
