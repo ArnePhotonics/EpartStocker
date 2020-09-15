@@ -6,6 +6,7 @@
 #include <QDesktopServices>
 #include <QMessageBox>
 #include <QTableWidgetItem>
+#include <QTimer>
 #include <QUrl>
 #include <infowindow.h>
 #include <memory>
@@ -108,8 +109,12 @@ void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTre
 
 void MainWindow::on_actionneu_triggered() {}
 
+void MainWindow::open_partcreation_window_for_new_part() {
+    QTimer::singleShot(1, this, &MainWindow::on_actionNew_part_triggered);
+}
+
 void MainWindow::on_actionNew_part_triggered() {
-    PartDetailWindow part_creation_window(m_settings, m_digikey_wrapper, *m_data_base.get(), -1);
+    PartDetailWindow part_creation_window(m_settings, m_digikey_wrapper, *m_data_base.get(), -1, this);
     part_creation_window.exec();
 }
 

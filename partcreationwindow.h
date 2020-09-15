@@ -24,20 +24,14 @@ class PartDetailWindow : public QDialog {
     void lookup_received(QMap<QString, QString> data, const QMap<QString, QString> additional_paramters);
     void image_download_finished(QNetworkReply *reply);
     void on_buttonBox_accepted();
-
     void on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-
     void on_descriptionLineEdit_textChanged(const QString &arg1);
-
     void on_datasheetlinkLabel_linkActivated(const QString &link);
-
     void on_supplierlinkLinkLabel_linkActivated(const QString &link);
-
     void on_locationLineEdit_textChanged(const QString &arg1);
-
     void on_mPNLineEdit_textChanged(const QString &arg1);
-
     void on_qtyManyCheckbox_stateChanged(int arg1);
+    void on_continueWithNextPartButton_clicked();
 
     private:
     bool is_valid_for_ok_click();

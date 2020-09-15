@@ -1,5 +1,6 @@
 #include "partcreationwindow.h"
 #include "barcodescaninputwindow.h"
+#include "mainwindow.h"
 #include "ui_partcreationwindow.h"
 #include <QDesktopServices>
 #include <QMessageBox>
@@ -293,4 +294,15 @@ void PartDetailWindow::on_supplierlinkLinkLabel_linkActivated(const QString &lin
 void PartDetailWindow::on_qtyManyCheckbox_stateChanged(int arg1) {
     (void)arg1;
     ui->qtySpinBox->setEnabled(!ui->qtyManyCheckbox->isChecked());
+}
+
+void PartDetailWindow::on_continueWithNextPartButton_clicked() {
+    on_buttonBox_accepted();
+    if (parent()) {
+        auto mainwindow = dynamic_cast<MainWindow *>(parent());
+        if (mainwindow) {
+            mainwindow->open_partcreation_window_for_new_part();
+        }
+    }
+    close();
 }

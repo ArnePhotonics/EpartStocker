@@ -22,6 +22,7 @@ class MainWindow : public QMainWindow {
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void open_partcreation_window_for_new_part();
     private slots:
     void on_action_ffnen_triggered();
 
