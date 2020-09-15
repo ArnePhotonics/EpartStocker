@@ -1,8 +1,10 @@
 #include "partcreationwindow.h"
 #include "barcodescaninputwindow.h"
 #include "mainwindow.h"
+#include "mpnsuggestionwindow.h"
 #include "ui_partcreationwindow.h"
 #include <QDesktopServices>
+#include <QMenu>
 #include <QMessageBox>
 #include <QPixmap>
 #include <QRegularExpression>
@@ -31,6 +33,7 @@ PartDetailWindow::PartDetailWindow(const Settings &settings, DigikeyWrapper &dig
     m_part_data_base.create_tree_view_items(ui->treeWidget);
 
     load_ui_from_part();
+    m_mpn_suggestion_window = new MPNSuggestionWindow(this);
 }
 
 PartDetailWindow::~PartDetailWindow() {
@@ -44,7 +47,9 @@ void PartDetailWindow::on_scanbarcodeButton_clicked() {
         auto scan_result = scan_input.get_parsed_fields();
         for (auto s : scan_result.keys()) {
             if (s == "mpn") {
+                // m_suppress_mpn_kreypress_event = true;
                 ui->mPNLineEdit->setText(scan_result[s]);
+                //  m_suppress_mpn_kreypress_event = false;
             } else if (s == "sku") {
                 ui->sKULineEdit->setText(scan_result[s]);
             } else if (s == "supplier") {
@@ -86,7 +91,9 @@ void PartDetailWindow::lookup_received(QMap<QString, QString> data, const QMap<Q
     (void)additional_paramters;
     ui->descriptionLineEdit->setText(data["description"]);
     ui->manufacturerLineEdit->setText(data["manufacturer"]);
+    //  m_suppress_mpn_kreypress_event = true;
     ui->mPNLineEdit->setText(data["mpn"]);
+    //m_suppress_mpn_kreypress_event = false;
     ui->supplierLineEdit->setText(data["supplier"]);
     set_ui_datasheetURL(data["datasheet_url"]);
     set_ui_supplierURL(data["url"]);
@@ -237,7 +244,9 @@ void PartDetailWindow::load_ui_from_part() {
         auto part = m_part_data_base.get_part(m_part_id);
         ui->sKULineEdit->setText(part.sku);
         ui->supplierLineEdit->setText(part.supplier);
+        m_suppress_mpn_kreypress_event = true;
         ui->mPNLineEdit->setText(part.mpn);
+        m_suppress_mpn_kreypress_event = false;
         ui->manufacturerLineEdit->setText(part.manufacturer);
         ui->eRPLineEdit->setText(part.ERP_number);
         ui->descriptionLineEdit->setText(part.description);
@@ -280,7 +289,42 @@ void PartDetailWindow::on_locationLineEdit_textChanged(const QString &arg1) {
 
 void PartDetailWindow::on_mPNLineEdit_textChanged(const QString &arg1) {
     is_valid_for_ok_click();
+    show_mpn_proposals_window(arg1);
     (void)arg1;
+}
+
+void PartDetailWindow::show_mpn_proposals_window(QString mpn) {
+    if ((m_suppress_mpn_kreypress_event == false) && (m_part_id == -1)) {
+        //LT1617ES5-1#TRMPBF
+        //LM2664M6/NOPB
+        //MAX9034AUD+T
+        //LT6221CS8#TRPBF
+        //74HC7541DB,112
+        //XC2C64A-7VQG100C
+        mpn = mpn.left(mpn.indexOf(QRegularExpression("[-/+#,]")));
+        //LT1617ES5
+        //LM2664M6
+        //MAX9034AUD
+        //LT6221CS8
+        //74HC7541DB
+        //XC2C64A
+
+        QRegularExpression mpn_shorting_regex("[a-zA-Z]*\\d*[a-zA-Z]+\\d{2,10}");
+        mpn = mpn_shorting_regex.match(mpn).captured(0);
+        qDebug() << mpn;
+        QRegularExpression regex(mpn, QRegularExpression::CaseInsensitiveOption);
+        auto proposals = m_part_data_base.get_mpn_proposals(regex);
+        QStringList sl;
+        if (proposals.count() && (proposals.count() < 5)) {
+            for (auto proposal : proposals) {
+                sl.append(proposal.first);
+            }
+            auto pos = ui->mPNLineEdit->pos();
+            pos.setY(pos.y() + ui->mPNLineEdit->height());
+            m_mpn_suggestion_window->show_suggestions(mapToGlobal(pos), ui->mPNLineEdit->width(), sl);
+            //     ui->mPNLineEdit->setFocus();
+        }
+    }
 }
 
 void PartDetailWindow::on_datasheetlinkLabel_linkActivated(const QString &link) {

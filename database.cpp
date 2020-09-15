@@ -51,8 +51,6 @@ void PartDataBase::db_reload_part_database() {
     if (!loadFile.open(QIODevice::ReadOnly)) {
         throw DataBaseException(QObject::tr("Cannot open database file %1").arg(m_file_name));
     }
-    m_parts.clear();
-    m_category_nodes.clear();
     QByteArray raw_data = loadFile.readAll();
     QJsonDocument loadDoc(QJsonDocument::fromJson(raw_data));
     auto json_data = loadDoc.object();
@@ -62,6 +60,7 @@ void PartDataBase::db_reload_part_database() {
     const auto &part_array = json_data["parts"].toArray();
     m_parts.clear();
     m_category_nodes.clear();
+    m_mpn_to_id_map.clear();
 
     auto cats = get_categories_by_json("", json_data);
     load_categories_recursive(m_category_nodes, "", cats, json_data);
@@ -122,6 +121,7 @@ void PartDataBase::update_part_with_valid_id(const Part &part) {
     old_category_node.remove_part_id(part.id);
 
     m_parts[part.id] = part;
+    m_mpn_to_id_map[part.mpn] = part.id;
     auto &category_node = part.category.toLower() == "" ?
                               m_category_nodes :
                               get_category_node_ref(part.category.toLower(), QObject::tr("loading category new old partid %1 after part update").arg(part.id));
@@ -137,6 +137,7 @@ void PartDataBase::insert_part_with_valid_id(const Part &new_part) {
                               get_category_node_ref(new_part.category.toLower(), QObject::tr("loading category partid %1 before part insert").arg(new_part.id));
     category_node.append_part_id(new_part.id);
     m_parts.insert(new_part.id, new_part);
+    m_mpn_to_id_map[new_part.mpn] = new_part.id;
 }
 
 void PartDataBase::save_to_file() {
@@ -291,6 +292,19 @@ PartCategoryTreeNode &PartDataBase::get_category_node_ref(QString categorie_path
     qDebug() << "queried:" << categorie_path;
     return m_category_nodes.get_category(categorie_path, additional_info);
 #endif
+}
+
+QList<QPair<QString, int>> PartDataBase::get_mpn_proposals(const QRegularExpression &base_mpn) const {
+    QList<QPair<QString, int>> result;
+    const QStringList &sl = m_mpn_to_id_map.uniqueKeys();
+    const QStringList &filtered_sl = sl.filter(base_mpn);
+    for (const auto &mpn : filtered_sl) {
+        QPair<QString, int> val;
+        val.first = mpn;
+        val.second = m_mpn_to_id_map[mpn];
+        result.append(val);
+    }
+    return result;
 }
 
 Part PartDataBase::get_part(int part_id) {

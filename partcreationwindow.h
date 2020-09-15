@@ -4,6 +4,7 @@
 #include "database.h"
 #include "digikeywrapper.h"
 #include "farnellwrapper.h"
+#include "mpnsuggestionwindow.h"
 #include <QDialog>
 #include <QNetworkAccessManager>
 
@@ -32,6 +33,7 @@ class PartDetailWindow : public QDialog {
     void on_mPNLineEdit_textChanged(const QString &arg1);
     void on_qtyManyCheckbox_stateChanged(int arg1);
     void on_continueWithNextPartButton_clicked();
+    void show_mpn_proposals_window(QString mpn);
 
     private:
     bool is_valid_for_ok_click();
@@ -47,6 +49,8 @@ class PartDetailWindow : public QDialog {
     PartDataBase &m_part_data_base;
     int m_part_id;
     QMap<QString, QString> m_additional_parameters;
+    bool m_suppress_mpn_kreypress_event = false;
+    MPNSuggestionWindow *m_mpn_suggestion_window = nullptr;
 };
 
 #endif // PARTCREATIONWINDOW_H

@@ -23,6 +23,7 @@ SOURCES += \
     infowindow.cpp \
     main.cpp \
     mainwindow.cpp \
+    mpnsuggestionwindow.cpp \
     partcreationwindow.cpp \
     digikeywrapper.cpp \
     settingswindow.cpp
@@ -34,6 +35,7 @@ HEADERS += \
     farnellwrapper.h \
     infowindow.h \
     mainwindow.h \
+    mpnsuggestionwindow.h \
     partcreationwindow.h \
     digikeywrapper.h \
     settingswindow.h
@@ -42,6 +44,7 @@ FORMS += \
     barcodescaninputwindow.ui \
     infowindow.ui \
     mainwindow.ui \
+    mpnsuggestionwindow.ui \
     partcreationwindow.ui \
     settingswindow.ui
 

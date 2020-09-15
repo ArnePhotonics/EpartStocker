@@ -143,6 +143,7 @@ class PartDataBase {
     PartCategoryTreeNode get_category_node(QString categorie_path, const QString &additional_info);
     PartCategoryTreeNode &get_category_node_ref(QString categorie_path, const QString &additional_info);
 
+    QList<QPair<QString, int>> get_mpn_proposals(const QRegularExpression &base_mpn) const;
     Part get_part(int part_id);
     void create_tree_view_items(QTreeWidget *treewidget) const;
 
@@ -159,6 +160,7 @@ class PartDataBase {
     int get_new_id_and_lock_db();
     QString m_file_name;
     QMap<int, Part> m_parts;
+    QMap<QString, int> m_mpn_to_id_map;
     PartCategoryTreeNode m_category_nodes;
     void load_categories_recursive(PartCategoryTreeNode &categories_recursion, QString root, const QList<FlatCategory> &flat_categories,
                                    const QJsonObject &json_object);
