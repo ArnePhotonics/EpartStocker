@@ -12,7 +12,7 @@ MPNSuggestionWindow::~MPNSuggestionWindow() {
 }
 
 void MPNSuggestionWindow::show_suggestions(QPoint position, int width_, QStringList mpns) {
-    QString t = "Already existing similar parts:\n<table>";
+    QString t = "<div>Already existing similar parts:</div><table>";
     for (auto s : mpns) {
         t = t + QString("<tr><td>" + s + "</td></tr>");
     }
