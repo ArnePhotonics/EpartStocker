@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     open_database();
     ui->splitter->setStretchFactor(0, 1);
     ui->splitter->setStretchFactor(1, 2);
+    setWindowState(Qt::WindowMaximized);
 }
 
 MainWindow::~MainWindow() {
