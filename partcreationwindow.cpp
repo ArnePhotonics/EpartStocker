@@ -227,6 +227,7 @@ bool PartDetailWindow::is_valid_for_ok_click() {
         ui->mPNLineEdit->setPalette(palette_normal);
     }
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(result);
+    ui->continueWithNextPartButton->setEnabled(result);
     return result;
 }
 
