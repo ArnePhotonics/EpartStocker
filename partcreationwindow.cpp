@@ -33,7 +33,7 @@ PartDetailWindow::PartDetailWindow(const Settings &settings, DigikeyWrapper &dig
     m_part_data_base.create_tree_view_items(ui->treeWidget);
 
     load_ui_from_part();
-    m_mpn_suggestion_window = new MPNSuggestionWindow(this);
+    m_mpn_suggestion_window = new MPNSuggestionWindow(this, parent);
 }
 
 PartDetailWindow::~PartDetailWindow() {
@@ -319,15 +319,19 @@ void PartDetailWindow::show_mpn_proposals_window(QString mpn) {
         qDebug() << mpn;
         QRegularExpression regex(mpn, QRegularExpression::CaseInsensitiveOption);
         auto proposals = m_part_data_base.get_mpn_proposals(regex);
-        QStringList sl;
+        QList<SuggestionPartInfo> sl;
         if (proposals.count() && (proposals.count() < 5)) {
             for (auto proposal : proposals) {
-                sl.append(proposal.first);
+                SuggestionPartInfo part_info;
+                part_info.mpn = proposal.first;
+                part_info.part_id = proposal.second;
+                const auto &part = m_part_data_base.get_part(part_info.part_id);
+                part_info.location = part.location;
+                sl.append(part_info);
             }
             auto pos = ui->mPNLineEdit->pos();
             pos.setY(pos.y() + ui->mPNLineEdit->height());
             m_mpn_suggestion_window->show_suggestions(mapToGlobal(pos), ui->mPNLineEdit->width(), sl);
-            //     ui->mPNLineEdit->setFocus();
         }
     }
 }

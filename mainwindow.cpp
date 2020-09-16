@@ -93,20 +93,6 @@ void MainWindow::show_parts(const QMap<int, Part> &parts) {
     filter_parts(ui->filterLineEdit->text());
 }
 
-void MainWindow::on_treeTable_itemDoubleClicked(QTreeWidgetItem *item, int column) {
-    (void)column;
-    if (column == 4) {
-        if (!item->data(4, Qt::UserRole).toString().isEmpty()) {
-            QDesktopServices::openUrl(QUrl(item->data(4, Qt::UserRole).toString()));
-        }
-    } else {
-        PartDetailWindow part_creation_window(m_settings, m_digikey_wrapper, *m_data_base.get(), item->data(0, Qt::UserRole).toInt());
-        if (part_creation_window.exec()) {
-            on_treeWidget_currentItemChanged(ui->treeWidget->currentItem(), nullptr);
-        }
-    }
-}
-
 void MainWindow::open_database() {
     try {
         m_data_base = std::make_unique<PartDataBase>(m_settings.get_database_path());
@@ -132,6 +118,30 @@ void MainWindow::on_actionneu_triggered() {}
 
 void MainWindow::open_partcreation_window_for_new_part() {
     QTimer::singleShot(1, this, &MainWindow::on_actionNew_part_triggered);
+}
+
+void MainWindow::open_partcreation_window_for_update_part(int part_id) {
+    QTimer::singleShot(1, this, [part_id, this]() { //
+        this->open_partcreation_window_for_update_part_slot(part_id);
+    });
+}
+
+void MainWindow::on_treeTable_itemDoubleClicked(QTreeWidgetItem *item, int column) {
+    (void)column;
+    if (column == 4) {
+        if (!item->data(4, Qt::UserRole).toString().isEmpty()) {
+            QDesktopServices::openUrl(QUrl(item->data(4, Qt::UserRole).toString()));
+        }
+    } else {
+        open_partcreation_window_for_update_part_slot(item->data(0, Qt::UserRole).toInt());
+    }
+}
+
+void MainWindow::open_partcreation_window_for_update_part_slot(int part_id) {
+    PartDetailWindow part_creation_window(m_settings, m_digikey_wrapper, *m_data_base.get(), part_id);
+    if (part_creation_window.exec()) {
+        on_treeWidget_currentItemChanged(ui->treeWidget->currentItem(), nullptr);
+    }
 }
 
 void MainWindow::on_actionNew_part_triggered() {

@@ -23,22 +23,17 @@ class MainWindow : public QMainWindow {
     ~MainWindow();
 
     void open_partcreation_window_for_new_part();
+    void open_partcreation_window_for_update_part(int part_id);
     private slots:
     void on_action_ffnen_triggered();
-
     void on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-
     void on_actionneu_triggered();
-
     void on_actionEinstellungen_triggered();
-
     void on_treeTable_itemDoubleClicked(QTreeWidgetItem *item, int column);
-
     void on_actioninfo_triggered();
-
     void on_actionNew_part_triggered();
-
     void on_filterLineEdit_textChanged(const QString &arg1);
+    void open_partcreation_window_for_update_part_slot(int part_id);
 
     private:
     Ui::MainWindow *ui;
