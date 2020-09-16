@@ -4,7 +4,9 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <QDesktopServices>
+#include <QFileInfo>
 #include <QMessageBox>
+#include <QRegularExpression>
 #include <QTableWidgetItem>
 #include <QTimer>
 #include <QUrl>
@@ -17,6 +19,24 @@ MainWindow::MainWindow(QWidget *parent)
     , m_settings(this)
     , m_digikey_wrapper(m_settings, this) {
     ui->setupUi(this);
+    //qDebug() << QCoreApplication::applicationFilePath();
+    QString exe_name = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
+    QString install_source = m_settings.get_installation_source_path().trimmed();
+    if (!install_source.endsWith(exe_name)) {
+        if (install_source.contains(QRegularExpression("[\\/\\\\&]"))) { //ends with \ or  /
+            install_source += QDir::separator();
+        }
+        install_source += exe_name;
+    }
+    // qDebug() << install_source;
+    if (QFile::exists(install_source)) {
+        if (QFileInfo(install_source).lastModified() > QFileInfo(QCoreApplication::applicationFilePath()).lastModified()) {
+            QMessageBox::information(this, tr("Update needed"),
+                                     tr("There is a new version under \n %1 \n please update to this one.").arg(m_settings.get_installation_source_path()));
+            exit(0);
+            return;
+        }
+    }
     open_database();
     ui->splitter->setStretchFactor(0, 1);
     ui->splitter->setStretchFactor(1, 2);

@@ -185,6 +185,7 @@ void PartDataBase::save_to_file() {
     QFile saveFile(m_file_name);
     if (!saveFile.open(QIODevice::WriteOnly)) {
         qWarning("Couldn't open save file.");
+        throw DataBaseException(QObject::tr("Couldn't open save file."));
     }
     QJsonDocument saveDoc(root_object);
     saveFile.write(saveDoc.toJson());
@@ -201,7 +202,7 @@ void PartDataBase::load_categories_recursive(PartCategoryTreeNode &categories_re
                                              const QJsonObject &json_object) {
     for (auto cat : flat_categories) {
         cat.m_name = cat.m_name.toLower();
-        qDebug() << root + "/" + cat.m_name;
+        //qDebug() << root + "/" + cat.m_name;
         PartCategoryTreeNode category_node(cat.m_name, cat.m_description_validator, cat.m_valid_descriptor_example, cat.m_json_comment,
                                            cat.m_allowed_to_contain_parts);
         auto child_cats = get_categories_by_json(root + "/" + cat.m_name, json_object);
@@ -278,7 +279,7 @@ QMap<int, Part> PartDataBase::get_parts_by_categorie(QString categorie_root) {
 
 PartCategoryTreeNode PartDataBase::get_category_node(QString categorie_path, const QString &additional_info) {
 #if 1
-    qDebug() << "queried:" << categorie_path;
+    //qDebug() << "queried:" << categorie_path;
     if (categorie_path == "") {
         return m_category_nodes;
     } else {
@@ -289,7 +290,7 @@ PartCategoryTreeNode PartDataBase::get_category_node(QString categorie_path, con
 
 PartCategoryTreeNode &PartDataBase::get_category_node_ref(QString categorie_path, const QString &additional_info) {
 #if 1
-    qDebug() << "queried:" << categorie_path;
+    //qDebug() << "queried:" << categorie_path;
     return m_category_nodes.get_category(categorie_path, additional_info);
 #endif
 }

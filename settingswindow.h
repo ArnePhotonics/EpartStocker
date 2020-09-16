@@ -63,6 +63,14 @@ class Settings {
         return m_settings.value("database_path", "").toString();
     }
 
+    void set_installation_source_path(QString val) {
+        m_settings.setValue("installation_source", val);
+    }
+
+    QString get_installation_source_path() const {
+        return m_settings.value("installation_source", "").toString();
+    }
+
     private:
     QSettings m_settings;
 };
