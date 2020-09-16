@@ -46,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_part_list_item_delegate.SetHeight(m_ICON_SIZE);
     ui->treeTable->setItemDelegate(&m_part_list_item_delegate);
     ui->treeTable->setIconSize(QSize(m_ICON_SIZE, m_ICON_SIZE));
+
+    if (m_settings.get_selected_category().count()) {
+        select_category(m_settings.get_selected_category());
+    };
 }
 
 MainWindow::~MainWindow() {
@@ -84,6 +88,10 @@ void MainWindow::filter_parts(QString filter) {
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *event) {
+    //
+}
+
 void MainWindow::show_parts(const QMap<int, Part> &parts) {
     ui->treeTable->clear();
 
@@ -118,10 +126,18 @@ void MainWindow::open_database() {
     }
 }
 
+void MainWindow::select_category(QString selected_category) {
+    auto select_item = tree_widget_item_by_categorie_path(ui->treeWidget, selected_category);
+    ui->treeWidget->setCurrentItem(select_item);
+}
+
 void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous) {
     if (current) {
         ui->filterLineEdit->setText("");
-        auto parts = m_data_base->get_parts_by_categorie(current->data(0, Qt::UserRole).toString());
+        auto currently_selected_category = current->data(0, Qt::UserRole).toString();
+
+        m_settings.set_selected_category(currently_selected_category);
+        auto parts = m_data_base->get_parts_by_categorie(currently_selected_category);
         show_parts(parts);
     }
     (void)previous;

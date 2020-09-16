@@ -4,6 +4,7 @@
 #include "database.h"
 #include "digikeywrapper.h"
 #include "settingswindow.h"
+#include <QCloseEvent>
 #include <QItemDelegate>
 #include <QMainWindow>
 #include <QStringList>
@@ -72,5 +73,8 @@ class MainWindow : public QMainWindow {
     void filter_parts(QString filter);
     ItemDelegate m_part_list_item_delegate;
     const int m_ICON_SIZE = 50;
+    void closeEvent(QCloseEvent *event) override;
+    QString m_currently_selected_category;
+    void select_category(QString selected_category);
 };
 #endif // MAINWINDOW_H

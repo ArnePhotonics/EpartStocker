@@ -71,6 +71,14 @@ class Settings {
         return m_settings.value("installation_source", "").toString();
     }
 
+    void set_selected_category(QString val) {
+        m_settings.setValue("selected_category", val);
+    }
+
+    QString get_selected_category() const {
+        return m_settings.value("selected_category", "").toString();
+    }
+
     private:
     QSettings m_settings;
 };
