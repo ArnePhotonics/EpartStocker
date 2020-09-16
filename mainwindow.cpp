@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QDesktopServices>
 #include <QFileInfo>
+
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QTableWidgetItem>
@@ -41,6 +42,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->splitter->setStretchFactor(0, 1);
     ui->splitter->setStretchFactor(1, 2);
     setWindowState(Qt::WindowMaximized);
+
+    m_part_list_item_delegate.SetHeight(m_ICON_SIZE);
+    ui->treeTable->setItemDelegate(&m_part_list_item_delegate);
+    ui->treeTable->setIconSize(QSize(m_ICON_SIZE, m_ICON_SIZE));
 }
 
 MainWindow::~MainWindow() {
@@ -81,11 +86,19 @@ void MainWindow::filter_parts(QString filter) {
 
 void MainWindow::show_parts(const QMap<int, Part> &parts) {
     ui->treeTable->clear();
+
     for (const auto &part : parts) {
-        QString link = part.datasheet_link.contains("pdf") ? "link.." : "";
+        QString link = part.datasheet_link.count() > 5 ? "link.." : "";
         auto item = new QTreeWidgetItem(QStringList{part.mpn, part.manufacturer, part.location, part.description, link});
         item->setData(0, Qt::UserRole, part.id);
         item->setData(4, Qt::UserRole, part.datasheet_link);
+        if (part.image.isNull()) {
+            auto pixmap = QPixmap(m_ICON_SIZE, m_ICON_SIZE);
+            pixmap.fill();
+            item->setIcon(0, QIcon(pixmap));
+        } else {
+            item->setIcon(0, QIcon(part.image));
+        }
         ui->treeTable->addTopLevelItem(item);
     }
     for (int i = 0; i < ui->treeTable->columnCount(); i++)

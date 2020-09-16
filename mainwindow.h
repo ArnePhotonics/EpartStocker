@@ -4,6 +4,7 @@
 #include "database.h"
 #include "digikeywrapper.h"
 #include "settingswindow.h"
+#include <QItemDelegate>
 #include <QMainWindow>
 #include <QStringList>
 #include <QTreeWidgetItem>
@@ -14,6 +15,32 @@ namespace Ui {
     class MainWindow;
 }
 QT_END_NAMESPACE
+
+class ItemDelegate : public QItemDelegate {
+    private:
+    int m_height;
+
+    public:
+    ItemDelegate(QObject *poParent = Q_NULLPTR, int height = -1)
+        : QItemDelegate(poParent)
+        , m_height(height) {}
+
+    void SetHeight(int height) {
+        m_height = height;
+    }
+
+    // Use this for setting tree item height.
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
+        QSize oSize = QItemDelegate::sizeHint(option, index);
+
+        if (m_height != -1) {
+            // Set tree item height.
+            oSize.setHeight(m_height);
+        }
+
+        return oSize;
+    }
+};
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -43,5 +70,7 @@ class MainWindow : public QMainWindow {
     DigikeyWrapper m_digikey_wrapper;
     void open_database();
     void filter_parts(QString filter);
+    ItemDelegate m_part_list_item_delegate;
+    const int m_ICON_SIZE = 50;
 };
 #endif // MAINWINDOW_H
