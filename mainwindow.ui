@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Electronic part storage helper</string>
+   <string>EPart Stocker</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -126,7 +126,7 @@
      <x>0</x>
      <y>0</y>
      <width>1166</width>
-     <height>26</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatenbank">
