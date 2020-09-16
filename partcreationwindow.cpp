@@ -288,6 +288,10 @@ void PartDetailWindow::on_locationLineEdit_textChanged(const QString &arg1) {
     (void)arg1;
 }
 
+void PartDetailWindow::on_sKULineEdit_textEdited(const QString &arg1) {
+    ui->sKULineEdit->setText(arg1.toUpper());
+}
+
 void PartDetailWindow::on_mPNLineEdit_textChanged(const QString &arg1) {
     is_valid_for_ok_click();
     show_mpn_proposals_window(arg1);

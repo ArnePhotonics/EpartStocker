@@ -35,6 +35,8 @@ class PartDetailWindow : public QDialog {
     void on_continueWithNextPartButton_clicked();
     void show_mpn_proposals_window(QString mpn);
 
+    void on_sKULineEdit_textEdited(const QString &arg1);
+
     private:
     bool is_valid_for_ok_click();
     void load_ui_from_part();
