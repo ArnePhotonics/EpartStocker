@@ -15,7 +15,7 @@ class Supplier {
     Supplier(Type t)
         : m_t(t) {}
     Supplier(QString sku) {
-        if (QRegularExpression("\\b\\d{7}\\b").match(sku).hasMatch()) {
+        if (QRegularExpression("\\b\\d{6,7}\\b").match(sku).hasMatch()) {
             m_t = Type::Farnell;
         } else if (QRegularExpression(".*-ND").match(sku).hasMatch()) {
             m_t = Type::Digikey;
