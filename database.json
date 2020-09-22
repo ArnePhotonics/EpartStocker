@@ -1,5 +1,5 @@
 {
-    "categories": [
+     "categories": [
         {
             "_comment": "",
             "children": [
@@ -15,9 +15,19 @@
                                     ],
                                     "description_example": "",
                                     "description_validator": [
-                                        "(red|green|blue|orange|amber|white) (0603|0805|other package)"
+                                        "(red|green|blue|orange|amber|white) (0603|0805|1206|1209|PLCC-4|5mm-THT|3mm-THT|other package)"
                                     ],
                                     "name": "led",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
+                                    "name": "photo-diode",
                                     "parts_allowed": true
                                 },
                                 {
@@ -45,7 +55,8 @@
                                     "children": [
                                     ],
                                     "description_example": "",
-                                    "description_validator": ["(\\d\\.)?\\d+V\\b"
+                                    "description_validator": [
+                                        "(\\d\\.)?\\d+V\\b"
                                     ],
                                     "name": "tansient",
                                     "parts_allowed": true
@@ -55,7 +66,8 @@
                                     "children": [
                                     ],
                                     "description_example": "",
-                                    "description_validator": ["(\\d\\.)?\\d+V\\b"
+                                    "description_validator": [
+                                        "(\\d\\.)?\\d+V\\b"
                                     ],
                                     "name": "z-diode",
                                     "parts_allowed": true
@@ -121,6 +133,16 @@
                                             "description_validator": [
                                             ],
                                             "name": "nmos",
+                                            "parts_allowed": true
+                                        },
+                                        {
+                                            "_comment": "",
+                                            "children": [
+                                            ],
+                                            "description_example": "",
+                                            "description_validator": [
+                                            ],
+                                            "name": "np_mos",
                                             "parts_allowed": true
                                         },
                                         {
@@ -197,7 +219,7 @@
                                     "description_example": "",
                                     "description_validator": [
                                     ],
-                                    "name": "sensors",
+                                    "name": "reference",
                                     "parts_allowed": true
                                 },
                                 {
@@ -257,6 +279,16 @@
                                     "description_example": "",
                                     "description_validator": [
                                     ],
+                                    "name": "memory",
+                                    "parts_allowed": true
+                                },
+                                {
+                                    "_comment": "",
+                                    "children": [
+                                    ],
+                                    "description_example": "",
+                                    "description_validator": [
+                                    ],
                                     "name": "microcontroller",
                                     "parts_allowed": true
                                 },
@@ -276,13 +308,33 @@
                             ],
                             "name": "digital",
                             "parts_allowed": false
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "power-supply",
+                            "parts_allowed": true
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "sensor",
+                            "parts_allowed": true
                         }
                     ],
                     "description_example": "",
                     "description_validator": [
                     ],
                     "name": "ic",
-                    "parts_allowed": true
+                    "parts_allowed": false
                 }
             ],
             "description_example": "",
@@ -301,9 +353,100 @@
                             "_comment": "",
                             "children": [
                             ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "board_to_wire",
+                            "parts_allowed": true
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "panel_cable_mount",
+                            "parts_allowed": true
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "pinheader",
+                            "parts_allowed": true
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "rf",
+                            "parts_allowed": true
+                        }
+                    ],
+                    "description_example": "",
+                    "description_validator": [
+                    ],
+                    "name": "connector",
+                    "parts_allowed": false
+                },
+                {
+                    "_comment": "",
+                    "children": [
+                    ],
+                    "description_example": "",
+                    "description_validator": [
+                    ],
+                    "name": "fasteners_lightguides",
+                    "parts_allowed": true
+                },
+                {
+                    "_comment": "",
+                    "children": [
+                    ],
+                    "description_example": "",
+                    "description_validator": [
+                    ],
+                    "name": "relay",
+                    "parts_allowed": true
+                },
+                {
+                    "_comment": "",
+                    "children": [
+                    ],
+                    "description_example": "",
+                    "description_validator": [
+                    ],
+                    "name": "switch",
+                    "parts_allowed": true
+                }
+            ],
+            "description_example": "",
+            "description_validator": [
+            ],
+            "name": "electromechanics",
+            "parts_allowed": false
+        },
+        {
+            "_comment": "",
+            "children": [
+                {
+                    "_comment": "",
+                    "children": [
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
                             "description_example": "CAP CER 0402 100n 50V X7R 10%",
                             "description_validator": [
-                                "CAP (CER|Film) (0402|0603|0805|1206) (\\d+[pnu])(\\d+)? \\d+V (X7R|X5S|C0G)\\d+%$"
+                                "CAP CER (0402|0603|0805|1206|1210) (\\d+[pnu])(\\d+)? \\d+V\\d? (X7R|X7S|X6S|X5S|X5R|C0G|JB) \\d+%$",
+                                "CAP Film (0402|0603|0805|1206|1210) (\\d+[pnu])(\\d+)? \\d+V\\d? (PPS|PEN) \\d+%$"
                             ],
                             "name": "bipolar",
                             "parts_allowed": true
@@ -314,7 +457,8 @@
                             ],
                             "description_example": "CAP TANTAL 6032 47u 16V 10% 0R5",
                             "description_validator": [
-                                "CAP (TANTAL) (7343|6032|3528|3216) (\\d+[pnum])(\\d+)? \\d+V \\d+% \\d?[R](\\d+)?$"
+                                "CAP (TANTAL) (7343|6032|3528|3216) (\\d+[pnum])(\\d+)? \\d+V\\d? \\d+% \\d?[R](\\d+)?$",
+                                "CAP (Elko|Supercap) (THT) (\\d+[pnumF])(\\d+)? \\d+V\\d? \\d+% \\d?[R](\\d+)?$"
                             ],
                             "name": "polar",
                             "parts_allowed": true
@@ -325,6 +469,26 @@
                     ],
                     "name": "capacitor",
                     "parts_allowed": false
+                },
+                {
+                    "_comment": "123test",
+                    "children": [
+                    ],
+                    "description_example": "",
+                    "description_validator": [
+                    ],
+                    "name": "crystal",
+                    "parts_allowed": true
+                },
+                {
+                    "_comment": "",
+                    "children": [
+                    ],
+                    "description_example": "",
+                    "description_validator": [
+                    ],
+                    "name": "fuse",
+                    "parts_allowed": true
                 },
                 {
                     "_comment": "",
@@ -348,6 +512,16 @@
                             ],
                             "name": "incductor",
                             "parts_allowed": true
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "transformer",
+                            "parts_allowed": true
                         }
                     ],
                     "description_example": "",
@@ -360,12 +534,42 @@
                     "_comment": "123test",
                     "children": [
                     ],
-                    "description_example": "RES 0402 1% 63mW 619R / RES 0606 0.25% 100mW 2x100k",
+                    "description_example": "",
                     "description_validator": [
-                        "RES (0402|0606|0603|0805|1206) (\\d\\.)?\\d+% \\d+m?W (\\dx)?\\d+[RkM](\\d+)?$"
+                    ],
+                    "name": "other",
+                    "parts_allowed": true
+                },
+                {
+                    "_comment": "123test",
+                    "children": [
+                        {
+                            "_comment": "123test",
+                            "children": [
+                            ],
+                            "description_example": "RES 0402 1% 63mW 619R / RES 0606 0.25% 100mW 2x100k",
+                            "description_validator": [
+                                "RES (0402|0606|0603|0805|1206|THT) (\\d\\.)?\\d+% \\d+m?W (\\dx)?\\d+[RkMG](\\d+)?$"
+                            ],
+                            "name": "fixed",
+                            "parts_allowed": true
+                        },
+                        {
+                            "_comment": "",
+                            "children": [
+                            ],
+                            "description_example": "",
+                            "description_validator": [
+                            ],
+                            "name": "potentiometer",
+                            "parts_allowed": true
+                        }
+                    ],
+                    "description_example": "",
+                    "description_validator": [
                     ],
                     "name": "resistor",
-                    "parts_allowed": true
+                    "parts_allowed": false
                 }
             ],
             "description_example": "",
