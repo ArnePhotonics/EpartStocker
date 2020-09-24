@@ -15,6 +15,8 @@ and include it in the backup system. Here we only rely on a shared file system.
 
 ![settings screenshot](docs/screenshot_settings.png)
 
+![settings screenshot](docs/folder_register.jpg)
+
 ## Features
 - Find your part by selecting its category and use the filter to search for MPN, description and location.
 - Very simple to create a new part. Just enter a Farnell or Digikey sku and click the "lookup" button. Part imgage and parameters, Datasheet-link, and description will be downloaded automatically.
