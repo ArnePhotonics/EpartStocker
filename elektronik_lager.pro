@@ -60,6 +60,7 @@ win32 {
 }
 
 LIBS += -L$$PWD -llibcrypto-1_1-x64 -llibssl-1_1-x64
+# LIBS += -L$$PWD -llibcrypto-1_1 -llibssl-1_1
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

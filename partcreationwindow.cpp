@@ -20,6 +20,10 @@ PartDetailWindow::PartDetailWindow(const Settings &settings, DigikeyWrapper &dig
     , m_part_data_base(part_data_base)
     , m_part_id(part_id) {
     ui->setupUi(this);
+    setWindowFlags(Qt::Window);
+    Qt::WindowFlags flags = windowFlags();
+    flags |= Qt::WindowMinMaxButtonsHint;
+    setWindowFlags(flags);
     m_network_access_manager = new QNetworkAccessManager(this);
     connect(m_network_access_manager, &QNetworkAccessManager::finished, this, &PartDetailWindow::image_download_finished);
     connect(&m_digikey_wrapper, &DigikeyWrapper::got_data, this, &PartDetailWindow::lookup_received);
@@ -33,6 +37,10 @@ PartDetailWindow::PartDetailWindow(const Settings &settings, DigikeyWrapper &dig
     m_part_data_base.create_tree_view_items(ui->treeWidget);
 
     load_ui_from_part();
+    ui->splitter->setStretchFactor(1, 2);
+    ui->splitter->setCollapsible(0, false);
+    ui->splitter->setCollapsible(1, false);
+    ui->scrollArea->setWidgetResizable(true);
     m_mpn_suggestion_window = new MPNSuggestionWindow(this, parent);
 }
 
@@ -136,6 +144,9 @@ void PartDetailWindow::on_buttonBox_accepted() {
     part.description = ui->descriptionLineEdit->text();
     part.location = ui->locationLineEdit->text();
     part.url = ui->supplierLinkLineEdit->text();
+    part.reserved_for = ui->reserved_lineEdit->text();
+    part.comment = ui->comment_textEdit->document()->toPlainText();
+    part.provisioning_for = ui->provisioning_lineEdit->text();
     part.additional_parameters = m_additional_parameters;
     part.qty = ui->qtySpinBox->value();
     if (ui->qtyManyCheckbox->isChecked()) {
@@ -215,7 +226,6 @@ bool PartDetailWindow::is_valid_for_ok_click() {
     QString location = ui->locationLineEdit->text();
     if (location.contains(QRegularExpression("\\d+\\/\\d+"))) {
         ui->locationLineEdit->setPalette(palette_normal);
-
     } else {
         ui->locationLineEdit->setPalette(palette_red_bg);
         result = false;
@@ -226,6 +236,48 @@ bool PartDetailWindow::is_valid_for_ok_click() {
     } else {
         ui->mPNLineEdit->setPalette(palette_normal);
     }
+    {
+        QString reserved = ui->reserved_lineEdit->text();
+        ui->reserved_lineEdit->setPalette(palette_normal);
+        auto sl = reserved.split(", ");
+        bool isEmpty = false;
+        for (auto s : sl) {
+            if (s.isEmpty()) {
+                isEmpty = true;
+            }
+            if ((s.isEmpty() == false) && (isEmpty == true)) {
+                ui->reserved_lineEdit->setPalette(palette_red_bg);
+                result = false;
+            }
+            if (s.contains(QRegularExpression("\\d+: \\w+")) || s.isEmpty()) {
+                //ui->reserved_lineEdit->setPalette(palette_normal);
+            } else {
+                ui->reserved_lineEdit->setPalette(palette_red_bg);
+                result = false;
+            }
+        }
+    }
+    {
+        QString provisioning = ui->provisioning_lineEdit->text();
+        ui->provisioning_lineEdit->setPalette(palette_normal);
+        auto sl = provisioning.split(", ");
+        bool isEmpty = false;
+        for (auto s : sl) {
+            if (s.isEmpty()) {
+                isEmpty = true;
+            }
+            if ((s.isEmpty() == false) && (isEmpty == true)) {
+                ui->provisioning_lineEdit->setPalette(palette_red_bg);
+                result = false;
+            }
+            if (s.contains(QRegularExpression("\\w+")) || s.isEmpty()) {
+                //ui->reserved_lineEdit->setPalette(palette_normal);
+            } else {
+                ui->provisioning_lineEdit->setPalette(palette_red_bg);
+                result = false;
+            }
+        }
+    }
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(result);
     ui->continueWithNextPartButton->setEnabled(result);
     return result;
@@ -233,7 +285,7 @@ bool PartDetailWindow::is_valid_for_ok_click() {
 
 void PartDetailWindow::set_ui_additional_parts() {
     QString lbl_text = "<table>";
-    for (auto field_name : m_additional_parameters.uniqueKeys()) {
+    for (auto field_name : m_additional_parameters.keys()) {
         lbl_text += ("<tr><td>" + field_name + "</td><td>" + m_additional_parameters[field_name] + "</td></tr>");
     }
     lbl_text += "</table>";
@@ -253,6 +305,10 @@ void PartDetailWindow::load_ui_from_part() {
         ui->descriptionLineEdit->setText(part.description);
         ui->locationLineEdit->setText(part.location);
         ui->imageLabel->setPixmap(part.image);
+        ui->reserved_lineEdit->setText(part.reserved_for);
+        ui->provisioning_lineEdit->setText(part.provisioning_for);
+        ui->comment_textEdit->document()->setPlainText(part.comment);
+
         set_ui_supplierURL(part.url);
         set_ui_datasheetURL(part.datasheet_link);
         if (part.qty == -1000) {
@@ -269,6 +325,8 @@ void PartDetailWindow::load_ui_from_part() {
     ui->continueWithNextPartButton->setVisible(m_part_id == -1);
     ui->lookupButton->setVisible(m_part_id == -1);
     ui->scanbarcodeButton->setVisible(m_part_id == -1);
+    ui->scrollArea->update();
+
     is_valid_for_ok_click();
 }
 
@@ -295,6 +353,16 @@ void PartDetailWindow::on_sKULineEdit_textEdited(const QString &arg1) {
 void PartDetailWindow::on_mPNLineEdit_textChanged(const QString &arg1) {
     is_valid_for_ok_click();
     show_mpn_proposals_window(arg1);
+    (void)arg1;
+}
+
+void PartDetailWindow::on_reserved_lineEdit_textChanged(const QString &arg1) {
+    is_valid_for_ok_click();
+    (void)arg1;
+}
+
+void PartDetailWindow::on_provisioning_lineEdit_textChanged(const QString &arg1) {
+    is_valid_for_ok_click();
     (void)arg1;
 }
 

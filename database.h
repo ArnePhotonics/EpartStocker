@@ -117,6 +117,9 @@ class Part {
     QString description;
     QString datasheet_link;
     QString location;
+    QString reserved_for;
+    QString comment;
+    QString provisioning_for;
     QPixmap image;
     QMap<QString, QString> additional_parameters;
     int qty;
