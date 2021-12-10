@@ -38,6 +38,10 @@ class PartDetailWindow : public QDialog {
 
     void on_sKULineEdit_textEdited(const QString &arg1);
 
+    void on_reserved_lineEdit_textChanged(const QString &arg1);
+
+    void on_provisioning_lineEdit_textChanged(const QString &arg1);
+
     private:
     bool is_valid_for_ok_click();
     void load_ui_from_part();

@@ -6,236 +6,358 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>902</width>
-    <height>511</height>
+    <width>909</width>
+    <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Part details</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="1" colspan="3">
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="1">
-      <widget class="QLabel" name="imageLabel">
+   <item row="0" column="0">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTreeWidget" name="treeWidget">
+      <column>
        <property name="text">
-        <string/>
+        <string>Categories</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>571</width>
+         <height>310</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="scanbarcodeButton">
+          <property name="text">
+           <string>Scan Barcodes..</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QWidget" name="widget" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>100</height>
+           </size>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <layout class="QFormLayout" name="formLayout">
+             <item row="1" column="0">
+              <widget class="QLabel" name="sKULabel">
+               <property name="text">
+                <string>SKU</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QLineEdit" name="sKULineEdit">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>15</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="lookupButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>15</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Lookup..</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="supplierLabel">
+               <property name="text">
+                <string>Supplier</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="supplierLineEdit"/>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="supplierURLLabel">
+               <property name="text">
+                <string>Supplier URL</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QLineEdit" name="supplierLinkLineEdit"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="supplierlinkLinkLabel">
+                 <property name="text">
+                  <string>link</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="mPNLabel">
+               <property name="text">
+                <string>MPN</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QLineEdit" name="mPNLineEdit"/>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="manufacturerLabel">
+               <property name="text">
+                <string>Manufacturer</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLineEdit" name="manufacturerLineEdit"/>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Description Example</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QLabel" name="exampleLable">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0">
+              <widget class="QLabel" name="descriptionLabel">
+               <property name="text">
+                <string>Description</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <widget class="QLineEdit" name="descriptionLineEdit"/>
+             </item>
+             <item row="11" column="0">
+              <widget class="QLabel" name="eRPEGNavisionLabel">
+               <property name="text">
+                <string>ERP(e.g.navision)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="11" column="1">
+              <widget class="QLineEdit" name="eRPLineEdit"/>
+             </item>
+             <item row="14" column="0">
+              <widget class="QLabel" name="datasheetURLLabel">
+               <property name="text">
+                <string>Datasheet URL</string>
+               </property>
+              </widget>
+             </item>
+             <item row="14" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLineEdit" name="datasheetLinkLineEdit"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="datasheetlinkLabel">
+                 <property name="text">
+                  <string>llink</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="17" column="0">
+              <widget class="QLabel" name="qtyLabel">
+               <property name="text">
+                <string>Qty</string>
+               </property>
+              </widget>
+             </item>
+             <item row="17" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QSpinBox" name="qtySpinBox">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>15</height>
+                  </size>
+                 </property>
+                 <property name="maximum">
+                  <number>1000000000</number>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="qtyManyCheckbox">
+                 <property name="text">
+                  <string>Many</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="18" column="0">
+              <widget class="QLabel" name="lotLabel">
+               <property name="text">
+                <string>Location</string>
+               </property>
+              </widget>
+             </item>
+             <item row="18" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QLineEdit" name="locationLineEdit"/>
+               </item>
+              </layout>
+             </item>
+             <item row="20" column="1">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Use the following scheme: &lt;b&gt; qty1: projectname1, qty2: projectname2&lt;/b&gt;</string>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="21" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Reserved:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="21" column="1">
+              <widget class="QLineEdit" name="reserved_lineEdit"/>
+             </item>
+             <item row="22" column="1">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Projectname1, Projectname2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="23" column="0">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Provisioning for:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="23" column="1">
+              <widget class="QLineEdit" name="provisioning_lineEdit"/>
+             </item>
+             <item row="24" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Comment:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="24" column="1">
+              <widget class="QTextEdit" name="comment_textEdit"/>
+             </item>
+             <item row="26" column="0" colspan="2">
+              <widget class="QLabel" name="additionalparameterLabel">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+               <property name="textInteractionFlags">
+                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="imageLabel">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="sKULabel">
+     <item>
+      <widget class="QPushButton" name="continueWithNextPartButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
-        <string>SKU</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLineEdit" name="sKULineEdit"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="lookupButton">
-         <property name="text">
-          <string>Lookup..</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="supplierLabel">
-       <property name="text">
-        <string>Supplier</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="supplierLineEdit"/>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="supplierURLLabel">
-       <property name="text">
-        <string>Supplier URL</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="mPNLabel">
-       <property name="text">
-        <string>MPN</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="mPNLineEdit"/>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="manufacturerLabel">
-       <property name="text">
-        <string>Manufacturer</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLineEdit" name="manufacturerLineEdit"/>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Description Example</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QLabel" name="exampleLable">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="descriptionLabel">
-       <property name="text">
-        <string>Description</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QLineEdit" name="descriptionLineEdit"/>
-     </item>
-     <item row="11" column="0">
-      <widget class="QLabel" name="eRPEGNavisionLabel">
-       <property name="text">
-        <string>ERP(e.g.navision)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="1">
-      <widget class="QLineEdit" name="eRPLineEdit"/>
-     </item>
-     <item row="14" column="0">
-      <widget class="QLabel" name="datasheetURLLabel">
-       <property name="text">
-        <string>Datasheet URL</string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QLineEdit" name="datasheetLinkLineEdit"/>
-       </item>
-       <item>
-        <widget class="QLabel" name="datasheetlinkLabel">
-         <property name="text">
-          <string>llink</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="17" column="0">
-      <widget class="QLabel" name="qtyLabel">
-       <property name="text">
-        <string>Qty</string>
-       </property>
-      </widget>
-     </item>
-     <item row="17" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QSpinBox" name="qtySpinBox">
-         <property name="maximum">
-          <number>1000000000</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="qtyManyCheckbox">
-         <property name="text">
-          <string>Many</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="5" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="QLineEdit" name="supplierLinkLineEdit"/>
-       </item>
-       <item>
-        <widget class="QLabel" name="supplierlinkLinkLabel">
-         <property name="text">
-          <string>link</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="18" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLineEdit" name="locationLineEdit"/>
-       </item>
-      </layout>
-     </item>
-     <item row="18" column="0">
-      <widget class="QLabel" name="lotLabel">
-       <property name="text">
-        <string>Location</string>
-       </property>
-      </widget>
-     </item>
-     <item row="19" column="0" colspan="2">
-      <widget class="QLabel" name="additionalparameterLabel">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        <string>Continue With next part</string>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="3" column="2">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="QPushButton" name="continueWithNextPartButton">
-     <property name="text">
-      <string>Continue With next part</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QPushButton" name="scanbarcodeButton">
-     <property name="text">
-      <string>Scan Barcodes..</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0" rowspan="2">
-    <widget class="QTreeWidget" name="treeWidget">
-     <column>
-      <property name="text">
-       <string>Categories</string>
-      </property>
-     </column>
-    </widget>
    </item>
   </layout>
  </widget>

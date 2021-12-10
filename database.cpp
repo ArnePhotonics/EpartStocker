@@ -81,6 +81,11 @@ void PartDataBase::db_reload_part_database() {
         part.location = part_obj["location"].toString();
         part.qty = part_obj["qty"].toInt();
         part.url = part_obj["url"].toString();
+
+        part.reserved_for = part_obj["reserved_for"].toString();
+        part.comment = part_obj["comment"].toString();
+        part.provisioning_for = part_obj["provisioning_for"].toString();
+
         part.image.loadFromData(QByteArray::fromBase64(part_obj["image"].toString().toLatin1()), "JPG");
         auto param_obj = part_obj["parameters"].toObject();
         for (auto field_name : param_obj.keys()) {
@@ -158,8 +163,13 @@ void PartDataBase::save_to_file() {
         part_obj["location"] = part.location;
         part_obj["qty"] = part.qty;
         part_obj["url"] = part.url;
+
+        part_obj["reserved_for"] = part.reserved_for;
+        part_obj["comment"] = part.comment;
+        part_obj["provisioning_for"] = part.provisioning_for;
+
         QJsonObject param_obj;
-        for (auto field_name : part.additional_parameters.uniqueKeys()) {
+        for (auto field_name : part.additional_parameters.keys()) {
             param_obj[field_name] = part.additional_parameters[field_name];
         }
 
@@ -297,7 +307,7 @@ PartCategoryTreeNode &PartDataBase::get_category_node_ref(QString categorie_path
 
 QList<QPair<QString, int>> PartDataBase::get_mpn_proposals(const QRegularExpression &base_mpn) const {
     QList<QPair<QString, int>> result;
-    const QStringList &sl = m_mpn_to_id_map.uniqueKeys();
+    const QStringList &sl = m_mpn_to_id_map.keys();
     const QStringList &filtered_sl = sl.filter(base_mpn);
     for (const auto &mpn : filtered_sl) {
         QPair<QString, int> val;

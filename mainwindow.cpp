@@ -89,7 +89,7 @@ void MainWindow::filter_parts(QString filter) {
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-    //
+    (void)event;
 }
 
 void MainWindow::show_parts(const QMap<int, Part> &parts) {

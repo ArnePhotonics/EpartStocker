@@ -61,9 +61,9 @@ win32 {
     system($$system_quote($$SH) $$PWD/git_linux.sh)
 }
 
-#LIBS += -L$$PWD
+LIBS += -L$$PWD
 LIBS += -llibcrypto-1_1-x64 -llibssl-1_1-x64
-LIBS += -LC:/Qt/Tools/OpenSSL/Win_x64/bin
+#LIBS += -LC:/Qt/Tools/OpenSSL/Win_x64/bin
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

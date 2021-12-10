@@ -23,10 +23,12 @@ DigikeyWrapper::DigikeyWrapper(const Settings &settings, QObject *parent)
         if (status == QAbstractOAuth::Status::Granted)
             emit authenticated();
     });
+#if 0
     oauth2.setModifyParametersFunction([&](QAbstractOAuth::Stage stage, QVariantMap *parameters) {
         if (stage == QAbstractOAuth::Stage::RequestingAuthorization && isPermanent())
             parameters->insert("duration", "permanent");
     });
+#endif
     connect(&oauth2, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser, &QDesktopServices::openUrl);
 
     connect(this, &DigikeyWrapper::authenticated, this, &DigikeyWrapper::just_authenticated);
@@ -64,7 +66,7 @@ void DigikeyWrapper::query(QString sku) {
         return;
     }
     auto url_percent_encoded = QString::fromUtf8(QUrl::toPercentEncoding(sku));
-    // qDebug() << url_percent_encoded;
+    qDebug() << url_percent_encoded;
     QNetworkRequest request(QUrl{m_settings.get_digikey_url_string() + digikey_part_url + url_percent_encoded});
     request.setRawHeader("Authorization", "Bearer " + oauth2.token().toUtf8()); //convert authToken to QByteArray when we set header;
     request.setRawHeader("Content-Type", "application/json; charset=UTF-8");
