@@ -4,6 +4,7 @@
 #include "database.h"
 #include "digikeywrapper.h"
 #include "farnellwrapper.h"
+#include "mouserwrapper.h"
 #include "mpnsuggestionwindow.h"
 #include <QDialog>
 #include <QNetworkAccessManager>
@@ -46,6 +47,7 @@ class PartDetailWindow : public QDialog {
     void set_ui_supplierURL(QString URL);
     void set_ui_additional_parts();
     FarnellWrapper m_farnell_wrapper;
+    MouserWrapper m_mouser_wrapper;
     DigikeyWrapper &m_digikey_wrapper;
     QNetworkAccessManager *m_network_access_manager;
     PartDataBase &m_part_data_base;

@@ -10,12 +10,13 @@
 #include <QRegularExpression>
 #include <QUrl>
 #include <QtGlobal>
-#include <QtNetworkAuth>
+//#include <QtNetworkAuth>
 
 PartDetailWindow::PartDetailWindow(const Settings &settings, DigikeyWrapper &digikey_wrapper, PartDataBase &part_data_base, int part_id, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::PartCreationWindow)
     , m_farnell_wrapper(settings, parent)
+    , m_mouser_wrapper(settings, parent)
     , m_digikey_wrapper(digikey_wrapper)
     , m_part_data_base(part_data_base)
     , m_part_id(part_id) {
@@ -24,10 +25,13 @@ PartDetailWindow::PartDetailWindow(const Settings &settings, DigikeyWrapper &dig
     connect(m_network_access_manager, &QNetworkAccessManager::finished, this, &PartDetailWindow::image_download_finished);
     connect(&m_digikey_wrapper, &DigikeyWrapper::got_data, this, &PartDetailWindow::lookup_received);
     connect(&m_farnell_wrapper, &FarnellWrapper::got_data, this, &PartDetailWindow::lookup_received);
+    connect(&m_mouser_wrapper, &MouserWrapper::got_data, this, &PartDetailWindow::lookup_received);
 
     connect(&m_digikey_wrapper, &DigikeyWrapper::supplier_error, this,
             [this](const QString error_message) { QMessageBox::warning(this, QObject::tr("Lookup Error"), error_message); });
     connect(&m_farnell_wrapper, &FarnellWrapper::supplier_error, this,
+            [this](const QString error_message) { QMessageBox::warning(this, QObject::tr("Lookup Error"), error_message); });
+    connect(&m_mouser_wrapper, &MouserWrapper::supplier_error, this,
             [this](const QString error_message) { QMessageBox::warning(this, QObject::tr("Lookup Error"), error_message); });
 
     m_part_data_base.create_tree_view_items(ui->treeWidget);
@@ -72,6 +76,9 @@ void PartDetailWindow::on_lookupButton_clicked() {
             break;
         case Supplier::Farnell:
             m_farnell_wrapper.query(sku);
+            break;
+        case Supplier::Mouser:
+            m_mouser_wrapper.query(sku);
             break;
         case Supplier::None:
             QMessageBox::warning(this, QObject::tr("Unknown sku"), tr("The sku %1 is not recognized as a sku from Farnell or Digikey").arg(sku));

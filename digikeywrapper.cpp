@@ -19,6 +19,7 @@ DigikeyWrapper::DigikeyWrapper(const Settings &settings, QObject *parent)
 
     network_manager = new QNetworkAccessManager(this);
     connect(&oauth2, &QOAuth2AuthorizationCodeFlow::statusChanged, [=](QAbstractOAuth::Status status) {
+        qDebug() << "statusChanged";
         if (status == QAbstractOAuth::Status::Granted)
             emit authenticated();
     });
@@ -44,10 +45,12 @@ void DigikeyWrapper::setPermanent(bool value) {
 }
 
 void DigikeyWrapper::grant() {
+    qDebug() << "granting..";
     oauth2.grant();
 }
 
 void DigikeyWrapper::just_authenticated() {
+    qDebug() << "just_authenticated..";
     is_authenticated = true;
     query(m_sku_to_query_after_auth);
 }

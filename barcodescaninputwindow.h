@@ -11,7 +11,7 @@ namespace Ui {
 
 class Supplier {
     public:
-    enum Type { Digikey, Farnell, None };
+    enum Type { Digikey, Farnell, Mouser, None };
     Supplier(Type t)
         : m_t(t) {}
     Supplier(QString sku) {
@@ -19,6 +19,8 @@ class Supplier {
             m_t = Type::Farnell;
         } else if (QRegularExpression(".*-ND").match(sku).hasMatch()) {
             m_t = Type::Digikey;
+        } else if (QRegularExpression("^\\d\\d\\d-.+$").match(sku).hasMatch()) {
+            m_t = Type::Mouser;
         } else {
             m_t = Type::None;
         }
@@ -35,6 +37,8 @@ class Supplier {
                 return "digikey";
             case Type::Farnell:
                 return "farnell";
+            case Type::Mouser:
+                return "mouser";
             case Type::None:
                 return "none";
         }

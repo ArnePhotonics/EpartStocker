@@ -20,6 +20,7 @@ SOURCES += \
     barcodescaninputwindow.cpp \
     database.cpp \
     farnellwrapper.cpp \
+    mouserwrapper.cpp \
     infowindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     barcodescaninputwindow.h \
     database.h \
     farnellwrapper.h \
+    mouserwrapper.h \
     infowindow.h \
     mainwindow.h \
     mpnsuggestionwindow.h \
@@ -59,7 +61,9 @@ win32 {
     system($$system_quote($$SH) $$PWD/git_linux.sh)
 }
 
-LIBS += -L$$PWD -llibcrypto-1_1-x64 -llibssl-1_1-x64
+#LIBS += -L$$PWD
+LIBS += -llibcrypto-1_1-x64 -llibssl-1_1-x64
+LIBS += -LC:/Qt/Tools/OpenSSL/Win_x64/bin
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

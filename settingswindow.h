@@ -52,6 +52,13 @@ class Settings {
         return m_settings.value("farnell_apikey", "").toString();
     }
 
+    void set_mouser_apikey(QString val) {
+        m_settings.setValue("mouser_apikey", val);
+    }
+    QString get_mouser_apikey() const {
+        return m_settings.value("mouser_apikey", "").toString();
+    }
+
     QString get_farnell_store() const {
         return "de.farnell.com";
     }

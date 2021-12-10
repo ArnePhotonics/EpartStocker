@@ -14,6 +14,7 @@ SettingsWindow::SettingsWindow(Settings &settings, QWidget *parent)
     ui->digikey_URLComboBox->addItem(Settings::get_digikey_url_by_index(0));
     ui->digikey_URLComboBox->addItem(Settings::get_digikey_url_by_index(1));
     ui->digikey_URLComboBox->setCurrentIndex(m_settings.get_digikey_url());
+    ui->mouserAPIKeyLineEdit->setText(m_settings.get_mouser_apikey());
     ui->installationSourceLineEdit->setText(m_settings.get_installation_source_path());
 }
 
@@ -28,4 +29,5 @@ void SettingsWindow::on_buttonBox_accepted() {
     m_settings.set_digikey_secret(ui->digikeySecretLineEdit->text());
     m_settings.set_digikey_url(ui->digikey_URLComboBox->currentIndex());
     m_settings.set_installation_source_path(ui->installationSourceLineEdit->text());
+    m_settings.set_mouser_apikey(ui->mouserAPIKeyLineEdit->text());
 }

@@ -1,4 +1,4 @@
-#include "farnellwrapper.h"
+#include "mouserwrapper.h"
 #include "barcodescaninputwindow.h"
 #include <QDebug>
 #include <QFile>
@@ -9,44 +9,47 @@
 #include <QNetworkRequest>
 #include <QUrlQuery>
 
-FarnellWrapper::FarnellWrapper(const Settings &settings, QObject *parent)
+MouserWrapper::MouserWrapper(const Settings &settings, QObject *parent)
     : QObject(parent)
     , m_settings(settings) {
     network_manager = new QNetworkAccessManager(this);
 }
 
-FarnellWrapper::~FarnellWrapper() {
+MouserWrapper::~MouserWrapper() {
     delete network_manager;
 }
 
-void FarnellWrapper::query(QString sku) {
+void MouserWrapper::query(QString sku) {
     QUrlQuery url_query;
-    QUrl url("http://api.element14.com/catalog/products");
-    url_query.addQueryItem("storeInfo.id", m_settings.get_farnell_store());
-    url_query.addQueryItem("term", ("id:" + sku).toUtf8());
-    url_query.addQueryItem("callInfo.omitXmlSchema", "false");
-    url_query.addQueryItem("callInfo.responseDataFormat", "json");
-    url_query.addQueryItem("callInfo.apiKey", m_settings.get_farnell_apikey());
-    url_query.addQueryItem("resultsSettings.offset", "0");
-    url_query.addQueryItem("resultsSettings.numberOfResults", "0");
-    url_query.addQueryItem("resultsSettings.refinements", "0");
-    url_query.addQueryItem("resultsSettings.responseGroup", "large");
-    url.setQuery(url_query);
-    QNetworkRequest request(url);
+    url_query.addQueryItem("apiKey", m_settings.get_mouser_apikey());
 
-    QNetworkReply *reply = network_manager->get(request);
+    QJsonObject obj_request;
+    obj_request["mouserPartNumber"] = sku;
+    obj_request["partSearchOptions"] = "value2";
+    QJsonObject obj;
+    obj["SearchByPartRequest"] = obj_request;
+    QJsonDocument doc(obj);
+    QByteArray data = doc.toJson();
+
+    QUrl url("https://api.mouser.com/api/v1.0/search/partnumber");
+    url.setQuery(url_query);
+
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QNetworkReply *reply = network_manager->post(request, data);
+
     connect(reply, &QNetworkReply::finished, [=]() {
         reply->deleteLater();
         if (reply->error() != QNetworkReply::NoError) {
-            emit supplier_error("Farnell error: " + reply->errorString());
-            qCritical() << "Farnell error: " << reply->errorString();
+            emit supplier_error("Mouser error: " + reply->errorString());
+            qCritical() << "Mouser error: " << reply->errorString();
             return;
         }
 
         const auto json = reply->readAll();
         QMap<QString, QString> data;
-        // qDebug() << json;
-        QFile f("farnell.json");
+        qDebug() << json;
+        QFile f("mouser.json");
         f.open(QIODevice::WriteOnly | QIODevice::Text);
         QTextStream out(&f);
         out << json;
@@ -54,10 +57,10 @@ void FarnellWrapper::query(QString sku) {
 #if 1
         const auto document = QJsonDocument::fromJson(json);
         Q_ASSERT(document.isObject());
-        const auto product_array = document.object()["premierFarnellPartNumberReturn"].toObject()["products"].toArray();
+        const auto product_array = document.object()["SearchResults"].toObject()["Parts"].toArray();
         Q_ASSERT(product_array.count());
         const auto product_obj = product_array[0];
-        data["description"] = product_obj["displayName"].toString();
+        data["description"] = product_obj["Description"].toString();
 
         //https://
         //The domain used for the API request  i.e. uk.farnell.com
@@ -74,39 +77,34 @@ void FarnellWrapper::query(QString sku) {
         //So by example you could end up with these : https://uk.farnell.com/productimages/standard/en_GB/GE20TSSOP-40.jpg
         //
         //Or https://fr.farnell.com/productimages/standard/fr_FR/GE20TSSOP-40.jpg
-        QString lang = "en_US";
-        if (product_obj["image"].toObject()["vrntPath"].toString().startsWith("‘nio")) {
-        } else {
-            lang = "en_GB";
-        }
-        data["image_url"] =
-            "https://" + m_settings.get_farnell_store() + "/productimages/standard/" + lang + product_obj["image"].toObject()["baseName"].toString();
-        const auto data_sheet_url = product_obj["datasheets"].toArray();
-        if (data_sheet_url.count()) {
-            data["datasheet_url"] = data_sheet_url[0].toObject()["url"].toString();
-        }
-        data["manufacturer"] = product_obj["brandName"].toString();
-        data["url"] = "https://" + m_settings.get_farnell_store() + "/" + sku;
-        data["mpn"] = product_obj["translatedManufacturerPartNumber"].toString();
-        data["supplier"] = Supplier(Supplier::Farnell).toStr();
+
+        data["image_url"] = product_obj["ImagePath"].toString();
+        data["datasheet_url"] = product_obj["DataSheetUrl"].toString();
+
+        data["manufacturer"] = product_obj["Manufacturer"].toString();
+        data["url"] = product_obj["ProductDetailUrl"].toString();
+        data["mpn"] = product_obj["ManufacturerPartNumber"].toString();
+        data["category"] = product_obj["Category"].toString();
+        data["supplier"] = Supplier(Supplier::Mouser).toStr();
         qDebug() << data;
 
         QMap<QString, QString> additional_parameters;
-        auto parameters = product_obj["attributes"].toArray();
+        additional_parameters["category"] = data["category"];
+        auto parameters = product_obj["ProductAttributes"].toArray();
         for (const auto &param : parameters) {
             //"attributeLabel":"Anschlussabstand",
             //"attributeUnit":"mm",
             //"attributeValue":"3.5"
 
             auto param_obj = param.toObject();
-            auto param_name = param_obj["attributeLabel"].toString();
-            auto param_value = param_obj["attributeValue"].toString();
-            auto param_unit = param_obj["attributeUnit"].toString();
+            auto param_name = param_obj["AttributeName"].toString();
+            auto param_value = param_obj["AttributeValue"].toString();
             if ((param_value == "") || (param_value == "-")) {
                 continue;
             }
-            additional_parameters[param_name] = param_value + param_unit;
+            additional_parameters[param_name] = param_value;
         }
+
         emit got_data(data, additional_parameters);
 
 #endif

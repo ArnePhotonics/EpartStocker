@@ -2,6 +2,7 @@
 #define DIGIKEYWRAPPER_H
 
 #include "settingswindow.h"
+#include <QLoggingCategory>
 #include <QOAuth2AuthorizationCodeFlow>
 #include <QObject>
 #include <QtCore>
