@@ -77,20 +77,24 @@ void PartDetailWindow::on_scanbarcodeButton_clicked() {
 void PartDetailWindow::on_lookupButton_clicked() {
     //    m_digikey_wrapper.grant();
     QString sku = ui->sKULineEdit->text().trimmed();
-    auto supplier = Supplier(sku);
-    switch (supplier.type()) {
-        case Supplier::Digikey:
-            m_digikey_wrapper.query(sku);
-            break;
-        case Supplier::Farnell:
-            m_farnell_wrapper.query(sku);
-            break;
-        case Supplier::Mouser:
-            m_mouser_wrapper.query(sku);
-            break;
-        case Supplier::None:
-            QMessageBox::warning(this, QObject::tr("Unknown sku"), tr("The sku %1 is not recognized as a sku from Farnell or Digikey").arg(sku));
-            break;
+    if ((Supplier(ui->supplierLineEdit->text()).type() == Supplier::Mouser) && sku == "") {
+        m_mouser_wrapper.query(ui->mPNLineEdit->text().trimmed(), MouserWrapper::byMPN);
+    } else {
+        auto supplier = Supplier(sku);
+        switch (supplier.type()) {
+            case Supplier::Digikey:
+                m_digikey_wrapper.query(sku);
+                break;
+            case Supplier::Farnell:
+                m_farnell_wrapper.query(sku);
+                break;
+            case Supplier::Mouser:
+                m_mouser_wrapper.query(sku, MouserWrapper::bySKU);
+                break;
+            case Supplier::None:
+                QMessageBox::warning(this, QObject::tr("Unknown sku"), tr("The sku %1 is not recognized as a sku from Farnell, Digikey or Mouser").arg(sku));
+                break;
+        }
     }
 }
 
@@ -110,6 +114,9 @@ void PartDetailWindow::lookup_received(QMap<QString, QString> data, const QMap<Q
     ui->mPNLineEdit->setText(data["mpn"]);
     //m_suppress_mpn_kreypress_event = false;
     ui->supplierLineEdit->setText(data["supplier"]);
+    if (data["sku"].length()) {
+        ui->sKULineEdit->setText(data["sku"]);
+    }
     set_ui_datasheetURL(data["datasheet_url"]);
     set_ui_supplierURL(data["url"]);
     if (data["image_url"] != "") {

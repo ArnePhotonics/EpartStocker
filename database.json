@@ -579,10 +579,11 @@
             "parts_allowed": false
         }
     ],
-    "next_part_id": 18808,
+    "next_part_id": 18810,
     "parts": [
         {
             "category": "active/ic/analog",
+            "comment": "",
             "datasheet_link": "http:\\example.com",
             "description": "Stromsensor",
             "erp": "",
@@ -593,13 +594,16 @@
             "mpn": "INA138NA/250",
             "parameters": {
             },
+            "provisioning_for": "",
             "qty": 4,
+            "reserved_for": "",
             "sku": "3050398",
             "supplier": "farnell",
             "url": "\u0000"
         },
         {
             "category": "active/ic/analog/others",
+            "comment": "",
             "datasheet_link": "http://www.farnell.com/datasheets/2893220.pdf",
             "description": "ALLEGRO MICROSYSTEMS - ACS70331EESATR-005B3 - Stromsensor, 1 MHz, QFN-EP, 12 Pin(s), 3 V, 4.5 V",
             "erp": "",
@@ -610,13 +614,16 @@
             "mpn": "ACS70331EESATR-005B3",
             "parameters": {
             },
+            "provisioning_for": "",
             "qty": 0,
+            "reserved_for": "",
             "sku": "3324652",
             "supplier": "farnell",
             "url": "\u0000"
         },
         {
             "category": "active/ic/analog/switch",
+            "comment": "",
             "datasheet_link": "http://www.farnell.com/datasheets/2250923.pdf",
             "description": "Crosspoint-Schalter, analog, 16x16-Array, seriell, 5V digital, 9V bis 25.2V analog, LCC-44",
             "erp": "",
@@ -627,13 +634,16 @@
             "mpn": "AD75019JPZ ",
             "parameters": {
             },
+            "provisioning_for": "",
             "qty": -1000,
+            "reserved_for": "",
             "sku": "1079327",
             "supplier": "farnell",
             "url": "\u0000"
         },
         {
             "category": "active/ic/analog/switch",
+            "comment": "",
             "datasheet_link": "http://www.farnell.com/datasheets/2250923.pdf",
             "description": "ANALOG DEVICES - AD75019JPZ - Crosspoint-Schalter, analog, 16x16-Array, seriell, 5V digital, 9V bis 25.2V analog, LCC-44",
             "erp": "",
@@ -644,13 +654,16 @@
             "mpn": "AD75019JPZ",
             "parameters": {
             },
+            "provisioning_for": "",
             "qty": 0,
+            "reserved_for": "",
             "sku": "1079327",
             "supplier": "farnell",
             "url": "https://de.farnell.com/1079327"
         },
         {
             "category": "passiv/resistor",
+            "comment": "",
             "datasheet_link": "https://4donline.ihs.com/images/VipMasterIC/IC/TYEL/TYEL-S-A0004929575/TYEL-S-A0004929575-1.pdf?hkey=52A5661711E402568146F3353EA87419",
             "description": "RES 0603 1% 100mW 619R",
             "erp": "qlew",
@@ -671,13 +684,16 @@
                 "Widerstandstoleranz": "± 1%",
                 "Widerstandstyp": "Universell"
             },
+            "provisioning_for": "",
             "qty": 0,
+            "reserved_for": "",
             "sku": "2861473",
             "supplier": "farnell",
             "url": "https://de.farnell.com/2861473"
         },
         {
             "category": "passiv/capacitor/polar",
+            "comment": "",
             "datasheet_link": "http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1172.pdf",
             "description": "CAP TANTAL 7343 10u 35V 10% 0R3",
             "erp": "",
@@ -699,13 +715,16 @@
                 "Produktpalette": "Baureihe FC",
                 "Qualifizierungsstandard der Automobilindustrie": "AEC-Q200"
             },
+            "provisioning_for": "",
             "qty": 15,
+            "reserved_for": "",
             "sku": "9694471",
             "supplier": "farnell",
             "url": "https://de.farnell.com/9694471"
         },
         {
             "category": "active/discrete/diode/led",
+            "comment": "",
             "datasheet_link": "http://optoelectronics.liteon.com/upload/download/DS22-2000-233/LTST-C171TBKT(0630).pdf",
             "description": "LED BLUE CLEAR CHIP SMD",
             "erp": "",
@@ -734,18 +753,21 @@
                 "Wavelength - Dominant": "470nm",
                 "Wavelength - Peak": "468nm"
             },
+            "provisioning_for": "",
             "qty": -1000,
+            "reserved_for": "",
             "sku": "160-1645-1-ND",
             "supplier": "digikey",
             "url": "https://www.digikey.com/product-detail/en/lite-on-inc/LTST-C171TBKT/160-1645-1-ND/573585"
         },
         {
             "category": "passiv/magnetics/incductor",
+            "comment": "",
             "datasheet_link": "https://www.murata.com/~/media/webrenewal/products/inductor/chip/tokoproducts/wirewoundmetalalloychiptype/m_dfe252012p.ashx",
             "description": "FIXED IND 470NH 5.7A 27 MOHM SMD",
             "erp": "",
             "id": 18801,
-            "image": "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",
+            "image": "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",
             "location": "12/12",
             "manufacturer": "Murata Electronics",
             "mpn": "DFE252012P-R47M=P2",
@@ -767,18 +789,21 @@
                 "Tolerance": "±20%",
                 "Type": "Wirewound"
             },
+            "provisioning_for": "",
             "qty": 0,
+            "reserved_for": "",
             "sku": "490-10653-2-ND\n",
             "supplier": "digikey",
             "url": "https://www.digikey.com/product-detail/en/murata-electronics/DFE252012P-R47M=P2/490-10653-2-ND/5247264"
         },
         {
             "category": "active/discrete/diode/led",
+            "comment": "",
             "datasheet_link": "http://www.farnell.com/datasheets/573485.pdf",
             "description": "white, 7040 K, 230 lm",
             "erp": "",
             "id": 18803,
-            "image": "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",
+            "image": "/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABiAGQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAz7y9Fp5W5JpPMkWP91GX25OMnA4HqTwKuLMjcZwfQ1y+u2Ovy3X2zRtaWAquDaXVuskL9ccja6n3yfpWPbnxdqniPT49TtY9OsLPfNPLZ3ZZLuTG1Ux8rBRuZiCCDgDmgD0SisO+1KGxe2jl8wyXU4gijQZLMQSevGAqsx9lPXpWml1x8w/EUAWaKYsqPwDz6Gn0AFFFFABRRRQAUUUUAFRTPhcetSE4GTVOR9xJNADD1ppFICzsQOAOp9KY08UZwWJNZVa1OkrzdiowctjPfSRL4gj1SabeILcwwRbeEZjl3z3JAQD0wf7xrO8aX2t2ehOfDyxNqBZdgdgCRnJAB4JOMc469a6JZon6Ng+9UDZTTaoJ5gDAgymDkE/T/AD2qPrEZpcjvcfI18R5xpXxb1S01SDR/FHhu6tr2ZxHEYFxvJOB8rkZGf4gxFemx61GCBuYA+o4/WpZ7O3uowk0KSKCGG4dCOhHuOoNZs2lTLkxMsg9H+U9fUfyx+NbO/QlWN2HUI5AOh91NW1kR/usDXEyxzQ4AhnWQnjYhPf1XIFbbXElrpnmzD96F6Hnk9B+dEW3uDRvUVUtfM+yxeacvtGTRVCLdFFISAMmgCKZ8DaD9apyNgVJI5ZifWoFw0p3dFGcUPQBlxIIYAoOCeTWY03NOu5mlnYk8ZqtmvjsdinVrNrY9WjSUYk3mip4rpo/utxVLNIWwK44VZRd0zVwTNuObzoy68MOo9akRg6gis7TiRG8h+7/hVy1z5K5r7LA1J1KEZT3PKrRUZtIsBQaoOn27V47cf6uD53+vYfl/MVauJkt7d5XOAozx1/CnaLbNFamaUfvZjvb29q6zI09tFLRQAlQ3D8bR9TUrMFUk9BWLqGpxWjDzAzM3OF60r23Atk1Ax8uTJ+6wwT6VWh1S3nOA4B9DVrcsi8EEUXTDYzrm2dXLLypOeKpng4IrUlSSPLRtx6Gs201KDUJJke3dGibaWK8H6GvAxWVpyvTlq+h3UsVZe8htAVpJAg7mrptYW5WXAp8Ygg6Es3sOTXJQyqq6lpqyNZ4qHLoP2ABIF4HVvpV5F2riq9ujEl3+83b09qnlkWGFpGOAoyT6V9TGKjFRWyPNbu7sp3Cm91CGyXOxf3kn0HQfn/IVvKoVQAMAVkaLbsIXvJVxJcNux1wOgH5Vs1QgooooAztSuxaiIMp2MTkjse1Y11FFqB8yCZRJjBVh1/kc10lxbQ3UeyaMOvoayLjw5CwJtpHibsM5H60mrgc7c2NxGCWibjpt+Yfn19+RWBrfjT/hD9PW+eOS9jaURFI2+76ktyB9D1rsZbXVrHqPNjHcDNNj1OCUGK5hAJGCMf0rNU0ndFc11Y5qx+KHh3XrLZaXnk3bjH2e4GxwemBngn2BNdjptktrZJGwG88v9f8APFc6nw98HTarFqsOkwpcxyLKpidkUMpyDsB29farXjCXXLfT4n0G4Vbp3WBYpLfzFYuQNxPVdoy2TkYB4PFVye/zivpY6A2sTc7RzTkgROgA+lZfhxdRg01LXUrcxy26rGJDcmfzQB97eQGz65HWtmrECjFUr3N1cQ2K5+c7nP8Asj/6/wDI1cdxFGzscADJNR6LE0okv5R88x+XPZewoA1kQRoEUYAGBT6KKACiiigAooooAMVTudNtLsYlhUn1HWrlFAHNXHh2aFt9nOeOit/jVQ3N/Yti5hLAdz/jXYU1kVxhlBHuKAOcg1a3lA3HYferFxex29nLc7JJljQvsgQu7ADOFUck+wqxdaDZ3BLKvlP6rxWTLot/ZktA/mp6A4NAFi8ZrqSGzj6ynL+oUdfp6fTNdBHGsUaoowFGBWTo9tKZJLq4QrIcIobrgf8A181s0AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAAooooAKKKKACiiigD/2Q==",
             "location": "10/10",
             "manufacturer": "SHARP",
             "mpn": "GW5BTC65K00",
@@ -794,18 +819,21 @@
                 "Nennleistung": "3.6W",
                 "Versorgungsspannung": "10.2V"
             },
+            "provisioning_for": "",
             "qty": 9,
+            "reserved_for": "",
             "sku": "1794388",
             "supplier": "farnell",
             "url": "https://de.farnell.com/1794388"
         },
         {
             "category": "active/ic/digital/others",
+            "comment": "",
             "datasheet_link": "https://www.mouser.com/datasheet/2/256/MAX32664-1366198.pdf",
             "description": "Biometrische Sensoren SENSOR HUB W/ SPO2, HR & BP ALGORITHMS",
             "erp": "",
             "id": 18805,
-            "image": "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",
+            "image": "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",
             "location": "1/23",
             "manufacturer": "Maxim Integrated",
             "mpn": "MAX32664GTGD+",
@@ -813,18 +841,21 @@
                 "Standardpackungsmenge": "490",
                 "Verpackung": "Tube"
             },
+            "provisioning_for": "",
             "qty": 2,
+            "reserved_for": "",
             "sku": "700-MAX32664GTGD+",
             "supplier": "mouser",
             "url": "https://www.mouser.de/ProductDetail/Maxim-Integrated/MAX32664GTGD%2b?qs=vmHwEFxEFR8eXdzd1CMxwQ%3D%3D"
         },
         {
             "category": "active/discrete/diode/silicon",
+            "comment": "",
             "datasheet_link": "https://www.mouser.com/datasheet/2/308/1/MMBD1401AL_D-2316296.pdf",
             "description": "Dioden (Allzweck, Leistung, Schaltung) SS SOT23 SWCH DIO 250V TR",
             "erp": "",
             "id": 18807,
-            "image": "/9j/4AAQSkZJRgABAQIAJQAlAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABkAGQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAwfGHiW38K+Fr/AFaeSNXhiJgSRgPNlwdidecnHTtmvANP/aG8UQXYa/stOu7cvuKIjRMo9FYEjH1B960P2g/Fhu9UtPDFu8TwWmLm42nJ84hgFP0U5x/tV4nQB9W+Hfjl4Q1uUQXElxpUpUEtehRGTxwHBI/E4r0Kx1Ky1O2Fzp93BdwE4EtvIsik/UEjvXwhjP4VoaZrmr6KzNpeqXlkW+99mnaPd9cEZ/GgD7ozTGlAP3WIBwSozg/zr5UHxx8XtpsFnNPAfLdWa5RSk0gAxgkHHPrtzkda6/wv8Y01DULe01R4rNZXXzLxiYivuWBw3/AhQB7+GBOB1pawPDkj6iJNWe7iuFfdDA9vKHjeJWOH44LMMc+gFb9ABRRRQAUUUUAFZfiHWIPD+gX+r3GPLs4Hl2kgbyAcKPcnAHuRWpXif7QOq3E1jY+HbRSGci8nOcblG5VX353HH+yKAPn3VtTn1nWLzU7kKJ7uZ55AvQMxJIHsM4Htiqgp8ttNbtiWJ09Ny4zTBQAoJHIr6E8LeBdB8E+D7XxBr+nR6rrOomKO2spUVh5kpBjiVXGA/wDebkgBsdOfn+B/KuI5Nm/awbbjO7B6V9VeJtK1Xx3peg6t4bvLGO08h540uHdfKkkj2pMuwH95HlsDjDd+KAHW3i3wdrGmQW+uabZWoe7ltFtrmFJYi0Q+d0YDHlDn5ztHB6Yrxr4r+BbDw1qNlquiMJNE1VDLEUYMqOTnahAxsKspXknAPPSuvv8AwRqV/wCJNEsU0u8itbWR9J89oiqGxiQeZMSAQHmMkoB74HHWoPjvr1gx0vwrYCHbYL5svlspWE42JHweCFBOCOhWgDyfSde1nQjnSdVvbL595EEzKrH/AGlBw34g16hoXx9121lhi1mxtb22VQryQgxTH3zkqfpgV5Iq1Iq0AfVfhr4r+FfEk3kRXT2NyThYb4LGX/3SCVP0zn2rt1cOoZTkEZB9a+Q/Cdluee+Ozac24D8Y6Fm9sDAz719C/C26vbvw3cPd3DTRi4xb5OQkWxdqjPbGD+NAHc0UUUAB571458VvBOr3N+3iCwd76Ly1SS2KlpI8Z5QAfcxyRyckmvY6rX8pgsbiZUDtHEzhSPvEAnFAHzhF4Vl+yhzDHfoyBnNqRMEyOQwHIx71y+q+HtKd3WINDKpwypxg+4r3ye48OaiGZ7GTT74g4ntQIzu92Xnr6iufuvg1HqmmxapZavONTukWacXR3IzsMthlAYc9zuoA8Bn0G4jy0TrIvYA4NbvhT4geJ/AhkjsnDWzkk2t4jNFk9SACMHjqDXWa18O/FOhOFbT3vEx/rbVWlU+uSBlfqRXLyBdximiJ28MGXIB9PagDd1L46eMNU0+S1X+z7EyDDTWcTrIBjsWdsfUc+9eevLLcTyTzyvLNKxeSSRizOx6sSeSSecmtiXSLOf54iY/+uZ4qjLpd1Dlk2ypngL978qAIFFTRxtI6xxrmSRgiD+8xOAPzqEHYcSq8Teki7a3vDdn9ovTcPGWji+WNscCU9PyGT9StAHU6fpjmO10y3hhaaQi3K44kGfnbjrljj8RX0XoemR6Po1rYokamJAH8sYDP/EfxNeW/DPQv7R1yTVJ7UC3s12Qv6sD8p/8AQm/74NexjpQAUUUUAFUdUvBZ2wYSxRyOdsZl+7nGfUelXqr3lja6hD5V3CkqZyA4zg9Mj0PJ5FAHNSPFLbu+p6Rbzk/8vFiASfc5wR+ZrprKNYrOJVyF2jAPUCse08LwWN2ssF3dGIMS0Ejhk9h0zj863hQAprC1fwfoOuRyi+0y2eWTrOiBJf8Avsc/rW7RQB4/rfwQjKh9C1Iq54ZL3v8AR0UEduxrjX+H+saXqLW+qqLe3CkrdsC8Ltnj5lHy9+oHFfSVc74g1O/0+6jWKxW5smj/AHmYy2Dk5HHHTFAHhWq6RHaWbS3VvBc2anH2iAiWP8+x9utZGlyW6ytY2cThZidoh4K5xub6gAYPtXr19o3h3xhcWun/AGJ9PaZ3882oWMt8jEdBjqO47Umm/CGDR/E1hf2mpyyWVs29451HmMR0GQACMgZGBQB2fg7RY9B8NWlqiMkjIJJVbqGIHH4AAfhW9RRQAUUUUAFFFFABRRRQAUUUUAITgZrmrvW1k1KeK11CKKWIGJre4A2Eg/e4IPt1rpqoXmi6dqAP2m0idz/y02gOPow5oAzNOT7XqMRubC3iuYQZftFtyr9sHjI+8Tjnp1roqo6VpcWk2pt4ZZZFLFt0rAsPbPoKvUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/9k=",
+            "image": "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",
             "location": "1/1",
             "manufacturer": "onsemi",
             "mpn": "MMBD1401ALT1G",
@@ -833,13 +864,16 @@
                 "Verpackung": "Reel",
                 "category": "Dioden (Allzweck, Leistung, Schaltung)"
             },
+            "provisioning_for": "",
             "qty": 1,
+            "reserved_for": "",
             "sku": "863-MMBD1401ALT1G",
             "supplier": "mouser",
             "url": "https://www.mouser.de/ProductDetail/onsemi/MMBD1401ALT1G?qs=HBWAp0VN4RgCGHaK9BieNw%3D%3D"
         },
         {
             "category": "active/discrete/diode/z-diode",
+            "comment": "",
             "datasheet_link": "https://www.mouser.com/datasheet/2/308/1/NRTS6100TFS_D-2318249.pdf",
             "description": "Schottky Dioden & Gleichrichter 100V 6A TRENCH SCHOTTKY",
             "erp": "",
@@ -853,10 +887,35 @@
                 "Verpackung": "Reel",
                 "category": "Schottky Dioden & Gleichrichter"
             },
+            "provisioning_for": "",
             "qty": 1,
+            "reserved_for": "",
             "sku": "863-NRTS6100TFSTAG",
             "supplier": "mouser",
             "url": "https://eu.mouser.com/ProductDetail/onsemi/NRTS6100TFSTAG?qs=HBWAp0VN4RjaGz7dxCk2Sw%3D%3D"
+        },
+        {
+            "category": "electromechanics/connector/board_to_wire",
+            "comment": "",
+            "datasheet_link": "https://www.mouser.com/datasheet/2/18/1/flexconnectors_100mm-2584916.pdf",
+            "description": "FFC & FPC-Steckverbinder FFC/FPC CONN",
+            "erp": "",
+            "id": 18810,
+            "image": "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",
+            "location": "1/1",
+            "manufacturer": "Amphenol FCI",
+            "mpn": "HFW6R-2STE1H1LF",
+            "parameters": {
+                "Standardpackungsmenge": "4000",
+                "Verpackung": "Reel",
+                "category": "FFC & FPC-Steckverbinder"
+            },
+            "provisioning_for": "",
+            "qty": 10,
+            "reserved_for": "",
+            "sku": "649-HFW6R-2STE1H1LF",
+            "supplier": "mouser",
+            "url": "https://www.mouser.de/ProductDetail/Amphenol-FCI/HFW6R-2STE1H1LF?qs=u16ybLDytRbPL9JZYbGtyA%3D%3D"
         }
     ],
     "storage_locations": {

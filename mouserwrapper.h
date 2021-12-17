@@ -8,9 +8,10 @@
 class MouserWrapper : public QObject {
     Q_OBJECT
     public:
+    enum SKUorMPN { bySKU, byMPN };
     MouserWrapper(const Settings &settings, QObject *parent);
     ~MouserWrapper();
-    void query(QString sku);
+    void query(QString partnumber, SKUorMPN sku_or_mpn);
     signals:
     void got_data(const QMap<QString, QString> data, const QMap<QString, QString> additional_paramters);
     void supplier_error(const QString error_message);

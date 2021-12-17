@@ -19,19 +19,36 @@ MouserWrapper::~MouserWrapper() {
     delete network_manager;
 }
 
-void MouserWrapper::query(QString sku) {
+void MouserWrapper::query(QString partnumber, SKUorMPN sku_or_mpn) {
     QUrlQuery url_query;
     url_query.addQueryItem("apiKey", m_settings.get_mouser_apikey());
 
     QJsonObject obj_request;
-    obj_request["mouserPartNumber"] = sku;
+    if (sku_or_mpn == bySKU) {
+        obj_request["mouserPartNumber"] = partnumber;
+    } else if (sku_or_mpn == byMPN) {
+        obj_request["mouserPartNumber"] = partnumber;
+        //obj_request["keyword"] = partnumber;
+    } else {
+        assert(0);
+    }
     obj_request["partSearchOptions"] = "value2";
     QJsonObject obj;
     obj["SearchByPartRequest"] = obj_request;
     QJsonDocument doc(obj);
-    QByteArray data = doc.toJson();
 
-    QUrl url("https://api.mouser.com/api/v1.0/search/partnumber");
+    QByteArray data = doc.toJson();
+    QString endpoint;
+    if (sku_or_mpn == bySKU) {
+        endpoint = "partnumber";
+    } else if (sku_or_mpn == byMPN) {
+        endpoint = "partnumber";
+        //endpoint = "keyword";
+    } else {
+        assert(0);
+    }
+
+    QUrl url("https://api.mouser.com/api/v1.0/search/" + endpoint);
     url.setQuery(url_query);
 
     QNetworkRequest request(url);
@@ -62,22 +79,6 @@ void MouserWrapper::query(QString sku) {
         const auto product_obj = product_array[0];
         data["description"] = product_obj["Description"].toString();
 
-        //https://
-        //The domain used for the API request  i.e. uk.farnell.com
-        //Append the static text ‘/productimages/standard’
-        //Then based on the vrntPath value append the locale following these rules -
-        //  If vrntPath is ‘nio/’ add ‘en_US’ to path
-        //Else if vrntPath is ‘farnell/’ take one of the following approaches –
-        //i.     You could use our fall back language default across all domains and set the locale as ‘en_GB’,
-        //but note if the customer is on any Store that doesn’t use English as a first language then the image
-        //names themselves may have local language elements in them and hence you should use a locale code appropriate
-        //to the primary transactional language
-        //Then append the baseName  i.e the filename
-        //
-        //So by example you could end up with these : https://uk.farnell.com/productimages/standard/en_GB/GE20TSSOP-40.jpg
-        //
-        //Or https://fr.farnell.com/productimages/standard/fr_FR/GE20TSSOP-40.jpg
-
         data["image_url"] = product_obj["ImagePath"].toString();
         data["datasheet_url"] = product_obj["DataSheetUrl"].toString();
 
@@ -86,6 +87,7 @@ void MouserWrapper::query(QString sku) {
         data["mpn"] = product_obj["ManufacturerPartNumber"].toString();
         data["category"] = product_obj["Category"].toString();
         data["supplier"] = Supplier(Supplier::Mouser).toStr();
+        data["sku"] = product_obj["MouserPartNumber"].toString();
         qDebug() << data;
 
         QMap<QString, QString> additional_parameters;

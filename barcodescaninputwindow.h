@@ -14,12 +14,20 @@ class Supplier {
     enum Type { Digikey, Farnell, Mouser, None };
     Supplier(Type t)
         : m_t(t) {}
-    Supplier(QString sku) {
-        if (QRegularExpression("\\b\\d{6,7}\\b").match(sku).hasMatch()) {
-            m_t = Type::Farnell;
-        } else if (QRegularExpression(".*-ND").match(sku).hasMatch()) {
+    Supplier(QString name_or_sku) {
+        if (name_or_sku == "digikey") {
             m_t = Type::Digikey;
-        } else if (QRegularExpression("^\\d\\d\\d-.+$").match(sku).hasMatch()) {
+        } else if (name_or_sku == "farnell") {
+            m_t = Type::Farnell;
+        } else if (name_or_sku == "mouser") {
+            m_t = Type::Mouser;
+        } else if (name_or_sku == "none") {
+            m_t = Type::None;
+        } else if (QRegularExpression("\\b\\d{6,7}\\b").match(name_or_sku).hasMatch()) {
+            m_t = Type::Farnell;
+        } else if (QRegularExpression(".*-ND").match(name_or_sku).hasMatch()) {
+            m_t = Type::Digikey;
+        } else if (QRegularExpression("^\\d\\d\\d-.+$").match(name_or_sku).hasMatch()) {
             m_t = Type::Mouser;
         } else {
             m_t = Type::None;
