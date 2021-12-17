@@ -56,14 +56,15 @@ TRANSLATIONS += \
 win32 {
     SH = C:/Program Files/Git/bin/sh.exe
     system($$system_quote($$SH) $$PWD/git_win.sh)
+    LIBS += -L$$PWD
+    #LIBS += -LC:/Qt/Tools/OpenSSL/Win_x64/bin
+    LIBS += -llibcrypto-1_1-x64 -llibssl-1_1-x64
 }else{
     SH = sh
     system($$system_quote($$SH) $$PWD/git_linux.sh)
+    LIBS +=  -lcrypto -lssl
 }
 
-LIBS += -L$$PWD
-LIBS += -llibcrypto-1_1-x64 -llibssl-1_1-x64
-#LIBS += -LC:/Qt/Tools/OpenSSL/Win_x64/bin
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
