@@ -8,6 +8,7 @@
 #include <QString>
 #include <QTreeWidget>
 #include <exception>
+#include <QtGlobal>
 
 QTreeWidgetItem *tree_widget_item_by_categorie_path(QTreeWidget *tree_widget, QString categorie_path);
 
@@ -58,7 +59,14 @@ class PartCategoryTreeNode {
     }
     PartCategoryTreeNode &get_category(QString categorie_path, const QString &additional_info);
     static QStringList split_category_path(QString path) {
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         auto result = path.split("/", Qt::SkipEmptyParts);
+#else
+        auto result = path.split("/", QString::SkipEmptyParts);
+#endif
+
+
         return result;
     }
 
