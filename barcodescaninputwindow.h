@@ -74,7 +74,6 @@ class BarcodeScanInputWindow : public QDialog {
 
     private:
     Ui::BarcodeScanInputWindow *ui;
-    Supplier m_supplier;
 };
 
 #endif // BARCODESCANINPUTWINDOW_H

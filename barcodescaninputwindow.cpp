@@ -13,23 +13,31 @@ BarcodeScanInputWindow::~BarcodeScanInputWindow() {
 
 QMap<QString, QString> BarcodeScanInputWindow::get_parsed_fields() {
     QMap<QString, QString> result;
-    result["supplier"] = m_supplier.toStr();
-    if ((m_supplier.type() == Supplier::Digikey) || (m_supplier.type() == Supplier::Mouser))
+    //result["supplier"] = m_supplier.toStr();
+    //if ((m_supplier.type() == Supplier::Digikey) || (m_supplier.type() == Supplier::Mouser))
+    if (ui->listWidget->count() > 1) {
+        //2DBarcode
+        result["supplier"] = Supplier(Supplier::Mouser).toStr();
         for (int i = 0; i < ui->listWidget->count(); i++) {
             auto s = ui->listWidget->item(i)->text();
             if (s.startsWith("P")) {
                 result["sku"] = s.mid(1);
+                result["supplier"] = Supplier(Supplier::Digikey).toStr();
             } else if (s.startsWith("1P")) {
                 result["mpn"] = s.mid(2);
+            } else if (s.startsWith("3P")) {
+                result["sku"] = s.mid(2);
+                result["supplier"] = Supplier(Supplier::Farnell).toStr();
             } else if (s.startsWith("Q")) {
                 result["qty"] = s.mid(1);
             }
         }
-    else if (m_supplier.type() == Supplier::Farnell) {
+    } else {
         for (int i = 0; i < ui->listWidget->count(); i++) {
             auto s = ui->listWidget->item(i)->text();
             QRegularExpression regex("\\b\\d{7}\\b");
             if (regex.match(s).hasMatch()) {
+                result["supplier"] = Supplier(Supplier::Farnell).toStr();
                 result["sku"] = s;
             }
         }
@@ -46,19 +54,19 @@ void BarcodeScanInputWindow::on_lineEdit_returnPressed() {
 void BarcodeScanInputWindow::on_btnOK_clicked() {
     if (ui->lineEdit->text().contains('')) {
         QStringList items = ui->lineEdit->text().split('');
-        m_supplier = Supplier::Mouser;
+        //  m_supplier = Supplier::Mouser;
         ui->listWidget->addItems(items);
 
         for (int i = 0; i < ui->listWidget->count(); i++) {
             auto s = ui->listWidget->item(i)->text();
             if (s.startsWith("P")) { //seenms mouser doesnt print the SKU on their label
-                m_supplier = Supplier::Digikey;
+                                     // m_supplier = Supplier::Digikey;
             }
             break;
         }
 
     } else if (QRegularExpression("\\b\\d{7}\\b").match(ui->lineEdit->text()).hasMatch()) {
-        m_supplier = Supplier::Farnell;
+        //m_supplier = Supplier::Farnell;
         ui->listWidget->addItem(ui->lineEdit->text());
     }
     ui->lineEdit->setText("");
