@@ -152,7 +152,7 @@ void MainWindow::show_parts(const QMap<int, Part> &parts) {
     auto max_column_widths_percent = QList<float>({25, 15, 5, 5, 45, 5});
     for (int i = 0; i < ui->treeTable->columnCount(); i++)
         ui->treeTable->resizeColumnToContents(i);
-    qDebug() << ui->treeTable->width();
+    // qDebug() << ui->treeTable->width();
     for (int i = 0; i < ui->treeTable->columnCount(); i++) {
         int max_size = round((max_column_widths_percent[i] / 100.0) * ui->treeTable->width());
         if (ui->treeTable->columnWidth(i) > max_size) {
