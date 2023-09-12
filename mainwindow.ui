@@ -81,11 +81,20 @@
           <property name="sortingEnabled">
            <bool>true</bool>
           </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="columnCount">
+           <number>6</number>
+          </property>
           <attribute name="headerCascadingSectionResizes">
            <bool>false</bool>
           </attribute>
           <attribute name="headerShowSortIndicator" stdset="0">
            <bool>true</bool>
+          </attribute>
+          <attribute name="headerStretchLastSection">
+           <bool>false</bool>
           </attribute>
           <column>
            <property name="text">
@@ -100,6 +109,11 @@
           <column>
            <property name="text">
             <string>Location</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Qty</string>
            </property>
           </column>
           <column>
@@ -126,7 +140,7 @@
      <x>0</x>
      <y>0</y>
      <width>1166</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatenbank">

@@ -43,6 +43,17 @@ class ItemDelegate : public QItemDelegate {
     }
 };
 
+class MyTreeTableWidgetItem : public QTreeWidgetItem {
+    public:
+    MyTreeTableWidgetItem(QTreeWidget *parent)
+        : QTreeWidgetItem(parent) {}
+    MyTreeTableWidgetItem(QStringList sl)
+        : QTreeWidgetItem(sl) {}
+
+    private:
+    bool operator<(const QTreeWidgetItem &other) const;
+};
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -76,5 +87,6 @@ class MainWindow : public QMainWindow {
     void closeEvent(QCloseEvent *event) override;
     QString m_currently_selected_category;
     void select_category(QString selected_category);
+    void refresh_parts();
 };
 #endif // MAINWINDOW_H

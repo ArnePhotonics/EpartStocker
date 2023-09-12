@@ -14,6 +14,23 @@
 #include <infowindow.h>
 #include <memory>
 
+const int COLUMN_PART_ID = 0;
+const int COLUMN_ICON = 0;
+const int COLUMN_MPN = 0;
+const int COLUMN_MANUFACTURER = 1;
+const int COLUMN_LOCATION = 2;
+const int COLUMN_QTY = 3;
+const int COLUMN_DESCRIPTION = 4;
+const int COLUMN_DATESHEET_LINK = 5;
+
+bool MyTreeTableWidgetItem::operator<(const QTreeWidgetItem &other) const {
+    int column = treeWidget()->sortColumn();
+    if (column == COLUMN_QTY) {
+        return text(column).toInt() < other.text(column).toInt();
+    }
+    return text(column).toLower() < other.text(column).toLower();
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -46,10 +63,18 @@ MainWindow::MainWindow(QWidget *parent)
     m_part_list_item_delegate.SetHeight(m_ICON_SIZE);
     ui->treeTable->setItemDelegate(&m_part_list_item_delegate);
     ui->treeTable->setIconSize(QSize(m_ICON_SIZE, m_ICON_SIZE));
+    ui->treeTable->headerItem()->setText(COLUMN_MPN, "MPN");
+    ui->treeTable->headerItem()->setText(COLUMN_MANUFACTURER, "Manufacturer");
+    ui->treeTable->headerItem()->setText(COLUMN_LOCATION, "Location");
+    ui->treeTable->headerItem()->setText(COLUMN_QTY, "Qty");
+    ui->treeTable->headerItem()->setText(COLUMN_DESCRIPTION, "Description");
+    ui->treeTable->headerItem()->setText(COLUMN_DATESHEET_LINK, "Datasheet");
 
     if (m_settings.get_selected_category().count()) {
         select_category(m_settings.get_selected_category());
     };
+
+    QTimer::singleShot(200, this, &MainWindow::refresh_parts);
 }
 
 MainWindow::~MainWindow() {
@@ -74,9 +99,9 @@ void MainWindow::filter_parts(QString filter) {
     QRegularExpression filter_regex(filter, QRegularExpression::CaseInsensitiveOption);
     for (int i = 0; i < ui->treeTable->topLevelItemCount(); i++) {
         auto item = ui->treeTable->topLevelItem(i);
-        const auto &mpn = item->text(0);
-        const auto &description = item->text(2);
-        const auto &location = item->text(3);
+        const auto &mpn = item->text(COLUMN_MPN);
+        const auto &description = item->text(COLUMN_DESCRIPTION);
+        const auto &location = item->text(COLUMN_LOCATION);
         QStringList sl{mpn, description, location};
         bool matches = false;
         for (const auto &s : sl) {
@@ -92,25 +117,48 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     (void)event;
 }
 
+void MainWindow::refresh_parts() {
+    QTreeWidgetItem *current = ui->treeWidget->currentItem();
+    on_treeWidget_currentItemChanged(current, nullptr);
+}
+
 void MainWindow::show_parts(const QMap<int, Part> &parts) {
     ui->treeTable->clear();
 
     for (const auto &part : parts) {
         QString link = part.datasheet_link.count() > 5 ? "link.." : "";
-        auto item = new QTreeWidgetItem(QStringList{part.mpn, part.manufacturer, part.location, part.description, link});
-        item->setData(0, Qt::UserRole, part.id);
-        item->setData(4, Qt::UserRole, part.datasheet_link);
+
+        auto content = QStringList{"", "", "", "", "", ""};
+        content[COLUMN_MPN] = part.mpn;
+        content[COLUMN_MANUFACTURER] = part.manufacturer;
+        content[COLUMN_LOCATION] = part.location;
+        content[COLUMN_QTY] = QString::number(part.qty);
+        content[COLUMN_DESCRIPTION] = part.description;
+        content[COLUMN_DATESHEET_LINK] = link;
+        auto item = new MyTreeTableWidgetItem(content);
+
+        item->setData(COLUMN_PART_ID, Qt::UserRole, part.id);
+        item->setData(COLUMN_DATESHEET_LINK, Qt::UserRole, part.datasheet_link);
+        item->setData(COLUMN_QTY, Qt::DisplayRole, part.qty);
         if (part.image.isNull()) {
             auto pixmap = QPixmap(m_ICON_SIZE, m_ICON_SIZE);
             pixmap.fill();
-            item->setIcon(0, QIcon(pixmap));
+            item->setIcon(COLUMN_ICON, QIcon(pixmap));
         } else {
-            item->setIcon(0, QIcon(part.image));
+            item->setIcon(COLUMN_ICON, QIcon(part.image));
         }
         ui->treeTable->addTopLevelItem(item);
     }
+    auto max_column_widths_percent = QList<float>({25, 15, 5, 5, 45, 5});
     for (int i = 0; i < ui->treeTable->columnCount(); i++)
         ui->treeTable->resizeColumnToContents(i);
+    qDebug() << ui->treeTable->width();
+    for (int i = 0; i < ui->treeTable->columnCount(); i++) {
+        int max_size = round((max_column_widths_percent[i] / 100.0) * ui->treeTable->width());
+        if (ui->treeTable->columnWidth(i) > max_size) {
+            ui->treeTable->setColumnWidth(i, max_size);
+        }
+    }
     filter_parts(ui->filterLineEdit->text());
 }
 
@@ -157,12 +205,12 @@ void MainWindow::open_partcreation_window_for_update_part(int part_id) {
 
 void MainWindow::on_treeTable_itemDoubleClicked(QTreeWidgetItem *item, int column) {
     (void)column;
-    if (column == 4) {
-        if (!item->data(4, Qt::UserRole).toString().isEmpty()) {
-            QDesktopServices::openUrl(QUrl(item->data(4, Qt::UserRole).toString()));
+    if (column == COLUMN_DATESHEET_LINK) {
+        if (!item->data(COLUMN_DATESHEET_LINK, Qt::UserRole).toString().isEmpty()) {
+            QDesktopServices::openUrl(QUrl(item->data(COLUMN_DATESHEET_LINK, Qt::UserRole).toString()));
         }
     } else {
-        open_partcreation_window_for_update_part_slot(item->data(0, Qt::UserRole).toInt());
+        open_partcreation_window_for_update_part_slot(item->data(COLUMN_PART_ID, Qt::UserRole).toInt());
     }
 }
 

@@ -13,8 +13,6 @@ BarcodeScanInputWindow::~BarcodeScanInputWindow() {
 
 QMap<QString, QString> BarcodeScanInputWindow::get_parsed_fields() {
     QMap<QString, QString> result;
-    //result["supplier"] = m_supplier.toStr();
-    //if ((m_supplier.type() == Supplier::Digikey) || (m_supplier.type() == Supplier::Mouser))
     if (ui->listWidget->count() > 1) {
         //2DBarcode
         result["supplier"] = Supplier(Supplier::Mouser).toStr();
@@ -54,19 +52,16 @@ void BarcodeScanInputWindow::on_lineEdit_returnPressed() {
 void BarcodeScanInputWindow::on_btnOK_clicked() {
     if (ui->lineEdit->text().contains('')) {
         QStringList items = ui->lineEdit->text().split('');
-        //  m_supplier = Supplier::Mouser;
         ui->listWidget->addItems(items);
 
         for (int i = 0; i < ui->listWidget->count(); i++) {
             auto s = ui->listWidget->item(i)->text();
             if (s.startsWith("P")) { //seenms mouser doesnt print the SKU on their label
-                                     // m_supplier = Supplier::Digikey;
             }
             break;
         }
 
     } else if (QRegularExpression("\\b\\d{7}\\b").match(ui->lineEdit->text()).hasMatch()) {
-        //m_supplier = Supplier::Farnell;
         ui->listWidget->addItem(ui->lineEdit->text());
     }
     ui->lineEdit->setText("");
